@@ -88,6 +88,12 @@ Or create it manually in Atlas with:
 docker build -t rag-duoc-uc .
 docker run --env-file .env -p 8501:8501 rag-duoc-uc
 ```
+or 
+
+```bash
+docker build -t rag-duoc-uc .
+docker run -p 8501:8501 rag-duoc-uc
+```
 
 Open [http://localhost:8501](http://localhost:8501)
 
@@ -98,3 +104,4 @@ Open [http://localhost:8501](http://localhost:8501)
 3. User feedback collection.
 4. Cost per interaction (this can be stored in the same database).
 5. Architecture design diagram.
+6. Store environment variables in GitHub.
