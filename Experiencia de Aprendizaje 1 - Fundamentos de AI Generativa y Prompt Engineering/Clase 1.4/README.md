@@ -105,3 +105,4 @@ Open [http://localhost:8501](http://localhost:8501)
 4. Cost per interaction (this can be stored in the same database).
 5. Architecture design diagram.
 6. Store environment variables in GitHub.
+7. Enviroments. (main, qa, dev)
