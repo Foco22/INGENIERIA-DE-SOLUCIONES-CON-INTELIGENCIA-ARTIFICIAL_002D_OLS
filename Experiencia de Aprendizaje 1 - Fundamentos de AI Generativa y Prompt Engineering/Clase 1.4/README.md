@@ -91,3 +91,10 @@ docker run --env-file .env -p 8501:8501 rag-duoc-uc
 
 Open [http://localhost:8501](http://localhost:8501)
 
+### 4. What is it missing?
+
+1. CI/CD for automation.
+2. A database for sessions and users. It should store all conversations.
+3. User feedback collection.
+4. Cost per interaction (this can be stored in the same database).
+5. Architecture design diagram.
