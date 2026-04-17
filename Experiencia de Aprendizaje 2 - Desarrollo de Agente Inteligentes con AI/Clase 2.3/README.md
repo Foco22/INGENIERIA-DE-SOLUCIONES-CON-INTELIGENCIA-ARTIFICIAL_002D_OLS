@@ -41,6 +41,20 @@ cp -rL ~/clase23 /tmp/clase23 && cd /tmp/clase23 && langgraph up
 ```
 Luego abrir: https://smith.langchain.com/studio/?baseUrl=http://127.0.0.1:8123
 
+## Tarea
+
+1. Clona o copia este repositorio en tu entorno local.
+2. Crea una **nueva tool** en `agent_app/tools.py` usando el decorador `@tool` de LangChain. Puede ser cualquier herramienta útil, por ejemplo:
+   - Consultar el clima
+   - Buscar información en Wikipedia
+   - Calcular fechas
+   - Cualquier idea propia
+3. Registra la tool en `agent_app/agent.py` agregándola a la lista `tools`.
+4. Asegúrate de que el agente pueda invocarla correctamente desde el chat en Streamlit.
+5. Sube tu solución a GitHub.
+
+> **Criterio de éxito:** el agente debe detectar cuándo usar tu nueva tool y ejecutarla correctamente en una conversación real.
+
 ## Variables de entorno
 
 Crear un archivo `.env` con:
