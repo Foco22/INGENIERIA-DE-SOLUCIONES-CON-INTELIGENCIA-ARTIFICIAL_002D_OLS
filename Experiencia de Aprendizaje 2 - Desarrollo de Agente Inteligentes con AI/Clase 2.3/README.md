@@ -41,6 +41,17 @@ cp -rL ~/clase23 /tmp/clase23 && cd /tmp/clase23 && langgraph up
 ```
 Luego abrir: https://smith.langchain.com/studio/?baseUrl=http://127.0.0.1:8123
 
+## Variables de entorno
+
+Crear un archivo `.env` con:
+```
+OPENAI_API_KEY=...
+MONGODB_CONNECTION_STRING=...
+LANGCHAIN_API_KEY=...
+LANGCHAIN_TRACING_V2=true
+LANGCHAIN_PROJECT=...
+```
+
 ## Tarea
 
 1. Clona o copia este repositorio en tu entorno local.
@@ -54,14 +65,3 @@ Luego abrir: https://smith.langchain.com/studio/?baseUrl=http://127.0.0.1:8123
 5. Sube tu solución a GitHub.
 
 > **Criterio de éxito:** el agente debe detectar cuándo usar tu nueva tool y ejecutarla correctamente en una conversación real.
-
-## Variables de entorno
-
-Crear un archivo `.env` con:
-```
-OPENAI_API_KEY=...
-MONGODB_CONNECTION_STRING=...
-LANGCHAIN_API_KEY=...
-LANGCHAIN_TRACING_V2=true
-LANGCHAIN_PROJECT=...
-```
