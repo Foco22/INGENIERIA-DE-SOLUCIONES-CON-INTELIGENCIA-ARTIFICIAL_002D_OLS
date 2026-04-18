@@ -101,10 +101,9 @@ def should_continue(state: AgentState) -> str:
         tool_name = last_message.tool_calls[0]["name"]
         if tool_name == "rag_search":
             return "generate_query"
-        if tool_name in ("get_available_slots", "get_next_date_for_weekday"):
-            return "tools"
         if tool_name == "schedule_meeting":
             return "human_approval"
+        return "tools"
     return END
 
 
@@ -119,7 +118,7 @@ graph.add_node("tools", tool_node)
 graph.set_entry_point("agent")
 graph.add_conditional_edges("agent", should_continue, {
     "generate_query": "generate_query",   # rag_search
-    "tools": "tools",                     # get_available_slots
+    "tools": "tools",                     # cualquier otra tool
     "human_approval": "human_approval",   # schedule_meeting
     END: END,
 })
