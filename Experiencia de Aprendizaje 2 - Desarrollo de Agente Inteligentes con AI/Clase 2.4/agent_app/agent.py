@@ -9,8 +9,8 @@ from langgraph.prebuilt import create_react_agent
 from langgraph.checkpoint.memory import MemorySaver
 from pydantic import BaseModel
 
-from agent_app.tools import sql_tools, python_tools
-from agent_app.prompts import SQL_SYSTEM_PROMPT, PYTHON_SYSTEM_PROMPT, SUPERVISOR_SYSTEM_PROMPT
+from agent_app.tools import sql_tools, python_tools, report_tools
+from agent_app.prompts import SQL_SYSTEM_PROMPT, PYTHON_SYSTEM_PROMPT, SUPERVISOR_SYSTEM_PROMPT, REPORT_SYSTEM_PROMPT
 
 
 class AgentState(TypedDict):
@@ -19,7 +19,7 @@ class AgentState(TypedDict):
 
 
 class Route(BaseModel):
-    next: Literal["sql_agent", "python_agent", "sql_then_python", "FINISH"]
+    next: Literal["sql_agent", "python_agent", "sql_then_python", "report_agent", "FINISH"]
     response: Optional[str] = None
 
 
@@ -27,6 +27,7 @@ llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 
 sql_agent    = create_react_agent(llm, sql_tools,    prompt=SQL_SYSTEM_PROMPT)
 python_agent = create_react_agent(llm, python_tools, prompt=PYTHON_SYSTEM_PROMPT)
+report_agent = create_react_agent(llm, report_tools, prompt=REPORT_SYSTEM_PROMPT)
 
 
 def summarize_for(messages: list, role: str) -> HumanMessage:
@@ -74,7 +75,12 @@ def python_node(state: AgentState, config: RunnableConfig) -> dict:
     return {"messages": result["messages"]}
 
 
-def supervisor_route(state: AgentState) -> Literal["sql_agent", "python_agent", "__end__"]:
+def report_node(state: AgentState, config: RunnableConfig) -> dict:
+    result = report_agent.invoke({"messages": [HumanMessage(content="Genera el reporte ejecutivo de ventas.")]}, config)
+    return {"messages": result["messages"]}
+
+
+def supervisor_route(state: AgentState) -> Literal["sql_agent", "python_agent", "report_agent", "__end__"]:
     if state["next"] == "FINISH":
         return END
     if state["next"] == "sql_then_python":
@@ -92,10 +98,12 @@ builder = StateGraph(AgentState)
 builder.add_node("supervisor",   supervisor_node)
 builder.add_node("sql_agent",    sql_node)
 builder.add_node("python_agent", python_node)
+builder.add_node("report_agent", report_node)
 
 builder.add_edge(START, "supervisor")
 builder.add_conditional_edges("supervisor", supervisor_route)
 builder.add_conditional_edges("sql_agent",  after_sql_route)
 builder.add_edge("python_agent", END)
+builder.add_edge("report_agent", END)
 
 graph = builder.compile(checkpointer=MemorySaver())
