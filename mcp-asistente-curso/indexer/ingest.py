@@ -59,11 +59,14 @@ def write_markdown(result: IngestResult) -> None:
     output_path.write_text(result.markdown, encoding="utf-8")
 
 
-def ingest_all(manifest_path: Path = MANIFEST_PATH) -> None:
+def ingest_all(manifest_path: Path = MANIFEST_PATH) -> list[PdfSource]:
     """Convierte y escribe el .md de los PDFs nuevos/modificados (diff-aware, §4.1 paso 2).
 
     Los PDFs cuyo hash no cambió desde la última corrida (según `manifest_path`)
     se saltan por completo — ni se reconvierten ni se re-escribe su .md.
+
+    Devuelve las fuentes que sí se reprocesaron — indexer/run.py (Fase 2+) la usa
+    para saber a cuáles hay que re-chunkear/re-embeber, sin recalcular el diff dos veces.
     """
     sources = iter_all_pdfs()
     previous_manifest = load_manifest(manifest_path)
@@ -78,6 +81,7 @@ def ingest_all(manifest_path: Path = MANIFEST_PATH) -> None:
         write_markdown(result)
 
     save_manifest(current_manifest, manifest_path)
+    return to_process
 
 
 if __name__ == "__main__":

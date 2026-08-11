@@ -3,7 +3,9 @@ mcp>=1.2.0
 uvicorn>=0.30
 
 # Embeddings + reranker, compartido indexer/ (indexación) y server/ (query en caliente) — §4.2
-sentence-transformers>=3.0
+# (sentence-transformers resultó impráctico, mismo problema que docling: requiere torch,
+# se colgó >3min resolviendo dependencias. fastembed usa ONNX Runtime, sin torch. Ver plan.md §7)
+fastembed>=0.8
 
 # Grafo de conocimiento — indexer/graph.py y server/retrieval.py
 networkx>=3.0

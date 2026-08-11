@@ -49,8 +49,8 @@ Servidor MCP remoto que responde preguntas de **contenido/materia** (RAG híbrid
 1. **Ingesta — PDF → Markdown**: `pymupdf4llm` (con OCR vía Tesseract — los PDFs del curso traen texto incrustado como imagen, típico de exportaciones de Google Slides, así que la extracción de texto plano no lo agarra pero el OCR sí) por cada PDF de `Experiencia de Aprendizaje */Clase */` **y también** los 3 PDFs de `evaluaciones/` (uno por Experiencia — pauta, instrucciones, indicadores de logro de cada evaluación parcial). Salida: `.md` con headings preservados, etiquetado con `tipo: clase | evaluacion` según de dónde vino, **comiteado al repo** en `data/markdown/` (mismo layout que la fuente) — decisión explícita para poder revisar la conversión directo en GitHub sin correr el pipeline. Validado sobre el corpus completo (27 PDFs): ver §4.1 abajo.
    > Se descartó `docling` (elección original del plan): su árbol de dependencias (torch, easyocr, transformers) tardó más de 30s solo en resolverse al instalar, e impráctico de correr en CI sin un salto grande en tiempo/imagen. `pymupdf4llm` se instala en segundos y da buenos resultados con OCR — si algún PDF con estructura muy compleja sale mal más adelante, se puede reevaluar puntualmente.
 2. **Diff-aware processing**: `manifest.json` con hash sha256 por PDF. Solo se reprocesan (conversión, embeddings, grafo) los archivos nuevos o modificados desde la última corrida — evita recomputar todo el repo en cada push.
-3. **Chunking**: split por headings (jerarquía `Experiencia → Clase → sección`) preservando contexto en cada chunk.
-4. **Embeddings**: `BAAI/bge-m3` local (gratis, sin API key) sobre cada chunk → export a Parquet/JSONL (no se commitea un binario de vector DB; se reconstruye el índice vectorial en el server a partir del export plano).
+3. **Chunking**: split por heading (cualquier nivel — en la práctica los `#`/`##`/`###` del OCR **no son jerárquicos de verdad**, dependen del tamaño de fuente detectado en cada slide, no de una estructura lógica; la jerarquía real `Experiencia → Clase` sale de la metadata del PDF, no de anidar niveles de heading). Secciones muy cortas se funden con la siguiente, secciones muy largas se dividen por párrafo. Umbrales calibrados sobre el corpus real (27 PDFs, 394 secciones): 382 chunks finales, sin vacíos, sin ids duplicados.
+4. **Embeddings**: `intfloat/multilingual-e5-large` local (gratis, sin API key, vía `fastembed`/ONNX — no hay build ONNX de `BAAI/bge-m3`, este es el equivalente disponible en tamaño/calidad, 100 idiomas) sobre cada chunk → export a Parquet (`data/chunks.parquet`, gitignored — no se comitea un binario de vector DB; se reconstruye a partir del export). Diff-aware de punta a punta: un PDF sin cambios ni siquiera se re-chunkea ni re-embebe, sus filas del parquet quedan intactas. Validado con búsqueda vectorial simple (coseno) sobre los 382 chunks reales: resultados correctos y bien acotados por `tipo` (clase vs. evaluación).
 5. **Grafo de conocimiento**: pase de extracción con LLM sobre el `.md` de cada clase → entidades (conceptos, frameworks, técnicas) y relaciones entre ellas y con la clase donde aparecen. Merge incremental en `graph.json` (`networkx`, serializado). LLM: **Groq** (API gratuita, compatible con el SDK de OpenAI) — modelo open-weight tipo Llama 3.3 70B servido por Groq; corre solo en el pipeline de indexación (CI), no por pregunta de estudiante, así que su límite de rate del tier gratuito no es un problema. Se necesita igual una `GROQ_API_KEY` gratuita (registro simple, sin tarjeta) como secret en GitHub Actions.
 6. **Publicación**: sube `manifest.json`, `chunks.parquet`, `graph.json` a `gs://<bucket>/index/latest/` (versionado también en `index/<run_id>/` para poder hacer rollback).
 
@@ -187,17 +187,19 @@ mcp-asistente-curso/
 ├── utils/                    # compartido entre indexer/, server/ y eval/ — evita duplicar clientes y esquemas
 │   ├── __init__.py
 │   ├── models.py                # dataclasses compartidas: Chunk, Fragmento, GraphNode, GraphEdge
-│   ├── embeddings.py             # wrapper BAAI/bge-m3 — lo usa indexer (indexación) Y server (embedding de la query, §4.2)
+│   ├── embeddings.py             # wrapper multilingual-e5-large + reranker bge-reranker-base (fastembed/ONNX) — lo usa indexer Y server (§4.2)
 │   ├── llm.py             # wrapper cliente Groq — lo usa indexer/graph.py (§4.1) Y eval/judge.py (§4.5)
 │   ├── gcs.py                      # subir/bajar del bucket de índice — lo usa indexer (publicar) Y server (descargar al iniciar)
 │   ├── supabase.py                  # insert/select/update sobre la tabla de interacciones — lo usa server (insert) Y eval (select+update)
 │   └── paths.py                      # recorrer "Experiencia de Aprendizaje */Clase */" y extraer (experiencia, clase) de un path
 ├── indexer/
 │   ├── __init__.py
-│   ├── run.py                  # orquesta el pipeline completo en orden — entrypoint de index.yml
+│   ├── run.py                  # orquesta ingest+manifest+chunk+embeddings -> data/chunks.parquet (diff-aware, §4.1 pasos 1-4)
+│   ├── test_run.py              # tests de build_index (embeddings simulados, sin cargar el modelo real)
 │   ├── ingest.py                 # PDF → Markdown (pymupdf4llm + OCR), escribe a data/markdown/
 │   ├── test_ingest.py             # chequeos automáticos de la conversión, ver §4.1
-│   ├── chunk.py                    # Markdown → chunks header-aware
+│   ├── chunk.py                    # Markdown → chunks (split por heading, sin asumir jerarquía real)
+│   ├── test_chunk.py                # tests del chunking (markdown sintético)
 │   ├── graph.py                     # chunks → entidades/relaciones (usa utils/llm.py), merge en graph.json
 │   ├── manifest.py                   # hash sha256 por PDF, diff-aware processing (específico de esta etapa, no se comparte)
 │   └── test_manifest.py               # tests del diff-aware processing (archivos sintéticos, sin OCR)
@@ -214,7 +216,8 @@ mcp-asistente-curso/
 ├── data/
 │   ├── markdown/               # .md generados — SE COMITEA al repo (mismo layout que la fuente)
 │   ├── manifest.json             # hash por PDF para diff-aware processing — gitignored
-│   └── ...                      # cache local del índice construido (chunks/grafo) — gitignored
+│   ├── chunks.parquet             # chunks + embeddings (382 filas validadas) — gitignored
+│   └── graph.json                  # grafo de conocimiento (Fase 3) — gitignored
 ├── Dockerfile
 ├── requirements.txt
 └── .github/workflows/ (o entradas agregadas al .github/workflows/ raíz del repo)
@@ -228,12 +231,12 @@ mcp-asistente-curso/
 | Pieza | Elección | Motivo |
 |---|---|---|
 | PDF → Markdown | `pymupdf4llm` (con OCR) | `docling` resultó impráctico de instalar (dependencias muy pesadas); `pymupdf4llm` es liviano y su OCR captura bien el texto incrustado como imagen que traen los PDFs del curso |
-| Chunking | Header-aware split | Conserva contexto jerárquico Experiencia/Clase/sección |
-| Embeddings (indexación) | Local, gratis (`BAAI/bge-m3` vía `sentence-transformers`) | Multilingüe (buen desempeño en español), sin costo de API ni API key que gestionar, corre en el runner de CI sin problema (no es tiempo real) |
-| Embeddings (query en caliente) | Local, mismo modelo (`BAAI/bge-m3`) | Mismo modelo que indexación evita desalineamiento entre el espacio vectorial de índice y de consulta; sin costo por pregunta de estudiante |
+| Chunking | Split por heading (sin asumir jerarquía por nivel) | Los niveles `#`/`##`/`###` del OCR no son jerárquicos de verdad (dependen del tamaño de fuente del slide); la jerarquía real Experiencia/Clase ya viene de la metadata del PDF |
+| Embeddings (indexación) | Local, gratis (`intfloat/multilingual-e5-large` vía `fastembed`/ONNX) | `sentence-transformers` (BAAI/bge-m3) resultó impráctico — requiere `torch`, se colgó >3 min resolviendo dependencias. `fastembed` usa ONNX Runtime (sin torch), resuelve en segundos; este modelo es el equivalente multilingüe disponible en esa librería |
+| Embeddings (query en caliente) | Local, mismo modelo (`multilingual-e5-large`) | Mismo modelo que indexación evita desalineamiento entre el espacio vectorial de índice y de consulta; sin costo por pregunta de estudiante |
 | Grafo | `networkx` + extracción LLM | Suficiente para ~15-20 clases, sin infra de BD de grafos |
 | LLM extracción de grafo | **Groq** (Llama 3.3 70B u otro open-weight, API gratuita) | Gratis, corre solo en CI (no por pregunta de estudiante); API compatible con el SDK de OpenAI, fácil de integrar |
-| Reranker | `bge-reranker-base` local | Evita costo de API por cada query |
+| Reranker | `BAAI/bge-reranker-base` local (vía `fastembed`) | Evita costo de API por cada query; probado con queries reales — distingue correctamente relevante/irrelevante |
 | Server MCP | SDK `mcp` (Python) + `streamable-http` | Transporte remoto estándar del protocolo |
 | Hosting | Cloud Run | Ya usado en el repo, mismo patrón de CD |
 | Storage del índice | GCS bucket | Desacopla actualización de índice de redeploy del server |
@@ -244,7 +247,7 @@ mcp-asistente-curso/
 
 - [x] **Fase 0 — Setup**: estructura de carpetas, `requirements.txt`, Dockerfile base.
 - [x] **Fase 1 — Ingesta**: `indexer/ingest.py` + `indexer/manifest.py` (diff-aware). Validado sobre el corpus completo (27 PDFs, todos pasan los chequeos automáticos de §4.1) y con un smoke test de dos corridas que confirma que los PDFs sin cambios se saltan.
-- [ ] **Fase 2 — Chunking + embeddings**: chunking header-aware, export a Parquet, búsqueda vectorial simple funcionando.
+- [x] **Fase 2 — Chunking + embeddings**: `indexer/chunk.py` + `utils/embeddings.py` + `indexer/run.py` (diff-aware, chunk+embed+export). Validado sobre el corpus completo: 382 chunks en `data/chunks.parquet`, búsqueda vectorial simple (coseno) probada con queries reales y resultados correctos. Nota de performance: el bootstrap inicial (embeber todo por primera vez) tardó ~13.5 min en CPU — costo único, las corridas siguientes solo re-embeben lo que cambió.
 - [ ] **Fase 3 — Grafo**: extracción de entidades/relaciones con LLM sobre el material ya convertido, merge incremental.
 - [ ] **Fase 4 — Retrieval híbrido**: fusión vector+grafo, reranker, tool única `buscar_contenido` (con `fragmentos` + `conceptos_relacionados`, §4.2) funcionando localmente (stdio) para probarla desde Claude Code.
 - [ ] **Fase 5 — MCP server remoto**: transporte `streamable-http`, auth por bearer token, `instructions` del servidor con la indicación de `reportar_interaccion` (§4.3), Dockerfile, deploy manual a Cloud Run.
