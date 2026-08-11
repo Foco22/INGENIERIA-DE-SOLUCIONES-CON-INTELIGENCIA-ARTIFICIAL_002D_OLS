@@ -3,8 +3,6 @@
 Ver plan.md §6. Se definen acá para que el shape de un chunk/fragmento sea
 el mismo en el índice (GCS), en la respuesta de las tools MCP y en las
 filas de Supabase — evita que se desalineen con el tiempo.
-
-TODO (Fase 3): GraphNode, GraphEdge.
 """
 
 from __future__ import annotations
@@ -42,3 +40,24 @@ class Chunk:
         texto de un chunk existente.
         """
         return hashlib.sha256(f"{self.archivo}::{self.indice}".encode()).hexdigest()[:16]
+
+
+@dataclass(frozen=True)
+class GraphNode:
+    """Una entidad extraída de un documento, antes de fusionarse en el grafo global.
+
+    Ver plan.md §4.1, paso 5. La fusión (indexer/graph.py) agrupa por nombre
+    normalizado, así que "RAG" y "rag" terminan siendo el mismo nodo — acá
+    solo se guarda el nombre tal como lo devolvió el LLM.
+    """
+
+    nombre: str
+
+
+@dataclass(frozen=True)
+class GraphEdge:
+    """Una relación entre dos entidades, extraída de un documento (plan.md §4.1, paso 5)."""
+
+    origen: str
+    tipo: str
+    destino: str
