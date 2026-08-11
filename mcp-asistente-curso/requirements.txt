@@ -1,0 +1,30 @@
+# MCP server (server/)
+mcp>=1.2.0
+uvicorn>=0.30
+
+# Embeddings + reranker, compartido indexer/ (indexación) y server/ (query en caliente) — §4.2
+sentence-transformers>=3.0
+
+# Grafo de conocimiento — indexer/graph.py y server/retrieval.py
+networkx>=3.0
+
+# LLM gratis (Groq) — indexer/graph.py y eval/judge.py, nunca en tiempo de consulta — §4.1
+groq>=0.9
+
+# PDF -> Markdown — indexer/ingest.py (docling resultó impráctico, ver plan.md §4.1/§7)
+pymupdf4llm>=1.28
+pypdf>=6.0
+
+# Índice (GCS) e interacciones (Supabase)
+google-cloud-storage>=2.10
+supabase>=2.0
+
+# Chunks/índice vectorial en Parquet
+pandas>=2.0
+pyarrow>=15.0
+
+# Utilidades
+python-dotenv>=1.0
+
+# Tests de validación de ingesta — §4.1
+pytest>=8.0
