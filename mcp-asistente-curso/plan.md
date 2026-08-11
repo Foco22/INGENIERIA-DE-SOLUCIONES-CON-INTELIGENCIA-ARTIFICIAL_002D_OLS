@@ -179,7 +179,7 @@ Los datos están en `evaluaciones/` en la raíz del repo: 3 PDFs, uno por Experi
 
 ## 6. Estructura de carpetas propuesta
 
-**Criterio de diseño:** todo lo que se usa en más de un módulo (embeddings, cliente Groq, GCS, Supabase, los "shapes" de datos) vive en `utils/` — nada de reimplementar el mismo cliente dos veces. Cada módulo (`indexer/`, `server/`, `eval/`) solo tiene lo que le pertenece exclusivamente a esa etapa, con nombres consistentes por etapa del pipeline (sustantivo/verbo corto, sin mezclar convenciones).
+**Criterio de diseño:** todo lo que se usa en más de un módulo (embeddings, cliente Groq, GCS, Supabase, los "shapes" de datos) vive en `utils/` — nada de reimplementar el mismo cliente dos veces. Cada módulo (`indexer/`, `server/`, `eval/`) solo tiene lo que le pertenece exclusivamente a esa etapa, con nombres consistentes por etapa del pipeline (sustantivo/verbo corto, sin mezclar convenciones). Los tests viven aparte, en `tests/`, espejando la estructura de módulos (`tests/indexer/test_chunk.py` para `indexer/chunk.py`, etc.) — `pytest.ini` fija `pythonpath = .` para que las importaciones absolutas (`from indexer.chunk import ...`) resuelvan sin importar desde dónde se invoque pytest.
 
 ```
 mcp-asistente-curso/
@@ -195,14 +195,10 @@ mcp-asistente-curso/
 ├── indexer/
 │   ├── __init__.py
 │   ├── run.py                  # orquesta ingest+manifest+chunk+embeddings -> data/chunks.parquet (diff-aware, §4.1 pasos 1-4)
-│   ├── test_run.py              # tests de build_index (embeddings simulados, sin cargar el modelo real)
 │   ├── ingest.py                 # PDF → Markdown (pymupdf4llm + OCR), escribe a data/markdown/
-│   ├── test_ingest.py             # chequeos automáticos de la conversión, ver §4.1
 │   ├── chunk.py                    # Markdown → chunks (split por heading, sin asumir jerarquía real)
-│   ├── test_chunk.py                # tests del chunking (markdown sintético)
 │   ├── graph.py                     # chunks → entidades/relaciones (usa utils/llm.py), merge en graph.json
-│   ├── manifest.py                   # hash sha256 por PDF, diff-aware processing (específico de esta etapa, no se comparte)
-│   └── test_manifest.py               # tests del diff-aware processing (archivos sintéticos, sin OCR)
+│   └── manifest.py                   # hash sha256 por PDF, diff-aware processing (específico de esta etapa, no se comparte)
 ├── server/
 │   ├── __init__.py
 │   ├── main.py                 # entrypoint MCP streamable-http; setea `instructions` del Server (§4.3)
@@ -213,11 +209,18 @@ mcp-asistente-curso/
 ├── eval/
 │   ├── __init__.py
 │   └── judge.py                 # lee de Supabase, LLM-as-judge (usa utils/llm.py + utils/supabase.py)
+├── tests/                     # espejo de la estructura de módulos — ver pytest.ini (pythonpath=.)
+│   └── indexer/
+│       ├── test_run.py           # tests de build_index (embeddings simulados, sin cargar el modelo real)
+│       ├── test_ingest.py         # chequeos automáticos de la conversión, ver §4.1
+│       ├── test_chunk.py           # tests del chunking (markdown sintético)
+│       └── test_manifest.py         # tests del diff-aware processing (archivos sintéticos, sin OCR)
 ├── data/
 │   ├── markdown/               # .md generados — SE COMITEA al repo (mismo layout que la fuente)
 │   ├── manifest.json             # hash por PDF para diff-aware processing — gitignored
 │   ├── chunks.parquet             # chunks + embeddings (382 filas validadas) — gitignored
 │   └── graph.json                  # grafo de conocimiento (Fase 3) — gitignored
+├── pytest.ini
 ├── Dockerfile
 ├── requirements.txt
 └── .github/workflows/ (o entradas agregadas al .github/workflows/ raíz del repo)
