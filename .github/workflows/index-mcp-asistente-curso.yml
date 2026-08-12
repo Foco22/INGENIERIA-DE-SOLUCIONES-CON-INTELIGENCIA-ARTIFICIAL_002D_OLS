@@ -16,6 +16,12 @@ on:
       - "mcp-asistente-curso/utils/**"
   workflow_dispatch:
 
+# El GITHUB_TOKEN automático es de solo lectura por default -- sin esto, el
+# paso "Commit el .md convertido" falla con 403 al hacer git push (pasó en
+# la primera corrida real).
+permissions:
+  contents: write
+
 env:
   GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
   GCS_BUCKET: mcp-douc
