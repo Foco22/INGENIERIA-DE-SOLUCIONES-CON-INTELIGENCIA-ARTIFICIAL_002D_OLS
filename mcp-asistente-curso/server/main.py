@@ -21,6 +21,7 @@ from __future__ import annotations
 import os
 
 from mcp.server.mcpserver import MCPServer
+from mcp.server.transport_security import TransportSecuritySettings
 
 from server.auth import AuthMiddleware
 from server.tools import buscar_contenido as _buscar_contenido
@@ -89,5 +90,13 @@ def reportar_interaccion(interaccion_id: str, respuesta: str, util: bool | None 
     return _reportar_interaccion(interaccion_id, respuesta=respuesta, util=util)
 
 
-app = mcp.streamable_http_app()
+# enable_dns_rebinding_protection=False: por default el SDK solo confía en
+# Host headers de localhost -- cualquier hostname real (ej. el de Cloud Run)
+# devuelve 421 "Invalid Host header" (encontrado en la primera corrida real,
+# ver ESTADO.md). No hace falta esa protección acá: AuthMiddleware (arriba)
+# ya exige un bearer token válido para CUALQUIER request antes de llegar a
+# esta capa -- un Host header falsificado no le da a nadie acceso sin token.
+app = mcp.streamable_http_app(
+    transport_security=TransportSecuritySettings(enable_dns_rebinding_protection=False)
+)
 app.add_middleware(AuthMiddleware)
