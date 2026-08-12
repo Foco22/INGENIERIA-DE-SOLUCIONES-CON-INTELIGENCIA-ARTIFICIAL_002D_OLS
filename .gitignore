@@ -31,3 +31,15 @@ dist/
 # OS
 .DS_Store
 Thumbs.db
+
+# mcp-asistente-curso: cache local del índice construido (chunks/grafo, se descarga de
+# GCS, no se versiona) — data/markdown/ SÍ se comitea (decisión explícita, plan.md §4.1)
+mcp-asistente-curso/data/*
+!mcp-asistente-curso/data/.gitkeep
+!mcp-asistente-curso/data/markdown/
+
+# Credenciales de service accounts de GCP — NUNCA se comitean (van como secret
+# GCP_SA_KEY en GitHub Actions, ver .github/workflows/deploy-mcp-server.yml)
+*-key.json
+*sa-key*.json
+

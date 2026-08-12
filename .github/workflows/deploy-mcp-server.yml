@@ -1,0 +1,82 @@
+name: Deploy MCP server (mcp-asistente-curso)
+
+# Ver mcp-asistente-curso/plan.md §5.2. Mismo patrón que deploy-cloud-run.yml
+# (ya existente en el repo para otro proyecto): build de imagen, push a
+# Artifact Registry, deploy a Cloud Run. Solo se dispara con cambios de
+# código del server -- el índice se actualiza aparte (index-mcp-asistente-curso.yml)
+# y el servidor lo descarga de GCS al arrancar, sin necesitar rebuild.
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "mcp-asistente-curso/server/**"
+      - "mcp-asistente-curso/utils/**"
+      - "mcp-asistente-curso/Dockerfile"
+      - "mcp-asistente-curso/requirements.txt"
+  workflow_dispatch:
+
+env:
+  PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  REGION: northamerica-northeast1
+  SERVICE: mcp-asistente-curso
+  REPO: mcp-asistente-curso
+  IMAGE: northamerica-northeast1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/mcp-asistente-curso/mcp-asistente-curso
+
+jobs:
+  deploy:
+    name: Build & Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Configure Docker for Artifact Registry
+        run: gcloud auth configure-docker northamerica-northeast1-docker.pkg.dev --quiet
+
+      - name: Create Artifact Registry repo if it doesn't exist yet
+        run: |
+          gcloud artifacts repositories describe $REPO \
+            --location=$REGION --project=$PROJECT_ID \
+          || gcloud artifacts repositories create $REPO \
+            --repository-format=docker --location=$REGION --project=$PROJECT_ID \
+            --description="Imágenes del servidor MCP del asistente del curso"
+
+      - name: Build Docker image
+        working-directory: mcp-asistente-curso
+        run: |
+          docker build \
+            -t $IMAGE:${{ github.sha }} \
+            -t $IMAGE:latest \
+            .
+
+      - name: Push Docker image
+        run: |
+          docker push $IMAGE:${{ github.sha }}
+          docker push $IMAGE:latest
+
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy $SERVICE \
+            --image $IMAGE:${{ github.sha }} \
+            --region $REGION \
+            --platform managed \
+            --allow-unauthenticated \
+            --service-account="mcp-asistente-curso-ci@${{ secrets.GCP_PROJECT_ID }}.iam.gserviceaccount.com" \
+            --set-env-vars "OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }},MCP_AUTH_TOKENS=${{ secrets.MCP_AUTH_TOKENS }},GCS_BUCKET=mcp-douc,GCP_PROJECT_ID=${{ secrets.GCP_PROJECT_ID }},SUPABASE_URL=${{ secrets.SUPABASE_URL }},SUPABASE_SERVICE_ROLE_KEY=${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}"
+
+      - name: Show service URL
+        run: |
+          gcloud run services describe $SERVICE \
+            --region $REGION \
+            --format "value(status.url)"

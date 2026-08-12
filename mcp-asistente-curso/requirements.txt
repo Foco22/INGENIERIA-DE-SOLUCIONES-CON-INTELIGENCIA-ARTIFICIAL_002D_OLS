@@ -1,0 +1,39 @@
+# MCP server (server/)
+mcp>=1.2.0
+uvicorn>=0.30
+starlette>=0.37  # AuthMiddleware (server/auth.py, §5.4) — ASGI plano sobre streamable_http_app()
+
+# Grafo de conocimiento — indexer/graph.py y server/retrieval.py
+networkx>=3.0
+
+# LLM (DeepSeek, API compatible con el SDK de OpenAI) — indexer/graph.py y eval/judge.py,
+# nunca en tiempo de consulta — §4.1.
+# Embeddings (OpenAI, text-embedding-ada-002) — indexer/run.py y server/retrieval.py, §4.2.
+# Mismo paquete `openai` para los dos: DeepSeek vía base_url compatible, OpenAI directo.
+# (Se probó local con fastembed/ONNX primero — se sacó por el costo de arranque de
+# descargar/cargar el modelo en cada contenedor nuevo, ver utils/embeddings.py.)
+openai>=1.0
+
+# PDF -> Markdown — indexer/ingest.py (docling resultó impráctico, ver plan.md §4.1/§7)
+pymupdf4llm>=1.28
+pypdf>=6.0
+
+# Índice (GCS) e interacciones (Supabase)
+google-cloud-storage>=2.10
+# >=2.10: versiones viejas (probado con 2.8.0) validan el formato de la key del
+# lado del cliente y rechazan las keys nuevas de Supabase (sb_secret_/sb_publishable_,
+# ver utils/supabase.py) con "Invalid API key" sin ni llegar a pegarle a la red.
+supabase>=2.10
+
+# Chunks/índice vectorial en Parquet
+pandas>=2.0
+pyarrow>=15.0
+
+# Similitud coseno sobre la matriz de embeddings — server/retrieval.py §4.2
+numpy>=1.26
+
+# Utilidades
+python-dotenv>=1.0
+
+# Tests de validación de ingesta — §4.1
+pytest>=8.0
