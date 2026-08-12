@@ -24,7 +24,12 @@ from utils.paths import REPO_ROOT, PdfSource
 GRAPH_PATH = REPO_ROOT / "mcp-asistente-curso" / "data" / "graph.json"
 
 
-def _normalize(nombre: str) -> str:
+def normalize_concepto(nombre: str) -> str:
+    """Minúsculas + espacios colapsados — misma clave usada como id de nodo.
+
+    Pública porque server/retrieval.py (§4.2) la reusa para detectar, con la
+    misma regla, qué conceptos del grafo aparecen mencionados en una query.
+    """
     return " ".join(nombre.strip().lower().split())
 
 
@@ -86,7 +91,7 @@ def merge_source_into_graph(graph: nx.DiGraph, markdown: str, source: PdfSource)
     nodes, edges = extract_graph(markdown)
 
     def _ensure_node(nombre: str) -> str:
-        key = _normalize(nombre)
+        key = normalize_concepto(nombre)
         if graph.has_node(key):
             graph.nodes[key]["clases"].add(source.archivo)
         else:
@@ -94,11 +99,11 @@ def merge_source_into_graph(graph: nx.DiGraph, markdown: str, source: PdfSource)
         return key
 
     for node in nodes:
-        if _normalize(node.nombre):
+        if normalize_concepto(node.nombre):
             _ensure_node(node.nombre)
 
     for edge in edges:
-        origen_key, destino_key = _normalize(edge.origen), _normalize(edge.destino)
+        origen_key, destino_key = normalize_concepto(edge.origen), normalize_concepto(edge.destino)
         if not origen_key or not destino_key:
             continue
         _ensure_node(edge.origen)

@@ -1,55 +1,55 @@
-"""Wrapper de embeddings y reranker, ambos locales y gratis. Ver plan.md §4.2.
+"""Wrapper de embeddings (OpenAI, API). Ver plan.md §4.2.
 
-Usa `fastembed` (ONNX Runtime) en vez de `sentence-transformers` (que requiere
-`torch`) — mismo problema que con `docling`: instalar `sentence-transformers`
-acá se colgó más de 3 minutos resolviendo dependencias sin ni empezar a
-descargar. `fastembed` resuelve en segundos (usa el mismo `onnxruntime` que
-ya trae `pymupdf4llm`).
+Antes corría 100% local con `fastembed` (ONNX): sin costo por query, pero el
+modelo (multilingual-e5-large, >1GB) se descarga a un caché efímero (`/tmp`
+en este entorno) — cada vez que ese caché se pierde (reboot, contenedor
+nuevo en Cloud Run), la primera query paga varios minutos de descarga antes
+de poder responder. Para un servidor que debe responder rápido a preguntas
+de estudiantes, ese costo de arranque no es aceptable. Se migró a la API de
+OpenAI (`text-embedding-ada-002`): sin modelo que descargar/cargar, latencia
+de red típica en vez de descarga de ~1GB, costo por token insignificante
+para el volumen de este curso.
 
-Modelo de embeddings: `intfloat/multilingual-e5-large` (no hay build ONNX de
-`BAAI/bge-m3` en fastembed) — mismo orden de tamaño/calidad, 100 idiomas,
-1024 dims. Los modelos E5 requieren los prefijos "query: "/"passage: " para
-rendir bien — no es opcional, es parte del protocolo de uso del modelo.
+**Importante:** el mismo modelo se usa para indexar (`embed_documents`,
+indexer/run.py) y para embeber la query en tiempo real (`embed_query`,
+server/retrieval.py) — si cambia el modelo, hay que re-embeber todo
+`data/chunks.parquet` desde cero, los vectores de otro modelo no son
+comparables entre sí (ni siquiera tienen las mismas dimensiones).
 
-Reranker: `BAAI/bge-reranker-base`, tal como estaba definido en el plan —
-ese sí está disponible en fastembed.
+No hay reranker: se sacó el cross-encoder local (`bge-reranker-base`, mismo
+problema de descarga que el embedder) — los fragmentos finales quedan
+ordenados solo por similitud de coseno contra el embedding de la query
+(server/retrieval.py). Menos preciso que con rerank, pero sin modelos
+locales que mantener.
 
-Usado por indexer/run.py (embeddings, indexación) y server/retrieval.py
-(embeddings de la query + rerank, en tiempo real).
+Requiere OPENAI_API_KEY en el entorno (o en un .env local, vía python-dotenv).
 """
 
 from __future__ import annotations
 
 from functools import lru_cache
 
-from fastembed import TextEmbedding
-from fastembed.rerank.cross_encoder import TextCrossEncoder
+from dotenv import load_dotenv
+from openai import OpenAI
 
-_EMBED_MODEL = "intfloat/multilingual-e5-large"
-_RERANK_MODEL = "BAAI/bge-reranker-base"
+load_dotenv()
 
-
-@lru_cache(maxsize=1)
-def _embedder() -> TextEmbedding:
-    return TextEmbedding(_EMBED_MODEL)
+_MODEL = "text-embedding-ada-002"
 
 
 @lru_cache(maxsize=1)
-def _reranker() -> TextCrossEncoder:
-    return TextCrossEncoder(_RERANK_MODEL)
+def _client() -> OpenAI:
+    return OpenAI(timeout=30.0, max_retries=2)  # usa OPENAI_API_KEY del entorno
 
 
 def embed_documents(texts: list[str]) -> list[list[float]]:
     """Embeddings para texto que se va a indexar (chunks, §4.1 paso 4)."""
-    prefixed = [f"passage: {t}" for t in texts]
-    return [vector.tolist() for vector in _embedder().embed(prefixed)]
+    if not texts:
+        return []
+    response = _client().embeddings.create(model=_MODEL, input=texts)
+    return [item.embedding for item in response.data]
 
 
 def embed_query(text: str) -> list[float]:
     """Embedding de una query de búsqueda (§4.2)."""
-    return next(iter(_embedder().embed([f"query: {text}"]))).tolist()
-
-
-def rerank(query: str, documents: list[str]) -> list[float]:
-    """Scores de relevancia query-documento — más alto es más relevante (§4.2)."""
-    return list(_reranker().rerank(query, documents))
+    return _client().embeddings.create(model=_MODEL, input=[text]).data[0].embedding

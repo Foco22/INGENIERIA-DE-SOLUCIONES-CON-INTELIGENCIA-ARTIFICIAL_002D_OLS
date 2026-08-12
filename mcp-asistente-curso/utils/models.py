@@ -61,3 +61,34 @@ class GraphEdge:
     origen: str
     tipo: str
     destino: str
+
+
+@dataclass(frozen=True)
+class Fragmento:
+    """Un resultado de la búsqueda vectorial: un chunk + su score de relevancia.
+
+    Ver plan.md §4.2. Mismo shape para `buscar_contenido` y `detalle_pruebas`
+    (server/tools.py, server/pruebas.py) — solo cambia qué `tipo` de chunk
+    (clase/evaluacion) alimentó la búsqueda.
+    """
+
+    texto: str
+    experiencia: str
+    clase: str | None  # None para tipo="evaluacion", igual que en Chunk
+    archivo: str
+    score: float
+
+
+@dataclass(frozen=True)
+class ConceptoRelacionado:
+    """Una relación del grafo de conocimiento relevante a una query (plan.md §4.2).
+
+    Sale del traversal de vecinos en graph.json a partir de los conceptos
+    detectados en la query — es una señal distinta a los Fragmento (relación
+    entre conceptos, no texto), no compite en el mismo ranking.
+    """
+
+    nodo: str
+    tipo_relacion: str
+    concepto_relacionado: str
+    clase_donde_aparece: str  # clase(s) donde aparece esta relación, unidas por ", " si son varias

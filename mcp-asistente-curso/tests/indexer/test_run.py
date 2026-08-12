@@ -1,7 +1,7 @@
 """Tests de indexer/run.py (build_index): diff-aware chunking+embeddings+grafo.
 
 Usa fuentes sintéticas, un embed_documents falso y un merge_source_into_graph
-falso (sin cargar el modelo de embeddings ni llamar a Groq) para que corra en
+falso (sin cargar el modelo de embeddings ni llamar a DeepSeek) para que corra en
 segundos, no minutos. El único I/O real es un .md de prueba bajo
 data/markdown/ — se limpia al final del test.
 """

@@ -1,7 +1,7 @@
 """Tests de la fusión del grafo (indexer/graph.py). Ver plan.md §4.1, paso 5.
 
-`extract_graph` va simulado (monkeypatch) — no llama a Groq, así que corre
-en milisegundos y no depende de GROQ_API_KEY.
+`extract_graph` va simulado (monkeypatch) — no llama a DeepSeek, así que corre
+en milisegundos y no depende de DEEPSEEK_API_KEY.
 """
 
 from __future__ import annotations

@@ -2,20 +2,20 @@
 
 ingest.py -> manifest.py (diff) -> chunk.py -> utils/embeddings.py -> graph.py -> utils/gcs.py
 
-Implementado hasta ahora (Fases 2-3): ingesta + chunking + embeddings -> data/chunks.parquet,
-y extracción del grafo de conocimiento -> data/graph.json. Diff-aware de punta a punta — un
-PDF sin cambios ni se re-chunkea/re-embebe ni se re-extrae su grafo; uno que sí cambió primero
-"retracta" su contribución vieja del grafo (indexer.graph.retract_source) antes de fusionar
-la nueva, para no dejar entidades/relaciones obsoletas colgando.
-
-TODO (Fase 3, resto): publicación a GCS (utils/gcs.py).
+Implementado hasta ahora (Fases 2-5): ingesta + chunking + embeddings -> data/chunks.parquet,
+extracción del grafo de conocimiento -> data/graph.json, y publicación a GCS. Diff-aware de
+punta a punta — un PDF sin cambios ni se re-chunkea/re-embebe ni se re-extrae su grafo; uno
+que sí cambió primero "retracta" su contribución vieja del grafo (indexer.graph.retract_source)
+antes de fusionar la nueva, para no dejar entidades/relaciones obsoletas colgando.
 """
 
 from __future__ import annotations
 
+import os
+from datetime import datetime, timezone
 from pathlib import Path
 
-import groq
+import openai
 import pandas as pd
 
 from indexer.chunk import chunk_markdown
@@ -23,6 +23,7 @@ from indexer.graph import GRAPH_PATH, load_graph, merge_source_into_graph, retra
 from indexer.ingest import ingest_all
 from indexer.manifest import MANIFEST_PATH
 from utils.embeddings import embed_documents
+from utils.gcs import publish_index
 from utils.paths import REPO_ROOT, iter_all_pdfs
 
 CHUNKS_PATH = REPO_ROOT / "mcp-asistente-curso" / "data" / "chunks.parquet"
@@ -133,12 +134,29 @@ def build_index(
                     retract_source(graph, source.archivo)  # PDF cambió: saca su versión vieja primero
                 merge_source_into_graph(graph, markdown, source)
                 save_graph(graph, graph_path)  # guarda tras cada PDF: un error a mitad de camino no pierde lo ya hecho
-        except groq.RateLimitError as e:
-            print(f"Límite de Groq alcanzado, se detiene acá (progreso guardado): {e}")
+        except openai.RateLimitError as e:
+            print(f"Límite de DeepSeek alcanzado, se detiene acá (progreso guardado): {e}")
             print("Reintentar más tarde retoma solo los PDFs que faltan (diff-aware).")
             return
         print(f"{graph.number_of_nodes()} nodos, {graph.number_of_edges()} aristas en {graph_path}")
 
 
+def _publish_si_corresponde(data_dir: Path) -> None:
+    """Publica a GCS solo si `GCS_BUCKET` está configurado (§4.1 paso 6, utils/gcs.py).
+
+    Sin esa env var, un `python3 -m indexer.run` local no intenta tocar GCS
+    ni pide credenciales — sigue leyendo/escribiendo directo en `data/` como
+    siempre. En CI (index.yml) la env var sí está seteada.
+    """
+    if not os.environ.get("GCS_BUCKET"):
+        return
+    # GITHUB_SHA en CI da un id estable y trazable al commit; un timestamp
+    # alcanza para corridas manuales locales donde esa env var no existe.
+    run_id = os.environ.get("GITHUB_SHA") or datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%SZ")
+    publish_index(data_dir, run_id)
+    print(f"Índice publicado en gs://{os.environ['GCS_BUCKET']}/index/latest/ (run_id={run_id})")
+
+
 if __name__ == "__main__":
     build_index()
+    _publish_si_corresponde(CHUNKS_PATH.parent)

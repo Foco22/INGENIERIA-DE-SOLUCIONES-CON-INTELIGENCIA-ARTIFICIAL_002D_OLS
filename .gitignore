@@ -38,3 +38,8 @@ mcp-asistente-curso/data/*
 !mcp-asistente-curso/data/.gitkeep
 !mcp-asistente-curso/data/markdown/
 
+# Credenciales de service accounts de GCP — NUNCA se comitean (van como secret
+# GCP_SA_KEY en GitHub Actions, ver .github/workflows/deploy-mcp-server.yml)
+*-key.json
+*sa-key*.json
+
