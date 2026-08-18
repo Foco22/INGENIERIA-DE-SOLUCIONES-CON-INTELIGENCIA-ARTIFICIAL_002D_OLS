@@ -8,7 +8,7 @@ Posiblemente algunos bloques de código queden deprecados. Se estará haciendo l
 
 ---
 
-## 📚 Descripción General
+## Descripción General
 
 El curso cubre desde los fundamentos de la IA generativa y el prompt engineering, hasta el desarrollo de agentes inteligentes y las mejores prácticas para llevar soluciones a producción, incluyendo observabilidad, seguridad y ética.
 
