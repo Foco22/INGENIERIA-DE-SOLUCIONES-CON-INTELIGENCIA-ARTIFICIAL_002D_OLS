@@ -1,0 +1,95 @@
+name: Index mcp-asistente-curso
+
+# Ver mcp-asistente-curso/plan.md §5.1. Corre el pipeline de indexación
+# (ingesta -> chunking + embeddings -> grafo) y publica el índice a GCS.
+# Diff-aware: descarga primero el manifest/índice publicado la última vez,
+# así indexer/run.py solo reprocesa lo que cambió, no el corpus completo.
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "Experiencia de Aprendizaje */Clase */**.pdf"
+      - "evaluaciones/**.pdf"
+      - "mcp-asistente-curso/indexer/**"
+      - "mcp-asistente-curso/utils/**"
+  workflow_dispatch:
+
+# El GITHUB_TOKEN automático es de solo lectura por default -- sin esto, el
+# paso "Commit el .md convertido" falla con 403 al hacer git push (pasó en
+# la primera corrida real).
+permissions:
+  contents: write
+
+env:
+  GCP_PROJECT_ID: ${{ secrets.GCP_PROJECT_ID }}
+  GCS_BUCKET: mcp-douc
+
+jobs:
+  index:
+    name: Build & publish index
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Tesseract (OCR, usado por pymupdf4llm — ver plan.md §4.1 paso 1)
+        run: sudo apt-get update && sudo apt-get install -y tesseract-ocr
+
+      - name: Install dependencies
+        working-directory: mcp-asistente-curso
+        run: pip install -r requirements.txt
+
+      - name: Authenticate to Google Cloud
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - name: Download previous index (para que el diff-aware sepa qué ya está procesado)
+        working-directory: mcp-asistente-curso
+        run: |
+          python3 -c "
+          from pathlib import Path
+          from utils.gcs import download_latest_index
+          download_latest_index(Path('data'))
+          "
+
+      - name: Run indexing pipeline (diff-aware, publica a GCS al final)
+        working-directory: mcp-asistente-curso
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+        run: python3 -m indexer.run
+
+      - name: Commit el .md convertido (se versiona en el repo, ver plan.md §4.1 paso 1)
+        working-directory: mcp-asistente-curso
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add data/markdown
+          git diff --staged --quiet || git commit -m "index-mcp-asistente-curso: actualiza data/markdown [skip ci]"
+          git push
+
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+
+      - name: Reiniciar Cloud Run para que recoja el índice nuevo
+        # El servidor descarga index/latest/ de GCS solo al ARRANCAR el proceso
+        # (server/main.py) -- sin esto, un índice publicado no le llega al
+        # contenedor ya corriendo hasta que Cloud Run lo reinicie por su cuenta.
+        # Actualizar una env var dummy (sin tocar la imagen) fuerza una revisión
+        # nueva -> arranque nuevo -> descarga el índice recién publicado. Si el
+        # servicio todavía no existe (primer deploy no corrido todavía), no falla.
+        run: |
+          gcloud run services update mcp-asistente-curso \
+            --region=northamerica-northeast1 \
+            --project=${{ secrets.GCP_PROJECT_ID }} \
+            --update-env-vars="REINDEXED_AT=$(date -u +%Y%m%dT%H%M%SZ)" \
+          || echo "Servicio mcp-asistente-curso todavía no existe (correr deploy-mcp-server.yml primero) -- se saltea el reinicio."

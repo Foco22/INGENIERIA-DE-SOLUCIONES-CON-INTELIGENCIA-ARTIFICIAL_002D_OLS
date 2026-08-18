@@ -1,0 +1,1 @@
+"""LLM-as-judge de calidad, corrido periódicamente vía eval-judge.yml (ver plan.md §4.5)."""
