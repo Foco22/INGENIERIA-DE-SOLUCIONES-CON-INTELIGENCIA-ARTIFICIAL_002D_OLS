@@ -1,0 +1,9 @@
+pypdf
+llama-parse
+langchain-text-splitters
+openai
+faiss-cpu
+sentence-transformers
+# numpy<2 requerido: numexpr y bottleneck (deps de pandas) aun no soportan NumPy 2.x
+numpy<2
+python-dotenv

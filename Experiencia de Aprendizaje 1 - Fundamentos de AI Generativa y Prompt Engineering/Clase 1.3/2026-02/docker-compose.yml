@@ -1,0 +1,21 @@
+services:
+
+  rag-pypdf:
+    build: .
+    command: python rag_pypdf.py
+    env_file: .env
+    volumes:
+      - ./input:/app/input:ro
+      - ./md:/app/md
+    stdin_open: true
+    tty: true
+
+  rag-ocr:
+    build: .
+    command: python rag_ocr.py
+    env_file: .env
+    volumes:
+      - ./input:/app/input:ro
+      - ./md:/app/md
+    stdin_open: true
+    tty: true
