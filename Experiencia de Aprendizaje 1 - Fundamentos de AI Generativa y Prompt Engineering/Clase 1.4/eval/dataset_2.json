@@ -1,0 +1,34 @@
+[
+  {
+    "question": "¿Que significa la sigla GPT?",
+    "ground_truth": "Generative Pre-trained Transformer"
+  },
+  {
+    "question": "Cual es el presupuesto del proyecto de LatamGPT",
+    "ground_truth": "El presupuesto del proyecto fue de $550.000"
+  },
+  {
+    "question": "¿Cuales son los principales beneficios de self-attention en los LLMs?",
+    "ground_truth": "Capturar depenencias más larga de las palabras. Las palabras se analizan al mismo tiempo. Mejor comprension del contexto. Escala mejor con modelos con más parametros"
+  },
+  {
+    "question": "¿Cual son las etapas de la arquitectura Transformer?",
+    "ground_truth": "1. Input Embedding: Las palabras se convierten en vectores numéricos. 2. Positional Encoding: Se agrega información sobre la posición de las palabras. 3. Self-Attention: El modelo analiza las relaciones entre las palabras. 4. Feed-Forward Neural Network: Procesa la información de atención para generar una representación más rica. 5. Output Layer: Genera la salida final, como texto o clasificación."
+  },
+  {
+    "question": "¿A mayor temperatura, el modelo será más creativo o más preciso?",
+    "ground_truth": "Más creativo"
+  },
+  {
+    "question": "¿Que tecnicas hay de Prompt Engineering?",
+    "ground_truth": "Zero-shot, Few-shot learning, Chain-of-thought prompting. Las tecnicas avanzadas son: Tree of-thought prompting, Self-consistency prompting, Promgram-aided prompting, Meta-prompting, Prompt Chaining"
+  },
+  {
+    "question": "¿Cuales son las dos tecnicas de retrieval-augmented generation (RAG)",
+    "ground_truth": "Term base Retrieval y embedding base Retrieval"
+  },
+  {
+    "question": "Cuales son las tecnicas para medir un RAG (metrica)?",
+    "ground_truth": "Recall, Precision, Faithfulness, Answer Relevency"
+  }
+]

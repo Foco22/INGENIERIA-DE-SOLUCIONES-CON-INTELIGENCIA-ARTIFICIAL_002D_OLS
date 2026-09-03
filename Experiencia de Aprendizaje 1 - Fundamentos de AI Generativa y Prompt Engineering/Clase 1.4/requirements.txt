@@ -1,12 +1,23 @@
-openai
-pymongo
-streamlit
-markitdown[pdf]
-gitpython
-langchain
-langchain-openai
-langchain-mongodb
-python-dotenv
-langsmith
-ragas
-datasets
+# App
+streamlit==1.63.0
+pymongo==4.17.0
+python-dotenv==1.2.3
+gitpython==3.1.61
+markitdown[pdf]==0.1.7
+
+# OpenAI: 2.x porque langchain-openai 0.3.x exige openai<3.0
+openai==2.54.0
+
+# Observabilidad
+langsmith==0.12.1
+
+# Evaluacion RAG.
+# ragas importa langchain_community.chat_models.vertexai, modulo que fue
+# eliminado en langchain-community 0.4 -> toda la pila langchain va en 0.3.x.
+ragas==0.4.3
+datasets==5.0.1
+langchain==0.3.30
+langchain-core==0.3.86
+langchain-community==0.3.31
+langchain-openai==0.3.35
+langchain-mongodb==0.7.2

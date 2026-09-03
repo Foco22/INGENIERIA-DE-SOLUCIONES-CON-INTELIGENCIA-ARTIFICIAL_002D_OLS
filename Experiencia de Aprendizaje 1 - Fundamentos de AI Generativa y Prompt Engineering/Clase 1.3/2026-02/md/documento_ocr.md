@@ -13,14 +13,12 @@
 | ISY0101 | Ingeniería de Soluciones con IA | 2 horas pedagógicas | 30%           |
 
 
-## **1. Instrucciones generales**
+## 1. Instrucciones generales
 
-| Descripción                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
-| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| - La \*\*Evaluación Parcial N°1\*\* corresponde al \*\*desarrollo de una solución integral basada en agentes LLM y pipelines RAG\*\*, aplicada a un caso **organizacional real**. Los/las estudiantes analizan el caso, formulan prompts optimizados, diseñan e implementan un pipeline de recuperación aumentada (RAG), construyen la arquitectura de solución integrando LLMs y herramientas de recuperación, y elaboran un informe técnico completo que justifique cada decisión tomada.                                                                                                                                                                                                                                                                                                                                                           |
-| - \*Esta evaluación consiste en \*\*un encargo\*\* que medirá los siguientes \*\*Indicadores de Logro\*\*:\*<br/>- o IL1.1 Formula prompts para modelos de lenguaje, ajustando su estructura y contenido según las características del requerimiento informacional del caso.<br/>- o IL1.2 Implementa flujos RAG que combinen fuentes de datos internas y externas, en contextos organizacionales definidos, para enriquecer las respuestas del modelo.<br/>- o IL1.3 Diseña arquitecturas de solución que integren LLMs, herramientas de recuperación de información y control de contexto, bajo condiciones de precisión y relevancia de respuestas.<br/>- o IL1.4 Justifica las decisiones de diseño de una solución con LLMs, considerando los requerimientos organizacionales, la trazabilidad de datos y las limitaciones del modelo utilizado. |
-| - El \*\*tiempo\*\* asignado para desarrollar esta evaluación es de \*\*5 semanas\*\* y se realiza en \*\*parejas\*\*.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
-| - La \*\*distribución de los porcentajes\*\* de esta evaluación es la siguiente:                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
+| Descripción                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           |
+| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| ■ La **Evaluación Parcial N°1** corresponde al **desarrollo de una solución integral basada en agentes LLM y pipelines RAG**, aplicada a un caso **organizacional real**. Los/las estudiantes analizan el caso, formulan prompts optimizados, diseñan e implementan un pipeline de recuperación aumentada (RAG), construyen la arquitectura de solución integrando LLMs y herramientas de recuperación, y elaboran un informe técnico completo que justifique cada decisión tomada.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   |
+| ■ \*Esta evaluación consiste en **un encargo** que *medirá los siguientes* **Indicadores de Logro:**\*<br/>○ IL1.1 Formula prompts para modelos de lenguaje, ajustando su estructura y contenido según las características del requerimiento informativo del caso.<br/>○ IL1.2 Implementa flujos RAG que combinen fuentes de datos internas y externas, en contextos organizacionales definidos, para enriquecer las respuestas del modelo.<br/>○ IL1.3 Diseña arquitecturas de solución que integren LLMs, herramientas de recuperación de información y control de contexto, bajo condiciones de precisión y relevancia de respuestas.<br/>○ IL1.4 Justifica las decisiones de diseño de una solución con LLMs, considerando los requerimientos organizacionales, la trazabilidad de datos y las limitaciones del modelo utilizado.<br/>■ El **tiempo** asignado para desarrollar esta evaluación es de **5 semanas** y se realiza en **parejas**.<br/>■ La **distribución de los porcentajes** de esta evaluación es la siguiente: |
 
 
 Subdirección de Diseño Instruccional
@@ -82,7 +80,7 @@ Subdirección de Diseño Instruccional
 
 - **La propuesta inicial del caso debe ser presentada por el equipo del trabajo a el/la docente en la instancia que este defina para la revisión de anteproyectos, previa a la entrega del encargo.** El/la docente evaluará si la propuesta cumple con los mínimos exigidos y entregará retroalimentación para su perfeccionamiento. En caso de no cumplir con los requisitos, el equipo deberá reformular la propuesta hasta obtener la aprobación para su desarrollo.
 
-## 4.- Una vez validado el caso organizacional, los/las estudiantes proceden al desarrollo del **encargo**. Este debe incluir los siguientes **apartados**:
+## 4.- Una vez validado el caso organizacional, los/las estudiantes proceden al desarrollo del encargo. Este debe incluir los siguientes **apartados:**
 
 - **Análisis del caso organizacional:** Identificar los requerimientos específicos y los objetivos a resolver con IA. **(IE1)**
 - **Formulación de prompts:** Justificar la redacción de los prompts optimizados para el contexto del caso. **(IE2)**
@@ -93,49 +91,41 @@ Subdirección de Diseño Instruccional
 - Formato y citación bajo normativa APA.
 
 *Los **aspectos formales** son:*
-
 - El proyecto se entrega mediante un **informe escrito** de un máximo de cinco páginas, elaborado en formato Word o PDF, que integre de manera estructurada todos los aspectos clave del trabajo desarrollado.
 - Adicionalmente, se **requerirá la entrega de un repositorio digital (en GitHub o GitLab)** que contenga todo el código fuente desarrollado, junto con documentación sobre su funcionamiento, bocetos de diseño y evidencia de pruebas de software realizadas. Es obligatorio
 
 Subdirección de Diseño Instruccional
 2025
-
 3
 
 
 
+incluir un **archivo README** que explique de manera clara y resumida las instrucciones precisas para ejecutar el sistema y los scripts asociados, permitiendo así que cualquier evaluador **comprenda**, **aplique** y **valide** el funcionamiento del proyecto.
 
+- Tanto el informe como el enlace al repositorio deberán enviarse a través de la plataforma AVA y al correo electrónico del docente, dentro del plazo estipulado en el cronograma.
 
-# MALETA DIDÁCTICA DuocUC
+- Los materiales, herramientas o insumos que se requieren para realizar esta evaluación son:
+    - Computador con acceso a internet.
+    - Frameworks para agentes y RAG (ejemplo: LangChain, Haystack, etc).
+    - Acceso a documentación técnica.
 
-incluir un **archivo README** que explique de manera clara y resumida las instrucciones precisas para ejecutar el sistema y los scripts asociados, permitiendo así que cualquier evaluador **comprenda, aplique y valide** el funcionamiento del proyecto.
+### Instrucciones Específicas para la presentación:
 
-- Tanto el informe como el enlace al repositorio deberán **enviarse a través de la plataforma AVA y al correo electrónico del docente**, dentro del plazo estipulado en el cronograma.
-
--
-
-**Los materiales, herramientas o insumos** que se requieren para realizar esta evaluación son:
-
-- Computador con acceso a internet.
-- Frameworks para agentes y RAG (ejemplo: LangChain, Haystack, etc).
-- Acceso a documentación técnica.
-
-## **Instrucciones Específicas para la presentación:**
-
-Cada equipo dispondrá de 20 minutos (10 de exposición y 10 de preguntas) para defender su solución. La presentación debe incluir los siguientes **apartados**:
+Cada equipo dispondrá de 20 minutos (10 de exposición y 10 de preguntas) para defender su solución. La presentación debe incluir los siguientes apartados:
 
 - **Exposición de Coherencia y Resultados:** Determinar y demostrar la relación entre los datos recuperados y las respuestas del modelo, fundamentando la utilidad de la solución. (IE6)
 - **Defensa del Diagrama de Arquitectura:** Presentar y explicar visualmente el diagrama de la arquitectura propuesta, detallando la integración de sus componentes. (IE7)
 - **Fundamentación de Decisiones:** Respaldar técnicamente las decisiones de diseño en relación con los objetivos organizacionales planteados. (IE8)
 - **Comunicación y Evidencia:** Utilizar lenguaje técnico preciso durante la defensa, argumentando con respaldo en evidencias y ejemplos concretos del funcionamiento del agente. (IE9)
 
-**Los *aspectos formales* son:**
-
+Los *aspectos formales* son:
 - Uso de lenguaje técnico adecuado.
 - Participación equitativa de ambos integrantes.
 - Apoyo visual (PPT, Canva o Dashboard).
 
-## **Indicaciones para el Uso de Inteligencia Artificial (IA):**
+Indicaciones para el Uso de Inteligencia Artificial (IA):
+
+----
 
 Subdirección de Diseño Instruccional
 2025
@@ -146,7 +136,8 @@ Subdirección de Diseño Instruccional
 
 
 
-# MALETA DIDÁCTICA DuocUC
+
+# MALETA DIDÁCTICA **DuocUC**<sup>®</sup>
 
 - **Uso ético:** Los estudiantes deben utilizar la IA como apoyo para mejorar redacción, buscar referencias o crear diagramas, pero todas las ideas, análisis y justificaciones técnicas deben ser propias del equipo. Se debe declarar en el informe qué herramientas de IA se usaron y cómo se aplicaron.
 
@@ -193,18 +184,19 @@ Subdirección de Diseño Instruccional
 
 
 
-MALETA DIDÁCTICA DuocUC®
+MALETA DIDÁCTICA DuocUC
 
-| IE2. Elabora prompts para modelos de lenguaje, a partir de los requerimientos específicos de un caso organizacional.                                                      | Elabora prompts precisos, bien estructurados y adaptados completamente a los requerimientos del caso.                            | Elabora prompts adecuados y relevantes, con una estructura funcional acorde al caso.         | Elabora prompts con estructura básica y alineación parcial a los requerimientos.     | Elabora prompts poco claros o ambiguos, con escasa relación con los requerimientos. | No elabora prompts o lo hace sin conexión con el caso organizacional. | **10%** |
-| ------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------- |
-| IE3. Configura flujos RAG que incluyen mecanismos de recuperación de datos internos y externos, coherentes con el contexto organizacional definido.                       | Configura flujos RAG completos, integrando eficazmente recuperación de datos internos y externos con alta coherencia contextual. | Configura flujos RAG funcionales, incluyendo mecanismos adecuados y coherentes con el caso.  | Configura flujos RAG básicos, con integración parcial o limitada de fuentes de datos | Configura flujos incompletos o incoherentes con el contexto organizacional          | No configura flujos RAG o lo hace de forma incorrecta.                | **10%** |
-| IE4. Planifica una arquitectura que combina módulos de recuperación, procesamiento y generación, para permitir la operación eficiente del sistema basado en agente de IA. | Planifica una arquitectura detallada, coherente y eficiente, integrando con claridad todos los módulos requeridos.               | Planifica una arquitectura funcional, considerando correctamente los módulos clave.          | Planifica una arquitectura básica, con integración parcial o poco detallada.         | Planifica una arquitectura incompleta o poco clara                                  | No planifica una arquitectura funcional.                              | **15%** |
-| IE5. Elabora un informe técnico, que incluye esquemas, diagramas y tablas, respaldando las decisiones de diseño con documentación.                                        | Elabora un informe técnico completo, organizado y riguroso, con documentación precisa y elementos visuales relevantes.           | Elabora un informe adecuado, bien estructurado y con elementos que respaldan las decisiones. | Elabora un informe con estructura básica y respaldo parcial.                         | Elabora un informe poco claro o incompleto, con escasa documentación.               | No elabora el informe técnico o lo hace de forma deficiente.          | **10%** |
-| **Dimensión: Presentación**                                                                                                                                               |                                                                                                                                  |                                                                                              |                                                                                      |                                                                                     |                                                                       |         |
+| IE2. Elabora prompts para modelos de lenguaje, a partir de los requerimientos específicos de un caso organizacional.                                                          | Elabora prompts precisos, bien estructurados y adaptados completamente a los requerimientos del caso.                            | Elabora prompts adecuados y relevantes, con una estructura funcional acorde al caso.         | Elabora prompts con estructura básica y alineación parcial a los requerimientos.     | Elabora prompts poco claros o ambiguos, con escasa relación con los requerimientos. | No elabora prompts o lo hace sin conexión con el caso organizacional. | **10%** |
+| ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------ | ----------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------- |
+| **IE3. Configura flujos RAG que incluyen mecanismos de recuperación de datos internos y externos, coherentes con el contexto organizacional definido.**                       | Configura flujos RAG completos, integrando eficazmente recuperación de datos internos y externos con alta coherencia contextual. | Configura flujos RAG funcionales, incluyendo mecanismos adecuados y coherentes con el caso.  | Configura flujos RAG básicos, con integración parcial o limitada de fuentes de datos | Configura flujos incompletos o incoherentes con el contexto organizacional          | No configura flujos RAG o lo hace de forma incorrecta.                | **10%** |
+| **IE4. Planifica una arquitectura que combina módulos de recuperación, procesamiento y generación, para permitir la operación eficiente del sistema basado en agente de IA.** | Planifica una arquitectura detallada, coherente y eficiente, integrando con claridad todos los módulos requeridos.               | Planifica una arquitectura funcional, considerando correctamente los módulos clave.          | Planifica una arquitectura básica, con integración parcial o poco detallada.         | Planifica una arquitectura incompleta o poco clara                                  | No planifica una arquitectura funcional.                              | **15%** |
+| **IE5. Elabora un informe técnico, que incluye esquemas, diagramas y tablas, respaldando las decisiones de diseño con documentación.**                                        | Elabora un informe técnico completo, organizado y riguroso, con documentación precisa y elementos visuales relevantes.           | Elabora un informe adecuado, bien estructurado y con elementos que respaldan las decisiones. | Elabora un informe con estructura básica y respaldo parcial.                         | Elabora un informe poco claro o incompleto, con escasa documentación.               | No elabora el informe técnico o lo hace de forma deficiente.          | **10%** |
+| **Dimensión: Presentación**                                                                                                                                                   |                                                                                                                                  |                                                                                              |                                                                                      |                                                                                     |                                                                       |         |
 
 
 Subdirección de Diseño Instruccional
 2025
+
 7
 
 
@@ -227,9 +219,7 @@ Subdirección de Diseño Instruccional
 
 
 
-
-
-MALETA DIDÁCTICA **DuocUC**<sup>®</sup>
+MALETA DIDÁCTICA DuocUC<sup>®</sup>
 
 Subdirección de Diseño Instruccional
 2025

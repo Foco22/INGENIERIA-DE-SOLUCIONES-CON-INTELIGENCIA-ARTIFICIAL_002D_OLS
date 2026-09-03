@@ -10,8 +10,10 @@ class RAGGenerator:
         self.llm = OpenAILLM()
 
     @traceable(name="rag-generate")
-    def generate(self, query: str, history: list[dict], top_k: int = 5) -> dict:
-        chunks = self.retriever.retrieve(query, top_k=top_k)
+    def generate(self, query: str, history: list[dict], top_k: int = 5, chunks: list[dict] | None = None) -> dict:
+        # chunks permite reutilizar un retrieve ya hecho (evita repetir embedding + vector search)
+        if chunks is None:
+            chunks = self.retriever.retrieve(query, top_k=top_k)
 
         context = "\n\n".join([chunk["text"] for chunk in chunks])
         formatted_prompt = self.system_prompt.format(context=context)
