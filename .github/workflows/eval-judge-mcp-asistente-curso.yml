@@ -1,0 +1,40 @@
+name: Eval judge mcp-asistente-curso
+
+# Ver mcp-asistente-curso/plan.md §5.5. Corre eval/judge.py: lee interacciones
+# no evaluadas de Supabase, corre el LLM-as-judge (DeepSeek), escribe los
+# scores de vuelta. No genera salida propia -- el dashboard (Supabase Studio
+# u otro BI conectado al Postgres) ya refleja los scores apenas se escriben.
+
+on:
+  schedule:
+    # 8am hora de Chile (UTC-4 en horario estándar) = 12:00 UTC. Con el
+    # cambio de hora de verano (UTC-3) cae ~7am local -- desfase menor, no
+    # crítico para un reporte de calidad (ver plan.md §5.5).
+    - cron: "0 12 * * *"
+  workflow_dispatch:
+
+jobs:
+  judge:
+    name: Run LLM-as-judge
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        working-directory: mcp-asistente-curso
+        run: pip install -r requirements.txt
+
+      - name: Run eval/judge.py
+        working-directory: mcp-asistente-curso
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+        run: python3 -m eval.judge
