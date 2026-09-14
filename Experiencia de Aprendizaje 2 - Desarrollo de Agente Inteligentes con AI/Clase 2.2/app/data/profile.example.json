@@ -1,0 +1,42 @@
+{
+  "name": "Francisco Macaya",
+  "current_title": "Data Scientist",
+  "experience": {
+    "total_years": 3.5,
+    "years_by_area": {
+      "data_science": 2.0,
+      "data_engineering": 1.5,
+      "backend": 1.0
+    },
+    "years_by_skill": {
+      "python": 3.5,
+      "sql": 3.0,
+      "pytorch": 1.0,
+      "gcp": 1.5,
+      "spark": 0.5,
+      "langchain": 1.0
+    }
+  },
+  "industries": ["retail", "banca", "educacion"],
+  "leadership": {
+    "has_led": false,
+    "max_team_size": 0,
+    "years_leading": 0
+  },
+  "education": {
+    "max_level": "bachelor",
+    "degrees": ["Ingenieria Civil Industrial"],
+    "certifications": []
+  },
+  "languages": {
+    "spanish": "nativo",
+    "english": "B2"
+  },
+  "preferences": {
+    "work_mode": ["hybrid", "remote"],
+    "location": "Santiago, Chile",
+    "min_salary_clp_monthly": 2000000,
+    "deal_breakers": ["100% presencial fuera de RM", "turnos rotativos"],
+    "interests": ["GenAI", "MLOps", "NLP"]
+  }
+}

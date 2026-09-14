@@ -4,7 +4,11 @@
 
 **_Docente:_** _Francisco Macaya_ 
 
+<<<<<<< HEAD
 _Semestre 2026-2_ 
+=======
+_Semestre 2026-1_ 
+>>>>>>> d9e1b78060417a17688ac92eb92b62e4bd7ecdf1
 
 #### _Noticias: Yann LeCun, pionero en AI, reclama que los LLMs no son capaces de entender el mundo físico._ 
 
@@ -20,6 +24,7 @@ I GE DI SECURITY POLITICS THE BIG STORY BUSINESS SCIENCE CULTURE REVIEWS QA NEWS
 
 **_Nota:_** https://www.wired.com/story/yann-lecun-raises-dollar1-billion-to-build-ai-that-understands-the-physical-world/ 
 
+<<<<<<< HEAD
 #### _Noticias: World Models, la forma para entender el mundo._ 
 
 
@@ -63,6 +68,8 @@ H<br>air. prelphrtnemfney<br>- —<br>me feewe Cee<br>en |<br>as ae<br>;<br>:<br
 
 **_Nota:_** https://www.youtube.com/watch?v=guFF97F0Ctc&t=2639s 
 
+=======
+>>>>>>> d9e1b78060417a17688ac92eb92b62e4bd7ecdf1
 #### _Clase 1.2: Técnicas de Prompt Engineering_ 
 
 
@@ -151,10 +158,13 @@ DuocUC:<br><!-- End of picture text -->
 <!-- Start of picture text -->
 Why Language Models Hallucinate<br>Adam Tauman Kalai* Ofir Nachum Santosh S. Vempalat Edwin Zhang<br>OpenAL OpenAL Georgia Tech OpenAI<br>September 4, 2025<br>a)<br>Qa Abstract<br>So<br>AN Like students facing hard exam questions, large language models sometimes guess when<br>Q, uncertain, producing plausible yet incorrect statements instead of admitting uncertainty, Such<br>oO “hallucinations” persist even in state-of-the-art systems and undermine trust. We argue that<br>Nn language models hallucinate because the training and evaluation procedures reward guessing over<br>=p acknowledging uncertainty, and we analyze the statistical causes of hallucinations in the modern<br>a) training pipeline. Hallucinations need not be mysterious they originate simply as errors in binary<br>o classification. If incorrect statements cannot be distinguished from facts, then hallucinations<br>O in pretrained language models will arise through natural statistical pressures. We then argue<br>nan that hallucinations persist due to the way most evaluations are graded—language models are<br>(S “epidemic”optimized toof bepenalizing good test-takers,uncertainandresponsesguessingcanwhenonlyuncertainbe addressedimprovesthroughtest performance,a socio-technicalThis<br>mitigation: modifying the scoring of existing benchmarks that are misaligned but dominate<br>break leaderboards, rather than introducing additional hallucination evaluations, This change may<br>= steer the field toward more trustworthy AI systems,<br><!-- End of picture text -->
 
+<<<<<<< HEAD
 Las alucinaciones son originadas como errores en la clasificación binaria durante el entrenamiento de los modelos. Si las declaraciones incorrectas no son distinguidas de los hechos, entonces las alucinaciones de los modelos son perpetuadas a través del proceso de entrenamiento. 
 
 Mucho LLMs son optimizados para ser buenos testeadores, y adivinar, lo que mejora el rendimiento de las métricas de testeos. 
 
+=======
+>>>>>>> d9e1b78060417a17688ac92eb92b62e4bd7ecdf1
 **_Nota_** : https://arxiv.org/pdf/2509.04664 
 
 #### _0’REILLY : AI Engineering_ 
@@ -173,6 +183,7 @@ O'REILLY<br>Al Engineering<br>Building Applications<br>with Foundation Models<br
 
 
 
+<<<<<<< HEAD
 **_Prompt engineering_** _refers to methods for writing and organizing LLM instructions for optimal outcomes_ 
 
 **_Context engineering_** _refers to the set of strategies for curating and maintaining the optimal set of tokens (information) during LLM inference, including all the other information that may land there outside of the prompts_ . 
@@ -198,6 +209,25 @@ Prompt engineering vs. context engineering<br>Prompt engineering Context enginee
 **(3) Las arquitecturas multiagente** gestionan investigaciones y análisis complejos en los que la exploración en paralelo aporta beneficios. 
 
 **_Nota_** : https://www.anthropic.com/engineering/effective-context-engineering-for-ai-agents 
+=======
+_Prompt Engineering es una técnica para mejorar las respuestas de los modelos, buscando consistencia, reducción de alucinaciones y personalización de los LLMs._ 
+
+
+
+_Prompt Engineering es una técnica para mejorar las respuestas de los modelos, buscando consistencia, reducción de alucinaciones y personalización de los LLMs._ 
+
+
+
+_¿Es la solución perfecta?_ 
+
+
+
+_Prompt Engineering es una técnica para mejorar las respuestas de los modelos, buscando consistencia, reducción de alucinaciones y personalización de los LLMs._ 
+
+
+
+_¿Es la solución perfecta? No, pero ayuda._ 
+>>>>>>> d9e1b78060417a17688ac92eb92b62e4bd7ecdf1
 
 #### _Tipos de comunicaciones: Sistema, humano y asistente ._ 
 
@@ -300,6 +330,7 @@ Problema + "Piensa paso a paso" > Razonamiento + Solucién<br>"Resuelve: 23 x 17
 
 ## _Técnicas avanzadas de Prompting_ 
 
+<<<<<<< HEAD
 ###### **_Program-Aided Language Models (PAL)_** 
 
 ###### **_MetaPrompting_** 
@@ -307,6 +338,15 @@ Problema + "Piensa paso a paso" > Razonamiento + Solucién<br>"Resuelve: 23 x 17
 ###### **_Self-Consistency_** 
 
 ###### **_Tree of Thoughts (ToT)_** 
+=======
+##### **_Program-Aided Language Models (PAL)_** 
+
+##### **_MetaPrompting_** 
+
+##### **_Self-Consistency_** 
+
+##### **_Tree of Thoughts (ToT)_** 
+>>>>>>> d9e1b78060417a17688ac92eb92b62e4bd7ecdf1
 
 Meta-prompting usa el LLM para generar y optimizar prompts para tareas específicas. 
 
@@ -334,6 +374,7 @@ DuocUC<br><!-- End of picture text -->
 
 **_Simplicity is the ultimate sophistication. (Leonardo da Vinci)_** 
 
+<<<<<<< HEAD
 ## _¿Cómo luce un buen prompt?_ 
 
 
@@ -345,6 +386,8 @@ Calibrating the system prompt<br>Too specific Just right Too vague<br>BL | | ERE
 
 **_Simplicity is the ultimate sophistication. (Leonardo da Vinci)_** 
 
+=======
+>>>>>>> d9e1b78060417a17688ac92eb92b62e4bd7ecdf1
 
 
 <!-- Start of picture text -->

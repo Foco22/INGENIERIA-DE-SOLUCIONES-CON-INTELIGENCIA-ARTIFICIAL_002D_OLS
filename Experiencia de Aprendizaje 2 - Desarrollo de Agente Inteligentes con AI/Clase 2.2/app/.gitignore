@@ -1,0 +1,8 @@
+.env
+db/*.db
+data/cv.md
+data/profile.json
+__pycache__/
+*.pyc
+data/*.pdf
+data/_cv_raw.txt

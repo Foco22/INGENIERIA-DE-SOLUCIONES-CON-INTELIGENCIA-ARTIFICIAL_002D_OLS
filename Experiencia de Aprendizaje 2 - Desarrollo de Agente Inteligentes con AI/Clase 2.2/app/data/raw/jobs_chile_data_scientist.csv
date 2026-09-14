@@ -1,0 +1,1668 @@
+"id","site","job_url","job_url_direct","title","company","location","date_posted","job_type","salary_source","interval","min_amount","max_amount","currency","is_remote","job_level","job_function","listing_type","emails","description","company_industry","company_url","company_logo","company_url_direct","company_addresses","company_num_employees","company_revenue","company_description","skills","experience_range","company_rating","company_reviews_count","vacancy_count","work_from_home_type"
+"in-6afdd80e8f084fc6","indeed","https://cl.indeed.com/viewjob?jk=6afdd80e8f084fc6","https://ats.kpaz.cl/jobs/data-scientist-ia-engineer?displayed_form=true&utm_source=Indeed","Data Scientist / IA Engineer","Kpaz","Santiago de Chile, RM, CL","2026-09-11","fulltime","","","","","",False,"","","","","**Descripción:**
+----------------
+
+
+En KPaz buscamos un/a Data Scientist / IA Engineer para participar en proyectos tecnológicos asociados al negocio logístico, desarrollando soluciones basadas en datos, Machine Learning e Inteligencia Artificial. El rol combina ciencia de datos e ingeniería de IA, participando desde el análisis y modelamiento hasta la integración y puesta en producción de las soluciones.
+
+
+Modalidad: Remota, en Santiago.
+
+
+Posición disponible para residentes en Chile.
+
+ **Qué harás**
+
+
+Recopilar, limpiar, transformar y analizar datos provenientes de distintas fuentes.
+
+
+Realizar análisis exploratorio de datos e identificar patrones, tendencias y oportunidades.
+
+
+Diseñar, desarrollar, entrenar, validar y optimizar modelos de Machine Learning e Inteligencia Artificial.
+
+
+Desplegar modelos en producción y monitorear su desempeño.
+
+
+Participar en prácticas de MLOps, reentrenamiento y mejora continua de modelos.
+
+
+Construir y exponer servicios y APIs para integrar modelos con aplicaciones de negocio.
+
+
+Colaborar con DevOps en pipelines de datos y procesos de CI/CD.
+
+
+Documentar y comunicar metodologías, resultados y recomendaciones a equipos técnicos y de negocio.
+
+ **Lo que te ofrecemos**
+
+
+Seguro de vida
+
+
+Seguro complementario de salud
+
+
+Reajuste IPC (semestral)
+
+
+Programa de referidos (clientes y candidatos)
+
+
+Programa de capacitación en alianza con Platzi
+
+
+Plan de carrera y movilidad interna
+
+
+Día libre por cumpleaños
+
+
+Regalos por nacimiento o matrimonio
+
+
+
+**Requisitos:**
+---------------
+
+
+**Qué buscamos**
+
+ **Requisitos**
+
+
+Formación universitaria en Informática, Computación, Ciencias de la Computación, Estadística, Matemáticas, Ingeniería Civil Industrial o carrera afín.
+
+
+3 o más años de experiencia en Ciencia de Datos, Machine Learning o Ingeniería de IA.
+
+
+Experiencia comprobable desarrollando, entrenando y poniendo en producción modelos analíticos o predictivos.
+
+
+Dominio de Python y librerías como Pandas, NumPy y scikit\\-learn.
+
+
+Experiencia con TensorFlow, PyTorch o Keras.
+
+
+Manejo de SQL, bases de datos y consumo/integración de APIs
+
+ **Deseable**
+
+
+Experiencia en MLOps con herramientas como MLflow, Kubeflow o Airflow.
+
+
+Docker y Kubernetes.
+
+
+Experiencia con LLMs e IA Generativa, RAG, fine\\-tuning o prompt engineering.
+
+
+Conocimientos de Big Data y herramientas de visualización.
+
+
+Experiencia en logística, transporte, optimización de rutas o pronóstico de demanda.","","https://cl.indeed.com/cmp/Kpaz","","","","","","","","","","","",""
+"in-982d571ad8c94828","indeed","https://cl.indeed.com/viewjob?jk=982d571ad8c94828","https://falabella.airavirtual.com/postula/MQG0NyudzvePMldy1zL6","Machine Learning Engineer","Falabella","Las Condes, RM, CL","2026-09-11","fulltime","","","","","",False,"","","","","**Descripción Oferta**
+----------------------
+
+
+¡En Sodimac buscamos un/a Machine Learning Engineer para unirse a nuestro equipo!
+  
+
+  
+
+¿Cuál será tu misión?
+  
+
+Diseñar, implementar y operar soluciones de Machine Learning en producción, con foco principal en la estandarización de MLOps, habilitación de plataformas de ML y construcción del framework que escala modelos productivos a través de Sodimac.
+  
+
+  
+
+Principales desafíos del rol:
+  
+
+* Contribuir activamente al diseño e implementación del Framework de Machine Learning de Sodimac.
+* Definir, implementar y promover estándares de MLOps, buenas prácticas y patrones reutilizables para toda la organización.
+* Llevar modelos de Machine Learning desde exploración (notebooks) a producción end\\-to\\-end: código, testing, CI/CD, monitoreo.
+* Industrializar prototipos de Data Science, transformándolos en servicios productivos, testeados, documentados y mantenibles.
+* Diseñar y mantener pipelines de entrenamiento, validación y serving de modelos sobre GCP (Vertex AI, BigQuery ML, Dataflow).
+* Implementar prácticas de MLOps: versionado de modelos, feature stores, monitoreo de drift, automatización, retraining y control de costos.
+* Asegurar calidad, escalabilidad, observabilidad y eficiencia de soluciones de ML en producción.
+* Trabajar en conjunto con Data Scientists y equipos de negocio para habilitar modelos bajo estándares comunes.
+* Documentar y difundir buenas prácticas de ML Engineering a nivel grupo.
+
+  
+
+Requisitos:
+  
+
+* Desde 2\\+ años de experiencia como MLE o rol equivalente en ingeniería de ML.
+* Dominio de inglés avanzado (escrito y hablado).
+* Perfil técnico con fuerte foco en ingeniería, escalabilidad y estandarización.
+* Interés genuino por construir plataformas y habilitadores de ML productivos.
+* Experiencia con Docker, Kubernetes y despliegue de modelos como servicios escalables.
+* Experiencia con plataformas de ML: Vertex AI, Kubeflow, MLflow o similares.
+* Haber trabajado con datos y modelos a escala (millones de registros, entrenamiento distribuido).
+* Experiencia en recomendadores, segmentación, propensión, forecasting o modelos de demanda.
+* Stack GCP: BigQuery, Dataflow, Vertex AI, Cloud Run.
+* Python avanzado, SQL, Terraform para IaC.
+* Experiencia en e\\-commerce, retail o contextos de datos masivos es un plus.
+
+  
+
+¿Qué ofrecemos?
+  
+
+* Rol clave en la construcción del Framework de ML de Sodimac.
+* Desafíos técnicos reales a escala: millones de usuarios, modelos en tiempo real, impacto directo en pricing, recomendaciones y experiencia.
+* Equipo experto en Data Science, Data Engineering y Advanced Analytics.
+* Espacio para proponer, construir estándares, liderar iniciativas de MLOps y crecer profesionalmente.
+* Trabajarás con stack moderno: GCP, Vertex AI, BigQuery, Python, Terraform.
+
+  
+
+Si te motivan los datos, la tecnología y los desafíos que generan impacto real, ¡queremos conocerte!  
+
+  
+
+**Requisitos Candidato/a**
+--------------------------
+
+* Requerido: Ingeniería Informática, Estadística, Ingeniería Civil.
+* Experiencia con Docker, Kubernetes y despliegue de modelos como servicios escalables.
+* Experiencia en recomendadores, segmentación, propensión, forecasting o modelos de demanda.
+* Stack GCP: BigQuery, Dataflow, Vertex AI, Cloud Run.
+* Python avanzado, SQL, Terraform para IaC.
+
+
+Esta oferta es apta para personas en situación de discapacidad.
+
+**Proceso de Selección**
+------------------------
+
+
+El proceso de selección se realiza a través de Aira \\- plataforma de reclutamiento diseñado para mejorar tu experiencia de postulación.
+  
+
+  
+
+Para postular solo necesitas:
+  
+
+1\\. Postular a la oferta
+  
+
+2\\. Revisar tu email
+  
+
+3\\. Ingresar a Aira y contestar las preguntas y/o pruebas solicitadas
+  
+
+  
+
+Luego, si vemos que tu perfil se ajusta a lo que estamos buscando, te contactaremos por email (a través de Aira) para seguir a la etapa presencial.
+
+**Sobre Nosotros**
+------------------
+
+
+Somos más de 88 mil personas que cada día trabajamos por el firme Propósito \\- Simplificar y Disfrutar más la Vida. Estamos presentes en 9 países y compuestos por cinco grandes marcas posicionadas de diversas industrias: Falabella Retail, Sodimac, Banco Falabella, Tottus y Mallplaza. Cada una de éstas nos hace ser quienes somos, y es entre todos, como Un Solo Equipo, que buscamos diariamente reinventarnos y superar las experiencias de nuestros clientes.
+  
+
+  
+
+Un Equipo lleno de sueños que hace que las cosas pasen. nos atrevemos a emprender e innovar, a tomar riesgos y a generar oportunidades que nos permitan estar siempre a la vanguardia lo que nos lleva a reinventarnos para entregar la mejor experiencia de compra en cualquier punto de encuentro con nosotros.
+
+**Nuestros Beneficios**
+-----------------------
+
+* Seguro de vida
+* Día de cumpleaños
+* Capacitaciones y cursos
+* Subsidio escolar para hijos
+* Servicio de comedor","Retail","https://cl.indeed.com/cmp/Falabella","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/9829a43c57bcd02219d852b28d1aa310","http://www.falabella.com/","Santiago, Chile","","","","","","","","",""
+"in-3049f7eabfe3afb2","indeed","https://cl.indeed.com/viewjob?jk=3049f7eabfe3afb2","https://falabella.airavirtual.com/postula/QRtHiTpeBiHJT0geeeWl","Senior Data Tech Lead","Falabella","Santiago de Chile, RM, CL","2026-09-11","fulltime","","","","","",False,"","","","","**Descripción Oferta**
+----------------------
+
+
+Senior Tech Lead
+  
+
+Falabella Tecnología Corporativo
+  
+
+  
+
+¿Te apasiona liderar desafíos tecnológicos, construir soluciones de datos robustas y potenciar el crecimiento de equipos técnicos?
+  
+
+  
+
+En Falabella Tecnología Corporativo buscamos un/a Senior Tech Lead que quiera asumir un rol clave en el diseño y ejecución de nuestros productos de datos. Tu misión será liderar la arquitectura técnica y acompañar metodológica y técnicamente al equipo, asegurando soluciones analíticas escalables, seguras y resilientes que generen impacto real en el negocio.
+  
+
+  
+
+¿Qué harás?
+  
+
+* Implementar la arquitectura técnica de plataformas y productos de datos, trabajando con Data Lakes, Data Warehouses y arquitecturas de procesamiento streaming y batch.
+* Guiar y acompañar técnicamente a ingenieros de datos y desarrolladores, ayudando a resolver desafíos complejos y fortaleciendo las buenas prácticas del equipo.
+* Definir estándares de codificación, repositorios, procesos CI/CD y prácticas DataOps, asegurando calidad, estabilidad y sostenibilidad técnica.
+* Desarrollar y desplegar componentes críticos de pipelines de datos, incluyendo procesos de ingesta, transformación y orquestación.
+* Evaluar nuevas herramientas, frameworks y servicios cloud mediante pruebas de concepto, buscando optimizar costes y tiempos de procesamiento.
+* Colaborar con Product Owners, Arquitectos Empresariales, Data Scientists y Data Engineers para transformar necesidades de negocio en soluciones técnicas viables.
+
+  
+
+¿Qué buscamos?
+  
+
+* Formación en Ingeniería Informática, Técnico en Informática, Ingeniería Electrónica o carreras relacionadas.
+* Dominio avanzado de SQL y Python.
+* Conocimientos avanzados en modelamiento de datos.
+* Experiencia con bases de datos Warehouse como BigQuery, Snowflake, Redshift u otras similares.
+* Experiencia liderando técnicamente y acompañando el desarrollo de equipos.
+* Capacidad para conectar las necesidades del negocio con soluciones tecnológicas escalables y eficientes.
+* Manejo de inglés nivel avanzado.
+
+  
+
+Será un plus si cuentas con:
+  
+
+* Experiencia con dbt.
+* Experiencia con Airflow.
+* Conocimientos o experiencia en procesamiento streaming.
+
+  
+
+¿Por qué unirte a Falabella?
+  
+
+Serás parte de un ecosistema tecnológico que impacta a millones de clientes en Latinoamérica, trabajando con equipos de alto nivel y desafíos reales de negocio en constante evolución.
+  
+
+  
+
+Si buscas un desafío donde puedas tomar decisiones técnicas, impulsar buenas prácticas y participar en la construcción de soluciones de datos de alto impacto, queremos conocerte.
+  
+
+  
+
+Postula y sé parte de Falabella Tecnología Corporativo.**Requisitos Candidato/a**
+--------------------------
+
+* Requerido: Ingeniería en Informática, Técnico en Informática, Ingeniería en Electrónica
+* Requerido: Advanced SQL, Python
+* Requerido: Advanced Data Model concepts
+* Requerido: Warehouse Database (Bigquery, Snowflake, redshift, etc)
+* Deseable: Experiencia con dbt
+* Deseable: Experiencia con Airflow
+* Deseable: Experiencia en procesamiento streaming
+
+
+Esta oferta es apta para personas en situación de discapacidad.
+
+**Proceso de Selección**
+------------------------
+
+
+Súmate a nuestro equipo y se parte de la transformación de Falabella:
+  
+
+  
+
+1\\. Postula a la oferta.
+  
+
+2\\. Revisa tu email.
+
+**Sobre Nosotros**
+------------------
+
+
+FALABELLA ES UNA DE LAS COMPAÑÍA MÁS PRESTIGIOSAS DE LATINOAMÉRICA, CON MÁS DE 130 AÑOS DE EXPERIENCIA, ES UN LUGAR SIN LÍMITES NI FRONTERAS COMPUESTO POR GRANDES MARCAS: FALABELLA RETAIL, SODIMAC, TOTTUS, BANCO FALABELLA, MALL PLAZA, FALABELLA.COM Y LINIO, PRESENTES EN 9 PAÍSES Y EN DIVERSAS INDUSTRIAS, SOMOS MÁS DE 100 MIL PERSONAS QUE CADA DÍA TRABAJAMOS POR SIMPLIFICAR Y DISFRUTAR MÁS LA VIDA A NUESTROS EQUIPOS Y A NUESTROS CLIENTES.","Retail","https://cl.indeed.com/cmp/Falabella","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/9829a43c57bcd02219d852b28d1aa310","http://www.falabella.com/","Santiago, Chile","","","","","","","","",""
+"in-2113af188b36987d","indeed","https://cl.indeed.com/viewjob?jk=2113af188b36987d","https://grnh.se/em3n52of4us","Software Engineer, Data Infrastructure & Acquisition - Santiago, Chile","Speechify","Santiago de Chile, RM, CL","2026-09-09","","","","","","",False,"","","","","The mission of Speechify is to make sure that reading is never a barrier to learning.
+
+
+
+Over 50 million people use Speechify's text\\-to\\-speech products to turn whatever they're reading – PDFs, books, Google Docs, news articles, websites – into audio, so they can read faster, read more, and remember more. Speechify's text\\-to\\-speech reading products include its iOS app, Android App, Mac App, Chrome Extension, and Web App. Google recently named Speechify the Chrome Extension of the Year and Apple named Speechify its 2025 Design Award winner for Inclusivity.
+
+
+Today, nearly 200 people around the globe work on Speechify in a 100% distributed setting – Speechify has no office. These include frontend and backend engineers, AI research scientists, and others from Amazon, Microsoft, and Google, leading PhD programs like Stanford, high growth startups like Stripe, Vercel, Bolt, and many founders of their own companies.
+
+
+**Overview**
+
+
+
+We're looking to hire for our Data side of our AI team at Speechify. This role is responsible for all aspects of data collection to support our model training operations. We are able to build high\\-quality datasets at petabyte\\-scale and low cost through a tight integration of infrastructure, engineering, and research work. We are looking for a skilled Software Engineer to join us.
+
+
+**What You'll Do**
+
+
+* Be scrappy to find new sources of audio data and bring it into our ingestion pipeline
+* Operate and extend the cloud infrastructure for our ingestion pipeline, currently running on GCP and managed with Terraform.
+* Collaborate closely with our Scientists to shift the cost/throughput/quality frontier, delivering richer data at bigger scale and lower cost to power our next\\-generation models.
+* Collaborate with others on the AI Team and Speechify Leadership to craft the AI Team's dataset roadmap to power Speechify's next\\-generation consumer and enterprise products.
+
+
+**An Ideal Candidate Should Have**
+
+
+* BS/MS/PhD in Computer Science or a related field.
+* 5\\+ years of industry experience in software development.
+* Proficiency with bash/Python scripting in Linux environments
+* Proficiency in Docker and Infrastructure\\-as\\-Code concepts and professional experience with at least one major Cloud Provider (we use GCP)
+* Experience with web crawlers, large\\-scale data processing workflows is a plus
+* Ability to handle multiple tasks and adapt to changing priorities.
+* Strong communication skills, both written and verbal.
+
+
+**What we offer**
+
+
+* A fast\\-growing environment where you can help shape the company and product.
+* An entrepreneurial\\-minded team that supports risk, intuition, and hustle.
+* A hands\\-off management approach so you can focus and do your best work.
+* An opportunity to make a big impact in a transformative industry.
+* Competitive salaries, a friendly and laid\\-back atmosphere, and a commitment to building a great asynchronous culture.
+* Opportunity to work on a life\\-changing product that millions of people use.
+* Build products that directly impact and support people with learning differences like dyslexia, ADD, low vision, concussions, autism, and more.
+* Work in one of the fastest\\-growing sectors of tech, the intersection of artificial intelligence and audio.
+
+
+**Think you're a good fit for this job?**
+
+
+
+Tell us more about yourself and why you're interested in the role when you apply.
+  
+
+And don't forget to include links to your portfolio and LinkedIn.
+
+
+**Not looking but know someone who would make a great fit?**
+
+
+
+Refer them!
+
+
+**Speechify is committed to a diverse and inclusive workplace.**
+
+
+
+Speechify does not discriminate on the basis of race, national origin, gender, gender identity, sexual orientation, protected veteran status, disability, age, or other legally protected status.","","https://cl.indeed.com/cmp/Speechify","","","","","","","","","","","",""
+"in-76ee0ab32d8cb32f","indeed","https://cl.indeed.com/viewjob?jk=76ee0ab32d8cb32f","https://grnh.se/5yer86jp4us","Senior Software Engineer, Windows/Desktop Applications - Santiago, Chile","Speechify","Santiago de Chile, RM, CL","2026-09-09","","","","","","",False,"","","","","**Mission**
+
+The mission of Speechify is to make sure that reading is never a barrier to learning.
+
+
+
+Over 50 million people use Speechify's text\\-to\\-speech products to turn whatever they're reading – PDFs, books, Google Docs, news articles, websites – into audio, so they can read faster, read more, and remember more. Speechify's text\\-to\\-speech reading products include its iOS app, Android App, Mac App, Chrome Extension, and Web App. Google recently named Speechify the Chrome Extension of the Year and Apple named Speechify its 2025 Design Award winner for Inclusivity.
+
+
+Today, nearly 200 people around the globe work on Speechify in a 100% distributed setting – Speechify has no office. These include frontend and backend engineers, AI research scientists, and others from Amazon, Microsoft, and Google, leading PhD programs like Stanford, high growth startups like Stripe, Vercel, Bolt, and many founders of their own companies
+
+
+
+**What You'll Do**
+* Lead the design, architecture, and development of native Windows desktop applications using Windows App SDK, WinUI (or related UI frameworks), C\\#, XAML, and — when needed — C\\+\\+.
+* Define and enforce best\\-practices for Windows desktop development across the codebase: code architecture, performance, memory usage, responsive UI, cross\\-version compatibility (Windows 10/11\\+), and maintainability.
+* Drive accessibility efforts: integrate and validate support for accessibility APIs (e.g. Microsoft UI Automation or other relevant Windows accessibility frameworks), ensure UI controls, focus management, keyboard navigation, screen\\-reader support, and usability for users with disabilities.
+* Collaborate closely with product designers, UX researchers, QA, and other stakeholders to shape feature planning, UI/UX architecture, and long\\-term roadmap for the Windows platform.
+* Take ownership of full lifecycle of features: conception design implementation testing release maintenance. Ensure quality, reliability, and consistency across releases.
+* Identify, diagnose, and resolve complex bugs, performance bottlenecks, memory leaks, rendering issues, or compatibility problems — and propose robust architectural or design solutions.
+
+
+**An ideal candidate should have**
+**Required:**
+
+
+* 3\\+ in Windows desktop application development using Windows App SDK, WinUI (or similar), C\\#, XAML — and ideally additional experience with native Windows code (C\\+\\+, Win32/WinRT/COM).
+* Deep understanding of Windows application architecture, including interop between managed code (.NET) and native code.
+* Proven track record of designing, building, and shipping production\\-quality desktop applications, with an emphasis on reliability, performance, scalability, and maintainability.
+* Strong experience with accessibility APIs on Windows (e.g. Microsoft UI Automation or similar), and a dedication to building accessible and inclusive software.
+* Excellent software engineering fundamentals: OOP, design patterns, data structures, algorithms, memory management, multi\\-threading or asynchronous programming (where relevant).
+* Experience leading technical design, mentoring other engineers, conducting code reviews, and making architecture\\-level decisions.
+* Strong communication skills; ability to articulate tradeoffs, collaborate with cross\\-functional teams, and drive consensus.
+* A user\\-centric mindset: focus on building polished, intuitive, and accessible experiences for end users.
+
+
+**Preferred / Bonus:**
+
+
+* Experience with writing automated tests for UI — unit tests, integration tests, UI automation tests; familiarity with relevant testing frameworks.
+* Experience with performance optimization for desktop apps (memory usage, startup time, rendering performance, high\\-DPI support, responsiveness under load).
+* Experience with localization/globalization, right\\-to\\-left UI support, internationalization, accessibility for multiple regions.
+* Familiarity with telemetry, analytics, crash reporting, logging, and error monitoring in desktop applications.
+* Previous experience in shaping CI/CD workflows, release pipelines, and deployment strategies for desktop applications.
+* Demonstrated ability to take ownership of feature areas or modules and drive them long\\-term, including maintenance, refactoring, and technical debt management.
+
+
+**What we offer**
+
+
+* A high\\-impact role: you will define architecture, shape the future of our Windows product, and directly influence what millions of users see and experience.
+* A collaborative, flat\\-structure engineering culture — you are not just a coder, but a builder and a decision\\-maker.
+* Opportunities to lead — mentor others, steer technical direction, and grow into broader technical leadership (e.g. Tech Lead, Architect).
+* Flexibility, autonomy, and responsibility: you define how to solve problems, own features end\\-to\\-end, and contribute to long\\-term product vision.
+* A purpose\\-driven mission: building software that's reliable, accessible, and user\\-centered — making a real difference for people.
+
+**Think you're a good fit for this job?**
+
+
+
+Tell us more about yourself and why you're interested in the role when you apply.  
+
+And don't forget to include links to your portfolio and LinkedIn.
+
+
+**Not looking but know someone who would make a great fit?**  
+
+Refer them!
+
+
+**Speechify is committed to a diverse and inclusive workplace.**  
+
+Speechify does not discriminate on the basis of race, national origin, gender, gender identity, sexual orientation, protected veteran status, disability, age, or other legally protected status.","","https://cl.indeed.com/cmp/Speechify","","","","","","","","","","","",""
+"in-e1ca8184115a8323","indeed","https://cl.indeed.com/viewjob?jk=e1ca8184115a8323","https://www.getonbrd.com/jobs/data-science-analytics/applied-scientist-neuralworks-santiago-e3c8","Applied Scientist Full time","NeuralWorks","Santiago de Chile, RM, CL","2026-09-08","fulltime","","","","","",True,"","","","","NeuralWorks es una compañía de alto crecimiento fundada hace 5 años. Estamos trabajando a toda máquina en cosas que darán que hablar.
+  
+
+Somos un equipo donde se unen la creatividad, curiosidad y la pasión por hacer las cosas bien. Nos arriesgamos a explorar fronteras donde otros no llegan: un modelo predictor basado en monte carlo, una red convolucional para detección de caras, un sensor de posición bluetooth, la recreación de un espacio acústico usando finite impulse response.
+  
+
+Estos son solo algunos de los desafíos, donde aprendemos, exploramos y nos complementamos como equipo para lograr cosas impensadas.
+  
+
+Trabajamos en proyectos propios y apoyamos a corporaciones en partnerships donde codo a codo combinamos conocimiento con creatividad, donde imaginamos, diseñamos y creamos productos digitales capaces de cautivar y crear impacto.
+
+
+Conoce más sobre nosotros
+
+
+This offer is exclusive to getonbrd.com.
+
+
+### **Descripción del trabajo**
+
+
+Como Applied Scientist, te sumaras a un equipo ya constituido de Analítica Avanzada, trabajando en conjunto con otras disciplinas tales como Data Scientist, Machine Learning Engineers, DevOps, equipos de producto y gestión.
+
+
+El equipo de Analytics trabaja en diferentes proyectos que combinan volúmenes de datos enormes e IA, como detectar y predecir fallas antes que ocurran, optimizar pricing, personalizar la experiencia del cliente, optimizar uso de combustible, detectar caras y objetos usando visión por computador.
+
+
+Tu trabajo como Applied Scientist será promover y realizar experimentos para orientar los esfuerzos e incrementos de los equipos. Estos desarrollos formarán parte de la transformación data\\-driven de la empresa con el propósito de fortalecer y eficientar la toma de decisiones basadas en análisis técnicos rigurosos de datos.
+
+
+**Como Applied Scientist tu trabajo consistirá en:**  
+
+
+
+* Ser el principal gestor de la medición de impacto de los productos, estimando y relacionando el efecto de las acciones en los principales indicadores de la compañía (Ingreso, Costo, Experiencia de Cliente, Puntualidad, entre otros), utilizando técnicas experimentales y observacionales.
+* Habilitar la experimentación en distintos equipos, identificando los métodos estadísticos adecuados para medir el impacto en cada dominio.
+* Participar de la creación de una plataforma de experimentación.
+
+Es un trabajo muy dinámico, donde aprenderás de diferentes proyectos, colaborando con múltiples disciplinas de negocio, datos e IA, trabajando en un ambiente donde la curiosidad, colaboración y empatía son esenciales. Esperamos ver desplegadas tus ganas de aprender y enseñar.
+
+
+En cualquier proyecto que trabajes, esperamos que tengas un gran espíritu de colaboración, una pasión por la innovación y el código y una mentalidad de automatización antes que procesos manuales.
+
+
+### **Calificaciones clave**
+
+
+* Estudios de Ingeniería Civil Industrial, Economía o similar.
+* Experiencia desarrollando estudios de evaluación de impacto utilizando técnicas experimentales y observacionales, tales como RCT (Randomized Control Trials), Técnicas econométricas como Diferencia en Diferencias, controles sintéticos, variables instrumentales, y Propensity Score Matching, entre otros.
+* Dominio intermedio de algún lenguaje de scripting orientado a análisis de datos (R y/o Python), teniendo como base manejo de flujos, condiciones, funciones; así como comodidad utilizando el principal stack de librerías como tidyverse para R, pandas y statsmodels para Python.
+* Experiencia utilizando algún lenguaje declarativo de consultas a base de datos (SQL) para preparar conjuntos de datos para análisis, así como para caracterizar su comportamiento.
+* Habilidad para trabajar en equipo, levantar requerimientos y conseguir resultados.
+* Buen manejo comunicacional y skills de colaboración.
+* Buen manejo de inglés, sobre todo en lectura donde debes ser capaz de leer un paper, artículos o documentación de forma constante.
+
+¡En NeuralWorks nos importa la diversidad! Creemos firmemente en la creación de un ambiente laboral inclusivo, diverso y equitativo. Reconocemos y celebramos la diversidad en todas sus formas y estamos comprometidos a ofrecer igualdad de oportunidades para todos los candidatos.
+
+
+“Los hombres postulan a un cargo cuando cumplen el 60% de las calificaciones, pero las mujeres sólo si cumplen el 100%.” D. Gaucher , J. Friesen and A. C. Kay, Journal of Personality and Social Psychology, 2011\\.
+
+
+Te invitamos a postular aunque no cumplas con todos los requisitos.
+
+
+### **Nice to have**
+
+
+* Experiencia trabajando con equipos de datos y de análisis en torno a indicadores de negocio.
+* Conocimiento de metodologías ágiles.
+### **Beneficios**
+
+
+* MacBook Air M2 o similar (con opción de compra hiper conveniente)
+* Bono por desempeño
+* Bono de almuerzo mensual y almuerzo de equipo los viernes
+* Seguro Complementario de salud y dental
+* Horario flexible
+* Flexibilidad entre oficina y home office
+* Medio día libre el día de tu cumpleaños
+* Financiamiento de certificaciones
+* Inscripción en Coursera con plan de entrenamiento a medida
+* Estacionamiento de bicicletas
+* Programa de referidos
+* Salida de “teambuilding” mensual
+GETONBRD Job ID: 63584
+
+
+**Library** Access to a library of physical books.
+**Accessible** An infrastructure adequate for people with special mobility needs.
+**Flexible hours** Flexible schedule and freedom for attending family needs or personal errands.
+**Internal talks** NeuralWorks offers space for internal talks or presentations during working hours.
+**Life insurance** NeuralWorks pays or copays life insurance for employees.
+**Meals provided** NeuralWorks provides free lunch and/or other kinds of meals.
+**Partially remote** You can work from your home some days a week.
+**Bicycle parking** You can park your bicycle for free inside the premises.
+**Digital library** Access to digital books or subscriptions.
+**Computer repairs** NeuralWorks covers some computer repair expenses.
+**Dental insurance** NeuralWorks pays or copays dental insurance for employees.
+**Commuting stipend** NeuralWorks offers a stipend to cover some commuting costs.
+**Computer provided** NeuralWorks provides a computer for your work.
+**Education stipend** NeuralWorks covers some educational expenses related to the position.
+**Performance bonus** Extra compensation is offered upon meeting performance goals.
+**Conference stipend** NeuralWorks covers tickets and/or some expenses for conferences related to the position.
+**Informal dress code** No dress code is enforced.
+**Recreational areas** Space for games or sports.
+**Shopping discounts** NeuralWorks provides some discounts or deals in certain stores.
+**Vacation over legal** NeuralWorks gives you paid vacations over the legal minimum.
+**Beverages and snacks** NeuralWorks offers beverages and snacks for free consumption.
+**Vacation on birthday** Your birthday counts as an extra day of vacation.
+**Time for side projects** NeuralWorks allows employees to work in side\\-projects during work hours.
+**Remote work policy**
+----------------------
+
+
+**Hybrid**
+
+This job is performed partly from home and partly at the office in Santiago (Chile).","","https://cl.indeed.com/cmp/Neuralworks","","","","","","","","","","","",""
+"in-4d1c23f36c2f4f8e","indeed","https://cl.indeed.com/viewjob?jk=4d1c23f36c2f4f8e","https://www.getonbrd.com/jobs/data-science-analytics/data-engineer-en-ambiente-gcp-factor-it-santiago","Data Engineer en Ambiente GCP Full time","Factor IT","Santiago de Chile, RM, CL","2026-09-06","fulltime","","","","","",False,"","","","","Sobre el proyecto Buscamos un(a) Data Engineer Senior para unirse al proyecto ""Perfiles Varios"", que abarca perfiles de Data Engineer, Data Scientist y Project Manager. La persona seleccionada será responsable de diseñar, construir y optimizar pipelines de datos robustos y escalables, garantizando la calidad, gobernanza y seguridad de la información en un ambiente cloud (GCP).
+Apply directly on the original site at Get on Board.
+
+
+### **Funciones principales**
+
+
+* Diseñar y liderar la construcción de pipelines de datos simples y complejos, asegurando escalabilidad, mantenibilidad y alineación a la arquitectura definida.
+* Mantener, refactorizar y optimizar procesos ETL/ELT, mejorando tiempos de ejecución, confiabilidad y uso eficiente de recursos.
+* Diseñar e implementar integraciones complejas entre diversas fuentes de datos (bases de datos, APIs, streaming, cloud, archivos).
+* Definir estándares, reglas y métricas de calidad de datos, supervisando su correcta implementación en los pipelines.
+* Diseñar e implementar mecanismos automáticos de validación, monitoreo y control de calidad de datos.
+* Diseñar arquitecturas de datos (batch, streaming, lakehouse, etc.) alineadas a las necesidades del cliente y buenas prácticas del mercado.
+* Analizar y optimizar el rendimiento de las soluciones de datos y los costos asociados a su operación en entornos cloud.
+* Definir e implementar lineamientos de gobernanza, control de accesos, clasificación y protección de datos, en conjunto con el cliente.
+* Actuar como referente técnico del proyecto, acompañando y guiando a perfiles Junior y Semi Senior.
+* Interactuar con stakeholders del cliente para proponer mejoras, soluciones y evoluciones de la plataforma de datos.
+### **Requisitos**
+
+
+**Formación:** Profesional en Ingeniería de Sistemas, Ingeniería de Datos, Informática, Estadística o carreras afines
+**Experiencia:** Mínimo 4 años (deseable entre 4 y 6 años en ingeniería de datos y proyectos de datos en entornos productivos)
+**Competencias técnicas:**
+* Arquitectura de datos y diseño de soluciones escalables
+* Ingeniería de datos avanzada (ETL/ELT, batch processing, streaming)
+* SQL avanzado y optimización de consultas
+* Integración de múltiples fuentes de datos (APIs, bases de datos, plataformas cloud)
+* Diseño de pipelines de datos robustos y escalables
+* Plataformas cloud de datos (GCP): Cloud Storage, BigQuery, Dataflow, Dataproc, Pub/Sub, Cloud Data Fusion, Cloud Composer (Apache Airflow)
+* Gobernanza, calidad y seguridad de datos
+* Optimización de performance y costos en entornos cloud
+
+**Habilidades blandas:**
+* Comunicación asertiva
+* Orientación hacia los clientes
+* Visión y habilidad de negociación
+* Trabajo en equipo
+* Liderazgo
+* Planificación y organización
+* Innovación
+* Pensamiento analítico
+* Capacidad de aprendizaje
+### **Deseables:**
+
+
+* Certificaciones avanzadas en Data Engineering o Cloud
+* Certificaciones en arquitectura de datos
+* Certificaciones de plataformas cloud (GCP)
+GETONBRD Job ID: 63532","","https://cl.indeed.com/cmp/Factor-IT","","https://factorit.com.ar","","","","","","","","","",""
+"in-f3e42eb659378691","indeed","https://cl.indeed.com/viewjob?jk=f3e42eb659378691","https://nature.wd108.myworkdayjobs.com/en-US/ExternalCareers/job/Remote---Florida/Finance-Specialist_JR103879","Finance Specialist","The Nature Conservancy","La Florida, RM, CL","2026-09-04","fulltime","","","","","",True,"","","","applyhelp@tnc.org","### **What We Can Achieve Together:**
+
+The Finance Specialist for Florida and Georgia provides financial management support across a shared services unit (pod), partnering with the Finance Manager, Finance Director, and business unit staff to deliver high\\-quality financial services. This role supports one or more states or organizational areas within the pod, providing shared finance expertise that flexes to meet business priorities and operational needs. The Finance Specialist serves as a trusted partner by delivering accounts payable management, financial analysis, reporting, budgeting, forecasting, and other financial management activities while ensuring compliance with organizational policies, procedures, and best practices.
+
+
+### **We're Looking for You:**
+
+The Finance Specialist provides financial support across assigned states, programs, or business units within a shared services pod. Working collaboratively with the Finance Manager and the Finance Director, the position supports accounts payable, budgeting, forecasting, financial reporting, month\\- and year\\-end close activities, financial analysis, and ongoing financial management. The role develops a strong understanding of assigned business operations and provides timely financial guidance to support informed decision\\-making.
+
+
+The Finance Specialist administers financial activities in accordance with TNC policies, procedures, and financial management best practices. The position prepares analyses, reconciliations, and reports; monitors financial performance; identifies trends, risks, and opportunities; and recommends process improvements to enhance efficiency, consistency, and stewardship of organizational resources. The role responds to moderately complex financial questions and serves as a resource to staff on finance processes, systems, and reporting.
+
+
+**Work Arrangement:** This role is remote with preference to the Eastern or Central time zones.
+
+
+RESPONSIBILITIES \\& SCOPE
+
+
+* Oversees and manages accounts payable and vendor administration.
+* Supports budgeting, forecasting, financial close, reporting, and other core financial management activities across assigned states or business units within the pod, and may assist in supporting other Southern Division business units or pods as the need arises.
+* Prepares and delivers financial reports, analyses, reconciliations, and other financial deliverables that support operational and strategic decision\\-making.
+* Monitors financial performance, identifies trends, variances, risks, and opportunities, and communicates findings and recommendations to Finance Managers, Finance Directors, and business leaders.
+* Maintains the accuracy, integrity, and quality of financial data, reporting, systems, and business processes.
+* Supports compliance with organizational policies, internal controls, audit requirements, donor restrictions, and applicable regulatory requirements while identifying and escalating potential issues.
+* Provides guidance to staff on finance processes, systems, reporting tools, and standard operating procedures and may coordinate or deliver training as needed.
+* Partners with the Finance Manager, the Finance Director, Operations, Conservation, and Philanthropy staff to support financial planning, implementation of organizational priorities, and effective stewardship of resources.
+* Contributes to finance initiatives, process improvements, system implementations, and cross\\-functional projects that enhance consistency and effectiveness across the pod.
+
+### **What You'll Bring:**
+
+* Bachelor's Degree in Finance, Accounting, Business Administration or related field and 3 years' related experience or equivalent combination.
+* Experience with accounting/financial issues and analysis.
+* Experience using accounting and financial reporting systems.
+* Technical experience with spreadsheet programs, general ledger reports and financial management tools.
+* Experience with GAAP, practices and regulations.
+* Experience, coursework or other training with U.S. Federal Uniform Guidance, state and local regulations, multilateral and international regulations, and standard contract clauses, as applicable.
+
+### **Desired Qualifications:**
+
+* Multi\\-lingual skills and/or multi\\-cultural experience appreciated.
+* Ability to manipulate, analyze and interpret data. Advanced expertise in Microsoft Excel.
+* Strong organizational skills.
+* Accuracy, attention to detail and the ability to multi\\-task.
+* Non\\-profit accounting experience.
+* May require technical expertise on complex accounting/financial issues.
+* US government grants accounting experience.
+
+*This description is not designed to be a complete list of all duties and responsibilities required for this job.*
+
+This position requires a valid driver's license and compliance with **TNC’s Auto Safety Program** . Employees may not drive Conservancy\\-owned/leased vehicles, rental cars, or personal vehicles on behalf of the Conservancy if considered ""high risk drivers."" To learn more about the Auto Safety Program, visit the Auto Safety information page . Employment in this position will be contingent upon completion of a Vehicle Use Agreement, which may include a review of the prospective employee's motor vehicle record.
+
+
+### **Salary Information:**
+
+The starting pay range for a candidate selected for this position is generally within the range of **$60,000 \\- $75,000 annually** . This range only applies to candidates whose country of employment is the USA. Where a successful candidate’s actual pay will fall within this range will be based on a variety of factors, including, for example, the candidate's location, qualifications, specific skills, and experience. Please note countries outside the USA would have a different pay range in the local currency based on the local labor market, and not tied to USA pay or ranges. Your geographic location will be confirmed during the recruitment.
+
+
+### **Who We Are:**
+
+The Nature Conservancy’s mission is to protect the lands and waters upon which all life depends. As a science\\-based organization, we create innovative, on\\-the\\-ground solutions to our world’s toughest challenges so that we can create a world in which people and nature thrive. We’re rooted in our mission and guided by our values, which include respect for all people, communities, and cultures. Whether it’s career development, flexible schedules, or a rewarding mission, there’s many reasons to love life inside TNC. Want a better insight to TNC? Check out our TNC Talent playlist on YouTube to hear stories from staff or visit Glassdoor .
+
+
+One goal is to cultivate an inclusive work environment so that all our colleagues around the globe feel a sense of belonging and that their unique contributions to our mission are valued. In addition to the requirements in our job postings, we recognize that people come with talent and experiences outside of a job and consider each applicant’s unique experience. Please apply – we’d love to hear from you. To quote a popular saying at TNC, “you’ll join for the mission, and stay for the people.”
+
+
+### **What We Bring:**
+
+  
+
+Since 1951, TNC has been doing work you can believe in. Through grassroots action, we have grown from a small non\\-profit into one of the most effective and wide\\-reaching environmental organizations in the world. Thanks to more than 1 million members, over 400 scientists, and the dedicated efforts of our diverse staff and partners, we impact conservation around the world!
+  
+
+  
+
+TNC offers a competitive, comprehensive benefits package including health care benefits, flexible spending accounts, a 401(k) plan with an 8% employer match, parental leave, accrued paid time off, life insurance, disability coverage, employee assistance program, other life and work well\\-being benefits.
+  
+
+  
+
+We’re proud to offer a flexible work environment that supports of the health and well\\-being of the people we employ.
+
+
+Our recruiting process includes a rolling interview process to ensure we engage applicants in a timely manner. This means we may review applications in the order in which they are received. Once a strong candidate pool is identified, the role will be unposted. The timeline may vary depending on the expressed interest in the role, so we highly encourage candidates to apply as soon as possible.
+
+
+**The Nature Conservancy is an Equal Opportunity Employer.** Our commitment to equal employment opportunity includes the recognition that our conservation mission is best advanced by the leadership and contributions of people of all backgrounds, beliefs, and culture. Recruiting and mentoring staff to create an inclusive organization is a priority, and we encourage applicants from all cultures, races, colors, religions, sexes, national or regional origins, ages, disability status, sexual orientation, gender identity, military, protected veteran status or other status protected by law.
+  
+
+  
+
+The successful applicant must meet the requirements of The Nature Conservancy's background screening process.
+  
+
+  
+
+Do you have military experience? Visit our U.S. Military Skills Translator to match your military experience with our current job openings!
+  
+
+  
+
+TNC is committed to offering accommodations for qualified individuals with disabilities and disabled veterans in our job application process. If you need assistance or an accommodation due to a disability, please send a note to applyhelp@tnc.org with Request for Accommodation in the subject line.","","https://cl.indeed.com/cmp/The-Nature-Conservancy","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/7dc2810e73f48bb7ffce662b573bafc6","http://www.nature.org","Arlington, VA","1,001 to 5,000","$1B to $5B (USD)","At The Nature Conservancy, we work to conserve the lands and waters all life depends on and create a world where people and nature thrive together.","","","","","",""
+"in-936337f0c777e669","indeed","https://cl.indeed.com/viewjob?jk=936337f0c777e669","https://nature.wd108.myworkdayjobs.com/en-US/ExternalCareers/job/Remote---Florida/Finance-Director_JR103877-1","Finance Director","The Nature Conservancy","La Florida, RM, CL","2026-09-04","fulltime","","","","","",True,"","","","applyhelp@tnc.org","### **What We Can Achieve Together:**
+
+The Finance Director (Director) serves as senior finance leader for Georgia and Florida (referred to as a finance pod), while remaining directly involved and responsible for the financial management and strategic priorities of their primary business unit. They provide financial leadership and oversight across the additional states within the pod. The role supervises finance staff across the pod and partners closely with conservation, philanthropy, operations, and leadership to deliver strategic financial guidance, high\\-level analysis, and informed decision support. Working in collaboration with the Southern Division Finance Director, the Director advances division\\-wide financial priorities by implementing consistent processes, strengthening financial management practices, and fostering collaboration and operational excellence across the pod and the Southern Division.
+
+
+### **We're Looking for You:**
+
+The Finance Director provides strategic financial leadership and serves as a trusted advisor to conservation, philanthropy, operations, and leadership within their assigned pod. Remaining directly involved and responsible for their primary business unit, they provide financial leadership across the pod, the role leads financial planning, forecasting, reporting, analysis, internal controls, and stewardship activities that support informed decision\\-making and long\\-term financial sustainability. The Finance Director delivers high\\-quality financial insight and guidance, coordinates finance services across the pod while maintaining strong partnership with assigned business unit leadership and promotes consistent financial practices and operational excellence. The role ensures effective stewardship of financial resources, compliance with organizational policies and regulatory requirements, and alignment with divisional and organizational priorities.
+
+
+**Location:** This role will support the financial management for The Nature Conservancy’s Florida and Georgia business units. External candidates must reside in the Atlanta, Georgia or Orlando, Florida area. Remote internal candidates will be considered, with candidates located in the Central or Eastern time zones preferred.
+
+
+**Travel:** 10\\-15% travel expected and can vary annually.
+
+
+**Work Arrangement:** This role may include remote and/or hybrid work arrangements depending on business needs and organizational policies. Regular travel and in\\-person attendance at staff meetings, leadership retreats, board meetings, and other key events are required.
+
+
+RESPONSIBILITIES \\& SCOPE
+
+
+* Lead financial planning activities including budgeting, forecasting, long\\-range financial planning, financial reporting, and fiscal year\\-end activities, and other strategic financial initiatives.
+* Deliver high\\-quality financial reporting, complex analysis, campaign development and support, scenario modeling, and recommendations that enable informed decision\\-making and support long\\-term financial sustainability.
+* Identify financial risks and opportunities, evaluate alternatives, and develop recommendations to strengthen financial performance, optimize resource allocation, and achieve organizational objectives.
+* Coordinate the delivery of finance services across the assigned pods while maintaining strong partnership and responsiveness to the needs of the embedded business unit.
+* Supervise, coach, and develop finance staff across the pod, establishing priorities, promoting collaboration, and fostering professional growth and accountability.
+* Serve as an active member of the leadership team, participating in leadership team meetings, staff meetings, retreats, and other forums to provide financial insight, support decision\\-making, and foster collaboration across the business unit.
+* Ensure effective stewardship of financial resources through strong internal controls, compliance with organizational policies, donor requirements, regulatory standards, and generally accepted accounting principles, as applicable.
+* Ensure accuracy, integrity, and effective management of financial data, processes, and controls to support decision\\-making.
+* Partner with philanthropy, conservation, operations, leadership and other functional teams to provide financial guidance for fundraising initiatives, grants, contracts, campaigns, and strategic projects.
+* Support governance activities by serving as a financial resource to state leadership, Boards of Trustees, Finance Committees, and other stakeholder groups, as appropriate.
+* Oversee financial aspects of contracts, agreements, and other business transactions, ensuring compliance with organizational policies and sound financial practices.
+* Partner with the Division Finance Director to implement division\\-wide financial strategies, strengthen processes and controls, promote consistency across the Southern Division, and drive continuous improvement.
+* Build and maintain trusted partnerships across the assigned business units, fostering collaboration, financial accountability, and shared ownership of financial outcomes.
+
+### **What You'll Bring:**
+
+* Bachelor’s degree in Finance, Accounting, Business Administration or related field and 7 years related work experience, or equivalent combination of education and experience.
+* Experience working with computer and information management systems, Excel spreadsheets and databases for financial analysis, fiscal management, and/or financial reports.
+* Experience recruiting, supervising and developing staff.
+* Experience developing budgets, performing high\\-level financial analysis, and recommending actions and providing partnership to leadership.
+* Experience acting as a consultant/advisor to senior executives.
+* Experience with accounting principles, practices and regulations.
+* Experience with GAAP and not\\-for\\-profit accounting principles, practices and regulations, including government grants accounting and reporting.
+* Experience in developing, directing and implementing multiple projects.
+* Experience, coursework or other training with U.S. Federal Uniform Guidance, state and local regulations, multilateral and international regulations, and standard contract clauses, as applicable.
+
+### **Desired Qualifications:**
+
+* Demonstrated experience leading, developing, and motivating finance professionals, including establishing priorities, fostering collaboration, and building high\\-performing teams.
+* Experience leading financial services and initiatives across multiple organizational units, business areas, or stakeholder groups.
+* Demonstrated ability to serve as a strategic finance partner, build trusted relationships, influence decision\\-making, and navigate competing priorities with various stakeholders.
+* Advanced experience in financial planning, forecasting, budgeting, reporting, analysis, and translating financial information into actionable insights and recommendations.
+* Demonstrated success analyzing complex financial information, identifying risks and opportunities, developing solutions, and supporting strategic decision\\-making.
+* Experience evaluating and strengthening financial processes, internal controls, and management practices to improve effectiveness and ensure compliance.
+* Expert knowledge of GAAP, financial management principles, and relevant regulatory frameworks, with the ability to interpret and apply requirements to complex business situations.
+* Experience working with federal grants, government regulations, contracts, and other restricted funding sources.
+* Experience with enterprise financial systems, including prior experience with Workday or similar ERP systems.
+* Excellent verbal and written communication skills, with the ability to effectively communicate complex financial concepts to technical and non\\-financial audiences.
+* Strong organizational skills, attention to detail, and ability to manage multiple priorities in a complex, mission\\-driven environment.
+* Experience working in a collaborative, multi\\-disciplinary, or geographically dispersed organization.
+* Service oriented. Courteous, personable, tactful and experienced dealing effectively with all levels of staff.
+* Experience working with U.S. Federal government circulars (OMB Circulars A\\-110, A\\-122 and A\\-133\\) and state and local regulations.
+* Multilingual skills and/or multicultural experience appreciated.
+* MBA, CPA, CIA, or other relevant professional certifications preferred.
+
+This position requires a valid driver's license and compliance with **TNC’s Auto Safety Program** . Employees may not drive Conservancy\\-owned/leased vehicles, rental cars, or personal vehicles on behalf of the Conservancy if considered ""high risk drivers."" To learn more about the Auto Safety Program, visit the Auto Safety information page . Employment in this position will be contingent upon completion of a Vehicle Use Agreement, which may include a review of the prospective employee's motor vehicle record.
+
+
+### **Salary Information:**
+
+The starting pay range for a candidate selected for this position is generally within the range of **$97,700 \\- $137,000 annually** . This range only applies to candidates whose country of employment is the USA. Where a successful candidate’s actual pay will fall within this range will be based on a variety of factors, including, for example, the candidate's location, qualifications, specific skills, and experience. Please note countries outside the USA would have a different pay range in the local currency based on the local labor market, and not tied to USA pay or ranges. Your geographic location will be confirmed during the recruitment.
+
+
+### **Who We Are:**
+
+The Nature Conservancy’s mission is to protect the lands and waters upon which all life depends. As a science\\-based organization, we create innovative, on\\-the\\-ground solutions to our world’s toughest challenges so that we can create a world in which people and nature thrive. We’re rooted in our mission and guided by our values, which include respect for all people, communities, and cultures. Whether it’s career development, flexible schedules, or a rewarding mission, there’s many reasons to love life inside TNC. Want a better insight to TNC? Check out our TNC Talent playlist on YouTube to hear stories from staff or visit Glassdoor .
+
+
+One goal is to cultivate an inclusive work environment so that all our colleagues around the globe feel a sense of belonging and that their unique contributions to our mission are valued. In addition to the requirements in our job postings, we recognize that people come with talent and experiences outside of a job and consider each applicant’s unique experience. Please apply – we’d love to hear from you. To quote a popular saying at TNC, “you’ll join for the mission, and stay for the people.”
+
+
+### **What We Bring:**
+
+  
+
+Since 1951, TNC has been doing work you can believe in. Through grassroots action, we have grown from a small non\\-profit into one of the most effective and wide\\-reaching environmental organizations in the world. Thanks to more than 1 million members, over 400 scientists, and the dedicated efforts of our diverse staff and partners, we impact conservation around the world!
+  
+
+  
+
+TNC offers a competitive, comprehensive benefits package including health care benefits, flexible spending accounts, a 401(k) plan with an 8% employer match, parental leave, accrued paid time off, life insurance, disability coverage, employee assistance program, other life and work well\\-being benefits.
+  
+
+  
+
+We’re proud to offer a flexible work environment that supports of the health and well\\-being of the people we employ.
+
+
+Our recruiting process includes a rolling interview process to ensure we engage applicants in a timely manner. This means we may review applications in the order in which they are received. Once a strong candidate pool is identified, the role will be unposted. The timeline may vary depending on the expressed interest in the role, so we highly encourage candidates to apply as soon as possible.
+
+
+**The Nature Conservancy is an Equal Opportunity Employer.** Our commitment to equal employment opportunity includes the recognition that our conservation mission is best advanced by the leadership and contributions of people of all backgrounds, beliefs, and culture. Recruiting and mentoring staff to create an inclusive organization is a priority, and we encourage applicants from all cultures, races, colors, religions, sexes, national or regional origins, ages, disability status, sexual orientation, gender identity, military, protected veteran status or other status protected by law.
+  
+
+  
+
+The successful applicant must meet the requirements of The Nature Conservancy's background screening process.
+  
+
+  
+
+Do you have military experience? Visit our U.S. Military Skills Translator to match your military experience with our current job openings!
+  
+
+  
+
+TNC is committed to offering accommodations for qualified individuals with disabilities and disabled veterans in our job application process. If you need assistance or an accommodation due to a disability, please send a note to applyhelp@tnc.org with Request for Accommodation in the subject line.","","https://cl.indeed.com/cmp/The-Nature-Conservancy","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/7dc2810e73f48bb7ffce662b573bafc6","http://www.nature.org","Arlington, VA","1,001 to 5,000","$1B to $5B (USD)","At The Nature Conservancy, we work to conserve the lands and waters all life depends on and create a world where people and nature thrive together.","","","","","",""
+"in-cfb7f070baa307f5","indeed","https://cl.indeed.com/viewjob?jk=cfb7f070baa307f5","http://cl.indeed.com/job/data-engineer-cfb7f070baa307f5","Data Engineer","","Santiago de Chile, RM, CL","2026-09-03","parttime, contract","","","","","",False,"","","","","Tsubasa Mue2 develops advanced robotics and automation solutions for the agricultural sector, offering autonomous drones, smart irrigation controllers, and AI‑driven crop monitoring systems to boost productivity on Chilean farms.
+
+About Tsubasa Mue2 Ltda.
+
+Tsubasa Mue2 develops advanced robotics and automation solutions for the agricultural sector. Our technologies include autonomous drones, smart irrigation controllers, and AI\\-driven crop monitoring systems designed to improve productivity and support data\\-driven farming across Chile.
+
+Position Overview
+
+We are seeking a skilled **Data Engineer** to design, build, and maintain reliable data infrastructure supporting agricultural robotics, IoT devices, AI systems, and crop\\-monitoring platforms. The successful candidate will transform large and complex datasets into reliable data pipelines that can support analytics, machine learning, and operational decision\\-making.
+
+Key Responsibilities
+
+* Design, develop, and maintain scalable data pipelines and ETL/ELT processes.
+* Collect and process data generated by drones, sensors, irrigation controllers, and agricultural IoT systems.
+* Build data integrations between internal platforms, databases, APIs, and external services.
+* Develop and optimize SQL queries and data models.
+* Maintain data warehouses, data lakes, and other analytical data systems.
+* Ensure data quality, accuracy, consistency, and availability.
+* Process high\\-volume time\\-series, sensor, geospatial, and operational datasets.
+* Collaborate with data scientists and AI engineers to prepare datasets for machine\\-learning models.
+* Optimize data pipelines for performance, reliability, and scalability.
+* Monitor pipeline performance and troubleshoot data\\-processing issues.
+* Implement data validation, monitoring, and error\\-handling processes.
+* Document data architecture, pipelines, workflows, and technical procedures.
+* Support analytics dashboards and reporting systems with reliable data.
+* Work with software, robotics, engineering, and agricultural technology teams to understand data requirements.
+* Contribute to automation and continuous improvement of data engineering processes.
+
+Required Qualifications
+
+* Bachelor’s degree in **Computer Science, Data Engineering, Software Engineering, Information Technology, Mathematics, Statistics, or a related field**.
+* **2–5\\+ years of professional experience** in data engineering or a related technical role.
+* Strong proficiency in **Python and SQL**.
+* Experience designing and maintaining **ETL/ELT pipelines**.
+* Strong knowledge of relational databases such as PostgreSQL or MySQL.
+* Experience with data modeling, data transformation, and database optimization.
+* Familiarity with APIs and integrating data from multiple sources.
+* Understanding of cloud\\-based data platforms and storage systems.
+* Experience with Git and modern software\\-development practices.
+* Strong understanding of data\\-quality and data\\-validation principles.
+* Excellent analytical and problem\\-solving skills.
+* Strong attention to detail and ability to work with large datasets.
+* Ability to collaborate effectively with technical and multidisciplinary teams.
+
+Preferred Qualifications
+
+* Experience with **AWS, Microsoft Azure, or Google Cloud Platform**.
+* Knowledge of Apache Spark, Kafka, Airflow, dbt, or similar data\\-engineering technologies.
+* Experience working with **IoT, robotics, drones, sensors, or telemetry data**.
+* Knowledge of geospatial data and location\\-based analytics.
+* Experience supporting AI/ML or computer\\-vision applications.
+* Familiarity with data lakes, cloud data warehouses, and distributed computing.
+* Experience with Docker and CI/CD pipelines.
+* Knowledge of time\\-series databases and real\\-time data processing.
+* Experience in agriculture technology, smart farming, environmental monitoring, or industrial automation.
+* Familiarity with Agile/Scrum methodologies.
+* Professional English proficiency is an advantage.
+
+What We Are Looking For
+
+The ideal candidate is a **technically strong and analytical Data Engineer** who enjoys working with complex datasets and emerging technologies. You should be comfortable building reliable data infrastructure and collaborating with robotics, AI, and software teams to turn agricultural data into useful insights.
+
+What We Offer
+
+* Competitive compensation of **CLP 11,000–16,000 per hour**.
+* Opportunity to work with robotics, AI, IoT, and agricultural technology.
+* Exposure to autonomous drones and smart\\-farming systems.
+* Collaborative and technology\\-driven work environment.
+* Opportunities for professional development and technical growth.
+* The opportunity to contribute to innovative solutions for Chilean agriculture.
+
+How to Apply
+
+Interested candidates should submit an **updated CV/resume** highlighting their data\\-engineering experience, programming skills, cloud technologies, relevant projects, and educational qualifications.
+
+Sueldo: $11\\.000 \\- $16\\.000 la hora
+
+Lugar de trabajo: Viajar de manera regular","","https://cl.indeed.comNone","","","","","","","","","","","",""
+"in-f3cd6e49e38a317e","indeed","https://cl.indeed.com/viewjob?jk=f3cd6e49e38a317e","http://cl.indeed.com/job/software-engineer-f3cd6e49e38a317e","Software Engineer","Genetica","Santiago de Chile, RM, CL","2026-09-02","parttime, contract","","","","","",False,"","","","","Genetica Ltd. is a biotech startup focused on developing innovative genetic testing kits and personalized health solutions for the South American market. The company leverages cutting‑edge CRISPR technology to provide affordable, rapid diagnostics for hereditary conditions.
+
+About Genetica Ltd.
+
+Genetica Ltd. is a biotech startup focused on developing innovative genetic testing kits and personalized health solutions for the South American market. The company combines biotechnology and modern technology to develop affordable, rapid diagnostic solutions for hereditary conditions.
+
+Position Overview
+
+Genetica Ltd. is seeking a **Software Engineer** to join our technology team and contribute to the development, maintenance, and improvement of software solutions supporting our biotechnology and diagnostic operations.
+
+The successful candidate will work closely with software, product, laboratory, and business teams to build reliable, scalable, and secure applications. This role is ideal for a technically skilled professional who enjoys solving complex problems and working in an innovative environment.
+
+Key Responsibilities
+
+* Design, develop, test, and maintain high\\-quality software applications.
+* Write clean, maintainable, efficient, and well\\-documented code.
+* Collaborate with product managers, engineers, scientists, and other stakeholders to define technical requirements.
+* Develop and integrate APIs, databases, and third\\-party services.
+* Troubleshoot software issues and implement effective technical solutions.
+* Participate in code reviews and contribute to software development standards.
+* Develop automated tests to improve software reliability and quality.
+* Monitor application performance and assist with optimization.
+* Maintain technical documentation and development workflows.
+* Identify opportunities to improve existing systems, processes, and applications.
+* Follow appropriate security and data\\-protection practices when handling sensitive information.
+* Stay informed about emerging software development technologies and best practices.
+
+Required Qualifications
+
+* Bachelor’s degree in Computer Science, Software Engineering, Information Technology, or a related field, or equivalent professional experience.
+* Previous experience in software development or engineering.
+* Strong knowledge of at least one programming language such as **Python, Java, JavaScript/TypeScript, C\\#, or similar**.
+* Understanding of software development principles, algorithms, and data structures.
+* Experience working with relational or NoSQL databases.
+* Familiarity with RESTful APIs and software integrations.
+* Understanding of Git and version\\-control workflows.
+* Strong analytical and problem\\-solving skills.
+* Good written and verbal communication skills.
+* Ability to work independently as well as collaboratively within a multidisciplinary team.
+* Strong attention to detail and commitment to producing reliable software.
+
+Preferred Qualifications
+
+* Experience with cloud platforms such as AWS, Microsoft Azure, or Google Cloud.
+* Familiarity with Docker, CI/CD, or DevOps practices.
+* Experience with modern web frameworks or backend technologies.
+* Knowledge of automated testing and test\\-driven development.
+* Experience working with data\\-intensive or scientific applications.
+* Previous experience in **biotechnology, healthcare, diagnostics, laboratory technology, or life sciences** is an advantage.
+* Strong English communication skills are an advantage for working with international technical resources and partners.
+
+What We Offer
+
+* Competitive compensation of **CLP 9,000–14,000 per hour**.
+* Opportunity to work within an innovative biotechnology startup.
+* Exposure to technology supporting genetic testing and personalized health solutions.
+* Collaborative and multidisciplinary work environment.
+* Opportunities for professional development and technical growth.
+* Opportunity to contribute to meaningful technology\\-driven healthcare solutions.
+
+How to Apply
+
+Interested candidates should submit an updated **CV/resume** highlighting their software engineering experience, technical skills, relevant projects, and educational background.
+
+Sueldo: $9\\.000 \\- $14\\.000 la hora
+
+Lugar de trabajo: Viajar de manera regular","","https://cl.indeed.com/cmp/Genetica-1","","https://www.genetica.cz","Prague","11 to 50","","","","","","","",""
+"in-403eb62093e47924","indeed","https://cl.indeed.com/viewjob?jk=403eb62093e47924","https://levistraussandco.wd5.myworkdayjobs.com/External/job/Levi-Strauss-Sao-Paulo-So-Paulo-Brazil/Senior-Data-Scientist--DTC_R-0151276-1","Senior Data Scientist, DTC","Levi Strauss","Santiago de Chile, RM, CL","2026-08-27","","","","","","",False,"","","","","Job Location: Multiple (Mexico, Brazil, Bolivia, Chile, Colombia, Peru)
+
+  
+
+Calling all originals: At Levi Strauss \\& Co., you can be yourself — and be part of something bigger. We’re a company of people who like to forge our own path and leave the world better than we found it. Who believe that what makes us different makes us stronger. So add your voice. Make an impact. Find your fit — and your future.
+
+
+At Levi Strauss \\& Co, we are revolutionizing the apparel business and redefining the way denim is made.
+
+  
+
+We are taking one of the world's most iconic brands into the next century: from creating machine learning\\-powered denim finishes to using block\\-chain for our factory workers' wellbeing, to building algorithms to better meet the needs of our consumers and optimize our supply chain.
+
+  
+
+Be a pioneer in the fashion industry by joining our global Data, Analytics \\& AI ""startup with assets,"" where you will have the chance to build exciting solutions that will impact our global business across continents.
+
+  
+
+As a **Senior Data****Scientist** you will be a technical leader within the global Data, Analytics and AI team, driving the design and delivery of advanced analytics, machine learning, and AI solutions that address our consumers' needs while streamlining our processes and approaching the business in more innovative ways. This role will focus on applications of Data, Analytics, and AI to DTC. Potential areas of application of AI include CLTV, CRM optimization, Segmentation, Recommendations, Personalization and Agentic implementations among others.
+
+  
+
+In this role, you will own the technical direction of key workstreams, influence the team’s roadmap, and serve as a bridge between data science and business stakeholders across regions. You will drive innovation, machine learning operationalization, adoption of data products, and data visualization / user interfaces / storytelling that put data at the center of our business. This role will aim to drive revenue and reduce cost through cross\\-region implementation, automation and business process improvement.
+
+  
+
+You will be expected to raise the technical bar across the team: mentoring Data Scientists, establishing best practices, conducting code and model reviews, and contributing to the global Data, Analytics \\& AI community by sharing your knowledge and leveraging other colleagues’ experience in designing scalable, global solutions.
+
+ **About the Job**
+
+* **Own and drive the technical direction** of multiple roadmap workstreams, from problem framing through production deployment, partnering with teams across the global organization.
+* **Lead the design of complex ML/AI solutions** using advanced ML, deep learning, and generative AI techniques to solve high\\-impact retail and consumer problems.
+* **Act as the primary technical point of contact** for business stakeholders on assigned workstreams, translating business problems into data science solutions and communicating results to non\\-technical audiences.
+* **Mentor and coach** Data Scientist 1 and Data Scientist 2 team members, providing technical guidance on modeling approaches, code quality, and career development.
+* Conduct advanced statistical analysis to provide applicable insights, identify trends, and measure performance.
+* Build complex predictive models using ML, DL, and GenAI techniques with production\\-quality code and jointly own complex data science workflows with the Data Engineering and ML Engineering teams.
+* **Define and enforce best practices** for model development, testing, documentation, and deployment within the team.
+* Scan the Data Science landscape for recent developments and proactively identify opportunities to integrate new methodologies into the existing project portfolio.
+* **Contribute to architectural decisions** on the team’s ML/AI infrastructure, including model serving, feature stores, and observability.
+* Research best practices, conduct experiments, and build relationships with industry leaders and technology partners (e.g., Google, cloud vendors).
+* Ensure that the risks associated with projects are raised and mitigated to keep all projects on track.
+* **Represent the Data Science team** in cross\\-functional forums, technical reviews, and vendor evaluations.
+ **About You**
+
+**Required Technical Skills**
+
+* **5\\+ years** of hands\\-on experience analyzing data and developing supervised and unsupervised models; including variable selection, feature engineering, model generation, model diagnostics, interpretability, and deployment.
+* **5\\+ years** of experience writing complex SQL queries and working with large datasets in cloud/Hadoop\\-based environments. Experience writing BigQuery and dbt jobs.
+* **5\\+ years** of experience with data visualization tools (D3\\.js, R Shiny, Looker, Tableau, or similar); able to determine the appropriate visualization for a variety of data types and create compelling stories with data.
+* **5\\+ years** of experience deploying Machine Learning algorithms in a production environment.
+* **3\\+ years** of experience developing Deep Learning based solutions for a production environment.
+* **Experience with Generative AI and LLMs** — prompt engineering, RAG architectures, fine\\-tuning, and/or agentic AI frameworks (e.g., LangChain, Google ADK, or similar).
+* Experience working with different cloud services to develop ML solutions with special focus on Google Cloud Platform (Vertex AI, BigQuery ML, Cloud Run).
+* Expert\\-level Python, R, or similar programming skills.
+* **Demonstrated experience mentoring** junior and mid\\-level data scientists.
+* Experience with experiment design and causal inference methods (A/B testing, uplift modeling, difference\\-in\\-differences).
+* Experience with distributed systems (Docker, Kubernetes, Kafka, or Spark).
+* Experience in Reinforcement Learning is a plus.
+**Desired Education and Experience**
+
+* Master’s/Ph.D. degree (computer science, applied mathematics, applied statistics, data science, or related technical discipline).
+* Overall **5\\+ years** (with Master’s) or **3\\+ years** (for Ph.D.s) of professional experience in Data Science, Machine Learning, Mathematics, Applied Statistics, or Operational Research in the tech or retail industry.
+* **Track record****of delivering end\\-to\\-end ML solutions** that drove measurable business impact (revenue, cost savings, or efficiency gains).
+* Prior experience in a senior or lead data scientist capacity, with evidence of influencing team practices and stakeholder decisions.
+**LOCATION**
+------------
+
+
+Sao Paulo, Brazil**FULL TIME/PART TIME**
+-----------------------
+
+
+Full time**Current LS\\&Co Employees, apply via your Workday account.**
+-------------------------------------------------------------","","https://cl.indeed.com/cmp/Levi-Strauss-e85ee6e2","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/e5dbe7aa477522633d0dcc1d0588c60b","https://www.levistrauss.com","San Francisco, CA","10,000+","$1B to $5B (USD)","You’re an original. So are we. We’re a company of people who like to forge our own path.","","","","","",""
+"in-6ed84502e363bd45","indeed","https://cl.indeed.com/viewjob?jk=6ed84502e363bd45","https://falabella.airavirtual.com/postula/gsUsx4hXKr2QsiqNB9Mo","Data Scientist","Falabella","Las Condes, RM, CL","2026-08-25","fulltime","","","","","",False,"","","","","**Descripción Oferta**
+----------------------
+
+
+En Falabella Retail buscamos a nuestro próximo Data Scientist, una persona apasionada por los datos, la Inteligencia Artificial y el Machine Learning, que quiera transformar información en decisiones estratégicas con impacto real en millones de clientes en Chile, Perú y Colombia.
+  
+
+  
+
+Si te motiva resolver desafíos complejos, desarrollar modelos que generen valor para el negocio y trabajar junto a equipos de primer nivel en un entorno colaborativo e innovador, este desafío es para ti.  
+
+  
+
+  
+
+  
+
+  
+
+¿Qué harás?
+  
+
+  
+
+Serás un socio estratégico para las áreas de Marketing y Clientes, identificando oportunidades de crecimiento a través de analítica avanzada e Inteligencia Artificial.
+  
+
+Diseñarás y desarrollarás modelos de Machine Learning e IA para potenciar la experiencia de nuestros clientes y optimizar procesos de negocio.
+  
+
+Convertirás desafíos de negocio en soluciones analíticas accionables que generen impacto tangible en ventas, tráfico, conversión y fidelización.
+  
+
+Trabajarás junto a equipos multidisciplinarios de Data Science, Data Engineering, Machine Learning e IA para construir y escalar soluciones innovadoras.
+  
+
+Monitorearás y evolucionarás modelos en producción para asegurar su desempeño, calidad e impacto.
+  
+
+Impulsarás una cultura data\\-driven, promoviendo el uso estratégico de los datos y compartiendo buenas prácticas dentro de la organización.  
+
+  
+
+  
+
+  
+
+Lo que buscamos
+  
+
+  
+
+Entre 2 y 3 años de experiencia como Data Scientist.
+  
+
+Manejo avanzado de Python y SQL.
+  
+
+Experiencia desarrollando modelos analíticos, Machine Learning e Inteligencia Artificial.
+  
+
+Conocimiento de entornos cloud, idealmente Google Cloud Platform (GCP).  
+
+  
+
+  
+
+  
+
+¿Por qué Falabella Retail?
+  
+
+  
+
+Porque aquí tendrás la oportunidad de trabajar con grandes volúmenes de datos, desarrollar soluciones de analítica avanzada e IA de alto impacto y ser protagonista en la transformación digital de una de las compañías líderes de Latinoamérica.  
+
+  
+
+  
+
+  
+
+  
+
+Impacto regional.
+  
+
+IA y Machine Learning aplicados al negocio.
+  
+
+Desafíos de alto valor estratégico.
+  
+
+Aprendizaje y crecimiento continuo.
+  
+
+Equipos colaborativos y multidisciplinarios.  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+¡Postula y construyamos juntos el futuro de la experiencia de nuestros clientes a través de los datos y la Inteligencia Artificial!  
+
+
+
+  
+
+**Requisitos Candidato/a**
+--------------------------
+
+* Al menos 3 años de experiencia como Data Scientist
+* Manejo avanzado de Python y SQL
+* Deseable experiencia con GCP y Airflow
+
+
+Esta oferta es apta para personas en situación de discapacidad.
+
+**Proceso de Selección**
+------------------------
+
+
+El proceso de selección se realiza a través de Aira \\- plataforma de reclutamiento diseñado para mejorar tu experiencia de postulación.
+  
+
+  
+
+Para postular solo necesitas:
+  
+
+1\\. Postular a la oferta
+  
+
+2\\. Revisar tu email
+  
+
+3\\. Ingresar a Aira y contestar las preguntas y/o pruebas solicitadas
+  
+
+  
+
+Luego, si vemos que tu perfil se ajusta a lo que estamos buscando, te contactaremos por email (a través de Aira) para seguir a la etapa presencial.
+
+**Sobre Nosotros**
+------------------
+
+
+Somos más de 88 mil personas que cada día trabajamos por el firme Propósito \\- Simplificar y Disfrutar más la Vida. Estamos presentes en 9 países y compuestos por cinco grandes marcas posicionadas de diversas industrias: Falabella Retail, Sodimac, Banco Falabella, Tottus y Mallplaza. Cada una de éstas nos hace ser quienes somos, y es entre todos, como Un Solo Equipo, que buscamos diariamente reinventarnos y superar las experiencias de nuestros clientes.
+  
+
+  
+
+Un Equipo lleno de sueños que hace que las cosas pasen. nos atrevemos a emprender e innovar, a tomar riesgos y a generar oportunidades que nos permitan estar siempre a la vanguardia lo que nos lleva a reinventarnos para entregar la mejor experiencia de compra en cualquier punto de encuentro con nosotros.","Retail","https://cl.indeed.com/cmp/Falabella","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/9829a43c57bcd02219d852b28d1aa310","http://www.falabella.com/","Santiago, Chile","","","","","","","","",""
+"in-e118c3bd991460c0","indeed","https://cl.indeed.com/viewjob?jk=e118c3bd991460c0","https://www.getonbrd.com/jobs/machine-learning-ai/ingeniero-ml-data-scientist-lisit-remote","Ingeniero ML / Data Scientist Full time","Lisit","Santiago de Chile, RM, CL","2026-08-24","fulltime","","","","","",True,"","","","","Lisit creamos, desarrollamos e implementamos servicios de software con foco constante en innovación y pasión por los desafíos. En este rol, trabajamos en la automatización y optimización de procesos mediante soluciones de NLP en español con impacto directo en la eficacia operativa de nuestros clientes. La misión del proyecto es construir y hacer evolucionar un pipeline reproducible a partir de
+1,8 millones de pares históricos, transformándolo en un dataset de entrenamiento, entrenar y evaluar un modelo NER en español, calibrar el score de confianza y habilitar la transferencia del conocimiento y la solución al cliente para su adopción sostenida.
+Apply to this job at getonbrd.com.
+
+
+### **Misión**
+
+
+**Misión:** construir el corpus de entrenamiento a partir de 1,8 millones de pares históricos; hacer fine\\-tuning de un modelo NER en español; calibrar el score de confianza; y dejar el pipeline reproducible y traspasable al cliente.
+* Construir el dataset de entrenamiento sin etiquetado manual masivo (etiquetado programático / weak supervision).
+* Realizar tokenización y normalización de texto para NLP en español.
+* Entrenar y ajustar un modelo para NER en español (idealmente BERT en español, como BETO u otro BERT en español) con Transformers / Hugging Face.
+* Gestionar errores ortográficos y robustez del preprocesamiento.
+* Evaluar rigurosamente el desempeño con precision/recall/F1 usando conjuntos held\\-out y control de fuga de datos.
+* Calibrar probabilidades para que el umbral de confianza sea interpretable (score calibrado con métodos como Platt o isotónica).
+* Garantizar reproducibilidad: documentación del pipeline, trazabilidad de experimentos y empaquetado para que el cliente pueda replicarlo y operarlo.
+### **Requisitos excluyentes**
+
+
+**Excluyente**
+* **Python sólido** (pandas, scikit\\-learn) y experiencia real llevando un modelo a producción en **NLP en español**.
+* Experiencia con **tokenización**, **normalización de texto** y **manejo de errores ortográficos**.
+* Experiencia con **Transformers / Hugging Face** para **fine\\-tuning de BERT** (ideal BETO u otro BERT en español) orientado a **NER**.
+* **Etiquetado programático / weak supervision**: construir datasets de entrenamiento sin etiquetado manual masivo.
+* **Evaluación rigurosa**: precision/recall/F1, conjuntos held\\-out y **control de fuga de datos**.
+
+**Cómo evaluamos el enfoque:** necesitamos que puedas explicar de forma clara cómo construirías el dataset de entrenamiento cuando no existe corpus etiquetado y hay 1,8 M de pares históricos; y qué significa que un modelo esté calibrado y cómo lo comprobarías.
+**We** valoramos además una forma de trabajo ordenada y comunicable: foco en reproducibilidad, pensamiento crítico sobre métricas (held\\-out y fuga de datos) y mentalidad de transferencia hacia el cliente.
+### **Deseable (suma puntos)**
+
+
+* **XGBoost y calibración de probabilidades** (Platt / isotónica): el umbral de 0,82 debe significar probabilidad real.
+* **Embeddings y búsqueda vectorial** (pgvector, HNSW, sentence\\-transformers).
+* **Fuzzy matching**: distancias de edición, algoritmos fonéticos, pg\\_trgm.
+* **MLflow** para gestión de experimentos y despliegue.
+* **ONNX y cuantización INT8** para inferencia eficiente en CPU (sin GPU).
+* **libpostal**.
+* Experiencia con **direcciones postales**, geocodificación o datos geográficos.
+### **Beneficios**
+
+
+Hibrido
+
+
+GETONBRD Job ID: 63251
+
+
+**Remote work policy**
+----------------------
+
+
+**Hybrid**
+
+This job is performed partly from home and partly at the office in Santiago (Chile).","","https://cl.indeed.com/cmp/Lisit","","","","","","","","","","","",""
+"in-39cd9d831a8b4820","indeed","https://cl.indeed.com/viewjob?jk=39cd9d831a8b4820","https://falabella.airavirtual.com/postula/1yMFsM6jMjpXhGz5Fb4W","Data Team Lead","Falabella","Santiago de Chile, RM, CL","2026-08-21","fulltime","","","","","",False,"","","","","**Descripción Oferta**
+----------------------
+
+
+Liderar uno de los equipos de Advanced Analytics de Digital Commerce del Grupo Falabella
+
+
+Buscamos un/a Data Team Lead para liderar el equipo de Advanced Analytics de Digital Commerce del Grupo Falabella: recomendación, pricing, search \\& ranking, personalización y forecasting de demanda sobre uno de los ecosistemas de comercio digital más grandes de LatAm.
+  
+
+  
+
+Buscamos un perfil player\\-coach: lidera y desarrolla al equipo, y mantiene apoyo constante en los problemas más ambiguos.
+  
+
+  
+
+Responsabilidades:
+  
+
+Liderar y desarrollar al equipo: 1:1s, feedback, contratación y estándar técnico.
+  
+
+Ser la contraparte analítica de Producto, Comercial y Tecnología: traducir objetivos de negocio en preguntas analíticas, y resultados técnicos en decisiones.
+  
+
+Construir y ejecutar el roadmap analítico del dominio: priorización por impacto, planificación de capacidad, seguimiento y desbloqueo.
+  
+
+Asegurar que los modelos lleguen a producción, se mantengan y se mida su impacto en métricas de negocio.
+  
+
+  
+
+Buscamos a alguien con:
+  
+
+5\\+ años como Data Scientist resolviendo problemas end\\-to\\-end, con modelos en producción e impacto medible.
+  
+
+2\\+ años liderando equipos técnicos (formal o como tech lead con responsabilidad de personas).
+  
+
+Track record gestionando stakeholders senior e influyendo en decisiones de negocio.
+  
+
+Gestión de proyectos en contextos con múltiples frentes y prioridades cambiantes.
+  
+
+Python, SQL, estadística, experimentación (A/B testing) e inferencia causal.
+  
+
+Comunicación sólida en español e inglés con audiencias técnicas y ejecutivas.
+  
+
+  
+
+Suma: experiencia en e\\-commerce, retail o marketplace.
+
+**Requisitos Candidato/a**
+--------------------------
+
+* 5\\+ años como Data Scientist
+* 2\\+ años liderando equipos técnicos
+* Track record gestionando stakeholders
+* Gestión de proyectos
+* Python, SQL, estadística, experimentación (A/B testing) e inferencia causal
+* Dominio de inglés intermedio \\- avanzado (hablado)
+
+
+Esta oferta es apta para personas en situación de discapacidad.
+
+**Proceso de Selección**
+------------------------
+
+
+El proceso de selección se realiza a través de Aira \\- plataforma de reclutamiento diseñado para mejorar tu experiencia de postulación.
+  
+
+  
+
+Para postular solo necesitas:
+  
+
+1\\. Postular a la oferta
+  
+
+2\\. Revisar tu email
+  
+
+3\\. Ingresar a Aira y contestar las preguntas y/o pruebas solicitadas
+  
+
+  
+
+Luego, si vemos que tu perfil se ajusta a lo que estamos buscando, te contactaremos por email (a través de Aira) para seguir a la etapa presencial.
+
+**Sobre Nosotros**
+------------------
+
+
+Somos más de 88 mil personas que cada día trabajamos por el firme Propósito \\- Simplificar y Disfrutar más la Vida. Estamos presentes en 9 países y compuestos por cinco grandes marcas posicionadas de diversas industrias: Falabella Retail, Sodimac, Banco Falabella, Tottus y Mallplaza. Cada una de éstas nos hace ser quienes somos, y es entre todos, como Un Solo Equipo, que buscamos diariamente reinventarnos y superar las experiencias de nuestros clientes.
+  
+
+  
+
+Un Equipo lleno de sueños que hace que las cosas pasen. nos atrevemos a emprender e innovar, a tomar riesgos y a generar oportunidades que nos permitan estar siempre a la vanguardia lo que nos lleva a reinventarnos para entregar la mejor experiencia de compra en cualquier punto de encuentro con nosotros.","Retail","https://cl.indeed.com/cmp/Falabella","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/9829a43c57bcd02219d852b28d1aa310","http://www.falabella.com/","Santiago, Chile","","","","","","","","",""
+"in-1cadb77b3eb061f7","indeed","https://cl.indeed.com/viewjob?jk=1cadb77b3eb061f7","https://www.bne.cl/oferta/2026-096351","Data Scientist - Oferta Inclusiva","Metro de Santiago S.A","Santiago de Chile, RM, CL","2026-08-20","","","","","","",False,"","","","","**Data Scientist \\- Oferta Inclusiva (1 vacantes)** **Otras ocupaciones**
+=========================================================================
+
+### **DATOS DE CONTACTO**
+
+**Empresa:**
+  
+
+Metro de Santiago S.A
+**Actividad económica:**
+  
+
+Transporte urbano y suburbano de pasajeros vía metro y metrotren
+### **DESCRIPCIÓN**
+
+Si sueñas con hacer de Santiago una mejor ciudad y contribuir a la vida de millones de personas diariamente, ¡Ser un (a) METRINO (A) es lo tuyo! Súmate a Metro de Santiago, empresa con un marcado rol social en donde diariamente más de 4\\.500 personas trabajamos por acercar a las personas a vivir una mejor ciudad a través de un servicio de transporte seguro, confiable y respetuoso con el medioambiente. Actualmente estamos viviendo el momento de mayor expansión de nuestra historia, buscando ampliar nuestra red para acercar más servicios y cultura a las distintas comunas, aportando al desarrollo y la equidad territorial de sus habitantes. Tú puedes ser parte de este propósito, integrándote a nuestra Gerencia Corporativa Planificación y Clientes, donde nos encontramos en búsqueda de un/a Data Scientist. La misión que tendrás será: Apoyar en el desarrollo y la implementación de modelos avanzados de análisis de datos y soluciones de inteligencia artificial en Metro. Su rol es transformar dat
+
+
+Metropolitana, Santiago
+20/08/2026 \\- 15/10/2026
+Reservado
+Sin limitación horaria
+### **REQUISITOS SOLICITADOS**
+
+**Nivel educacional:**  
+
+**Experiencia:**  
+
+5 años  
+
+  
+
+### **CARACTERÍSTICAS**
+
+**Tipo de contrato:**  
+
+No sabe / No responde
+**Nivel de Cargo ofrecido:**  
+
+  
+
+**Origen de la Oferta:**  
+
+API
+**Oferta de tipo práctica profesional:**  
+
+No","","https://cl.indeed.com/cmp/Metro-De-Santiago-S.a","","","","","","","","","","","",""
+"in-bd07538eca35b306","indeed","https://cl.indeed.com/viewjob?jk=bd07538eca35b306","https://www.bne.cl/oferta/2026-095028","Data Scientist Specialist","EY CONSULTORES LIMITADA","Las Condes, RM, CL","2026-08-18","fulltime","","","","","",False,"","","","","**Data Scientist Specialist (1 vacantes)** **Tecnicos en programacion informatica \\- Desarrolladores y analistas de sistemas informáticos**
+===========================================================================================================================================
+
+### **DATOS DE CONTACTO**
+
+**Empresa:**
+  
+
+EY CONSULTORES LIMITADA
+**Actividad económica:**
+  
+
+Actividades de consultoría de gestión
+### **DESCRIPCIÓN**
+
+En EY, tendrás la oportunidad de desarrollar una carrera tan única como tú, con una visión global, el apoyo, la cultura inclusiva y la tecnología para convertirte en la mejor versión de ti. Contamos con tu voz y perspectiva únicas para ayudar a que EY también sea aún mejor. Súmate a nosotros y construye una experiencia excepcional para ti y un mejor mundo de negocio para todos. En el área de Consulting, ayudamos a las organizaciones a mantenerse a la vanguardia en el mercado, hoy y en el futuro. A través de nuestros servicios de consultoría empresarial, tecnológica, de personas e innovación, podrás construir un mejor mundo de negocios apoyando a los clientes en la transformación de sus negocios y la generación de valor a largo plazo. Para ser exitoso/a en el puesto es necesario \\- Título universitario en ingeniería informática, civil informática, computación o carreras afínes. \\- Situación laboral regular en Chile / permiso de trabajo vigente. \\- Experiencia comprobable en al menos dos modelos llevados a producción (no solo POC o proyectos académicos) \\- Inglés técnico de lectura y conversación (mínimo B2\\) \\- Disponibilidad para modalidad híbrida y eventuales visitas a faena/cliente \\- 5\\+ años en roles de Machine Learning Engineer, Data Scientist o similar, con al menos 3 años trabajando con modelos en producción. \\- Proveniente de consultoras de datos/tecnología, empresas de producto tech, o equipos internos de analítica avanzada en industrias data\\-intensivas (minería, energía, retail, banca, telco, utilities). EY cree en la igualdad de oportunidades. Independientemente del género, edad, raza, color, credo, orientación sexual y discapacidad, todos los candidatos calificados serán considerados en nuestros procesos.
+
+
+Metropolitana, Las Condes
+18/08/2026 \\- 20/10/2026
+Reservado
+Jornada Completa
+### **REQUISITOS SOLICITADOS**
+
+**Nivel educacional:**  
+
+Educación superior Completa
+**Experiencia:**  
+
+5 años  
+
+  
+
+**Titulación:**  
+
+* Ingeniería Civil en Computación e Informática
+**Idiomas:**  
+
+* INGLES: (Lectura: Alto, Escritura: Alto, Hablado: Alto)
+### **CARACTERÍSTICAS**
+
+**Tipo de contrato:**  
+
+Contrato indefinido
+**Nivel de Cargo ofrecido:**  
+
+Especialista  
+
+  
+
+**Origen de la Oferta:**  
+
+WEB
+**Oferta de tipo práctica profesional:**  
+
+No  
+
+  
+
+**Apto para los siguientes grupos de empleo:**Personas en situación de discapacidad
+Ver exigencias del cargo  
+
+  
+
+Indígenas
+Migrantes
+Jóvenes
+Mujeres","","https://cl.indeed.com/cmp/Ey-Consultores-Limitada","","","","","","","","","","","",""
+"in-a8b6b4cb1478389a","indeed","https://cl.indeed.com/viewjob?jk=a8b6b4cb1478389a","https://careers.ey.com/ey/job/Santiago-AI-Lead-Specialist-Z_-M/1427489333/","AI Lead Specialist","EY","Santiago de Chile, RM, CL","2026-08-18","","","","","","",False,"","","","","Location: Santiago
+Other locations: Primary Location Only
+Salary: Competitive
+Date: Aug 18, 2026
+**Job description**
+-------------------
+
+
+Requisition ID: 1732949  
+
+En EY, tendrás la oportunidad de desarrollar una carrera tan única como tú, con una visión global, el apoyo, la cultura inclusiva y la tecnología para convertirte en la mejor versión de ti. Contamos con tu voz y perspectiva únicas para ayudar a que EY también sea aún mejor. Súmate a nosotros y construye una experiencia excepcional para ti y un mejor mundo de negocio para todos.
+
+  
+
+
+
+En el área de Consulting, ayudamos a las organizaciones a mantenerse a la vanguardia en el mercado, hoy y en el futuro. A través de nuestros servicios de consultoría empresarial, tecnológica, de personas e innovación, podrás construir un mejor mundo de negocios apoyando a los clientes en la transformación de sus negocios y la generación de valor a largo plazo.
+
+  
+
+**La Oportunidad**
+
+  
+
+
+EY cuenta con un grupo de consultoría en Technology Consulting, para asesorar y satisfacer las necesidades de los clientes en temas de tecnologías de la información, por medio de la implementación de herramientas tecnologías para optimizar el proceso y funcionamiento del negocio.
+
+  
+
+
+**Tus responsabilidades clave**
+
+  
+
+
+* Integrarse al equipo del Technology Solution Delivery para apoyar la implementación de soluciones tecnológicas.
+* Tener capacidades técnicas y conocimientos de la industria de inovación tecnológica.
+* Estar actualizado en cuanto a los avances más recientes en las capacidades de servicios de asesoría.
+* Entablar buenas relaciones con colegas de todas las prácticas de EY para satisfacer las necesidades del cliente.
+* Liderar técnicamente el diseño, desarrollo y puesta en producción de soluciones de Machine Learning para clientes, cubriendo el ciclo completo: entendimiento del problema de negocio, exploración y preparación de datos, modelamiento, validación, despliegue y monitoreo.
+  
+
+
+**Habilidades y atributos para lograr el éxito**
+
+  
+
+* Trabajo en equipo
+* Capacidad para trabajar bajo presión
+* Orientación al cliente
+* Adecuadas relaciones interpersonales
+* Adecuadas habilidades de comunicación oral y escrita
+* La flexibilidad para aprender y adaptarse constantemente en un entorno dinámico
+* Planificación y organización
+  
+
+
+**Para ser exitoso/a en el puesto es necesario**
+
+  
+
+* Título universitario en ingeniería informática, civil informática, computación o carreras afínes.
+* Situación laboral regular en Chile / permiso de trabajo vigente.
+* Experiencia comprobable en al menos dos modelos llevados a producción (no solo POC o proyectos académicos)
+* Inglés técnico de lectura y conversación (mínimo B2\\)
+* Disponibilidad para modalidad híbrida y eventuales visitas a faena/cliente
+* 5\\+ años en roles de Machine Learning Engineer, Data Scientist o similar, con al menos 3 años trabajando con modelos en producción.
+* Proveniente de consultoras de datos/tecnología, empresas de producto tech, o equipos internos de analítica avanzada en industrias data\\-intensivas (minería, energía, retail, banca, telco, utilities).
+* Experiencia previa en consultoría o en roles con exposición directa a cliente es un diferenciador fuerte.
+* Python avanzado (pandas, NumPy, scikit\\-learn, PyTorch o TensorFlow) y SQL avanzado.
+* Procesamiento distribuido con Spark / Databricks.
+* MLOps: MLflow, versionado de modelos y datos, CI/CD (Git, GitHub Actions o Azure DevOps), contenedores (Docker).
+* Nube: Azure ML, Databricks, GCP Vertex AI o AWS SageMaker.
+* Orquestación (Airflow, Databricks Workflows) y modelamiento de datos (Delta Lake, lakehouse).
+* Deseable: GenAI y LLMs aplicados (RAG, embeddings, vector stores, frameworks tipo LangChain), series de tiempo, optimización, y visualización (Power BI / Streamlit).
+
+  
+
+
+**Qué ofrecemos**
+
+  
+
+
+Si te incorporas a EY, ofrecemos un paquete de compensación competitivo en el sector y recibirás recompensas en función de tu desempeño. Nuestro paquete Total Rewards incluye una variedad de programas y beneficios diseñados para contribuir con tu bienestar. Además, ofrecemos:
+
+  
+
+* Desarrollo profesional basado en un extenso programa de capacitación, coordinado por EY University (EYU), nuestra universidad corporativa.
+* Programa EY Badges: un programa único y de vanguardia para el desarrollo profesional, el aprendizaje y el reconocimiento, que prepara a los profesionales en teoría y práctica en los temas más actuales.
+* Ambiente de trabajo inclusivo, que ofrece la flexibilidad necesaria para cumplir con los objetivos profesionales y personales, fomentando una cultura laboral enfocada a resultados.
+
+  
+
+
+
+Si puedes demostrar con confianza que cumples con los criterios anteriores, contáctanos lo antes posible.
+
+  
+
+**The exceptional EY experience. It's yours to build.**
+
+  
+
+
+
+EY es una firma global líder que ofrece servicios de Auditoría, Consultoría, Estrategia y Transacciones e Impuestos, con una red integrada por más de 280\\.000 profesionales en 150 países del mundo.
+
+  
+
+
+
+Nuestro propósito es construir un mundo mejor de negocios para nuestra gente, para nuestros clientes y para nuestras comunidades. Trabajamos continuamente para mejorar la calidad de nuestros servicios, invirtiendo en nuestra gente y en innovación. Las oportunidades de crecer, tener éxito y desarrollarse en EY son ilimitadas.
+
+  
+
+
+
+EY cree en la igualdad de oportunidades. Independientemente del género, edad, raza, color, credo, orientación sexual y discapacidad, todos los candidatos calificados serán considerados en nuestros procesos.","","https://cl.indeed.com/cmp/Ey","https://d2q79iu7y748jz.cloudfront.net/s/_squarelogo/256x256/82174c7d7afe2380d2d4631ea183f866","https://www.ey.com","London, England","10,000+","more than $10B (USD)","At EY, we are committed to building a better working world.","","","","","",""
+"li-4466728196","linkedin","https://www.linkedin.com/jobs/view/4466728196","","Consultor de IA Generativa","Muck Consultores","Santiago, Santiago Metropolitan Region, Chile","2026-09-12","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/muck-consultores","","","","","","","","","","","",""
+"li-4454555621","linkedin","https://www.linkedin.com/jobs/view/4454555621","","Data Scientist Senior","Sodimac","Las Condes, Santiago Metropolitan Region, Chile","2026-09-11","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/sodimac-chile","","","","","","","","","","","",""
+"li-4465819824","linkedin","https://www.linkedin.com/jobs/view/4465819824","","Sr Data Scientist - GCP","Coderio","","2026-09-10","","","","","","",False,"","","","","","","https://www.linkedin.com/company/coderio","","","","","","","","","","","",""
+"li-4464525390","linkedin","https://www.linkedin.com/jobs/view/4464525390","","Data Scientist Specialist","WOM Chile","Santiago, Santiago Metropolitan Region, Chile","2026-09-10","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/womchile","","","","","","","","","","","",""
+"li-4464586651","linkedin","https://www.linkedin.com/jobs/view/4464586651","","Data Scientist / IA Engineer","LISIT","Santiago, Santiago Metropolitan Region, Chile","2026-09-10","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/lisitconsulting","","","","","","","","","","","",""
+"li-4463497066","linkedin","https://www.linkedin.com/jobs/view/4463497066","","Consultor de Inteligencia Artificial","ACL","Santiago Metropolitan Region, Chile","2026-09-10","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/acltecnologia","","","","","","","","","","","",""
+"li-4464959605","linkedin","https://www.linkedin.com/jobs/view/4464959605","","Business Intelligence Specialist","CMPC","","2026-09-09","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/somoscmpc","","","","","","","","","","","",""
+"li-4464902654","linkedin","https://www.linkedin.com/jobs/view/4464902654","","Senior Risk Data Scientist - Remote Work | REF#303855","BairesDev","Santiago Metropolitan Region, Chile","2026-09-08","","","","","","",True,"","","","","","","https://www.linkedin.com/company/bairesdev","","","","","","","","","","","",""
+"li-4462591008","linkedin","https://www.linkedin.com/jobs/view/4462591008","","Applied Scientist","NeuralWorks","Santiago, Santiago Metropolitan Region, Chile","2026-09-08","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/neuralworks-cl","","","","","","","","","","","",""
+"li-4464905522","linkedin","https://www.linkedin.com/jobs/view/4464905522","","ML Engineer - Remote Work | REF#303226","BairesDev","Santiago Metropolitan Region, Chile","2026-09-08","","","","","","",True,"","","","","","","https://www.linkedin.com/company/bairesdev","","","","","","","","","","","",""
+"li-4464326709","linkedin","https://www.linkedin.com/jobs/view/4464326709","","Data Scientist","Itaú Chile","Las Condes, Santiago Metropolitan Region, Chile","2026-09-07","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/itauchile","","","","","","","","","","","",""
+"li-4462366216","linkedin","https://www.linkedin.com/jobs/view/4462366216","","Data Scientist – GCP","FactorIT","Santiago, Santiago Metropolitan Region, Chile","2026-09-05","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/factoritlatam","","","","","","","","","","","",""
+"li-4463639084","linkedin","https://www.linkedin.com/jobs/view/4463639084","","Ingeniero Optimización e Inteligencia Logística","Salcobrand","Santiago, Santiago Metropolitan Region, Chile","2026-09-04","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/salcobrand","","","","","","","","","","","",""
+"li-4460654326","linkedin","https://www.linkedin.com/jobs/view/4460654326","","Especialista en Data Scientist","Empresa Confidencial","Santiago, Santiago Metropolitan Region, Chile","2026-09-01","","","","","","",False,"","","","","","","https://br.linkedin.com/company/empresa-confidencial","","","","","","","","","","","",""
+"li-4461271671","linkedin","https://www.linkedin.com/jobs/view/4461271671","","Data Scientist","Southbridge Compañía de Seguros","Las Condes, Santiago Metropolitan Region, Chile","2026-08-31","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/southbridge-insurance-company","","","","","","","","","","","",""
+"li-4459267153","linkedin","https://www.linkedin.com/jobs/view/4459267153","","Data Scientist Jr.","SAAM S.A.","Santiago Metropolitan Region, Chile","2026-08-31","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/saam-s-a-","","","","","","","","","","","",""
+"li-4414708015","linkedin","https://www.linkedin.com/jobs/view/4414708015","","Especialista de Riesgos - Modelos de Capital","Banco de Chile","Santiago, Santiago Metropolitan Region, Chile","2026-08-31","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/banco-de-chile","","","","","","","","","","","",""
+"li-4441669319","linkedin","https://www.linkedin.com/jobs/view/4441669319","","Consultor de Soluciones Tecnológicas","WSP Chile y Argentina","Santiago, Santiago Metropolitan Region, Chile","2026-08-29","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/wsp-en-chile-y-argentina","","","","","","","","","","","",""
+"li-4460833397","linkedin","https://www.linkedin.com/jobs/view/4460833397","","Ingeniero/a en Matemática, Estadística - Recien Egresado","Deloitte","Santiago, Santiago Metropolitan Region, Chile","2026-08-29","","","","","","",False,"","","","","","","https://www.linkedin.com/company/deloitte","","","","","","","","","","","",""
+"li-4460148934","linkedin","https://www.linkedin.com/jobs/view/4460148934","","Analista Costumer Insights","SKY Airline","","2026-08-28","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/sky-airline","","","","","","","","","","","",""
+"li-4459379173","linkedin","https://www.linkedin.com/jobs/view/4459379173","","Ingeniero(a) Machine Learning","Táctica Consultores","Santiago, Santiago Metropolitan Region, Chile","2026-08-26","","","","","","",False,"","","","","","","https://www.linkedin.com/company/t%C3%A1ctica-bz","","","","","","","","","","","",""
+"li-4459063997","linkedin","https://www.linkedin.com/jobs/view/4459063997","","Data Scientist","Falabella","Las Condes, Santiago Metropolitan Region, Chile","2026-08-25","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/falabellaretail","","","","","","","","","","","",""
+"li-4458228013","linkedin","https://www.linkedin.com/jobs/view/4458228013","","Data Scientist - CL","Imagemaker","","2026-08-24","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/imagemaker","","","","","","","","","","","",""
+"li-4457169429","linkedin","https://www.linkedin.com/jobs/view/4457169429","","Ingeniero ML / Data Scientist","LISIT","Santiago, Santiago Metropolitan Region, Chile","2026-08-24","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/lisitconsulting","","","","","","","","","","","",""
+"li-4457367813","linkedin","https://www.linkedin.com/jobs/view/4457367813","","Data Scientist CL - Híbrido (Stgo)","Imagemaker","Santiago, Santiago Metropolitan Region, Chile","2026-08-21","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/imagemaker","","","","","","","","","","","",""
+"li-4454670101","linkedin","https://www.linkedin.com/jobs/view/4454670101","","Senior Data Scientist","Kake","Santiago, Santiago Metropolitan Region, Chile","2026-08-21","","","","","","",False,"","","","","","","https://www.linkedin.com/company/kake","","","","","","","","","","","",""
+"li-4456785783","linkedin","https://www.linkedin.com/jobs/view/4456785783","","Científico/a de Datos Senior – Minería / Gestión Hídrica","Acid Labs","Santiago, Santiago Metropolitan Region, Chile","2026-08-20","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/acid-labs","","","","","","","","","","","",""
+"li-4453468779","linkedin","https://www.linkedin.com/jobs/view/4453468779","","Data Scientist","Cencosud","Santiago, Santiago Metropolitan Region, Chile","2026-08-19","","","","","","",False,"","","","","","","https://www.linkedin.com/company/cencosud-s-a-","","","","","","","","","","","",""
+"li-4456383598","linkedin","https://www.linkedin.com/jobs/view/4456383598","","Data Scientist","Zenta Group","Santiago, Santiago Metropolitan Region, Chile","2026-08-19","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/zenta-group","","","","","","","","","","","",""
+"li-4456189974","linkedin","https://www.linkedin.com/jobs/view/4456189974","","Data Scientist","Itaú Chile","Las Condes, Santiago Metropolitan Region, Chile","2026-08-19","","","","","","",False,"","","","","","","https://cl.linkedin.com/company/itauchile","","","","","","","","","","","",""

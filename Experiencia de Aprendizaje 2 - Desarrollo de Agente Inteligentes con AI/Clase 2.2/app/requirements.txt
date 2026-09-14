@@ -1,0 +1,8 @@
+python-jobspy>=1.1.80
+langchain>=1.0
+langgraph>=1.0
+langchain-openai>=0.2.0
+pydantic>=2.0
+pydantic-settings>=2.0
+pandas>=2.0
+streamlit>=1.40
