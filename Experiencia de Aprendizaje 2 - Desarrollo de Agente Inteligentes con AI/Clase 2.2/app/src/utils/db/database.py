@@ -5,7 +5,7 @@ from __future__ import annotations
 import sqlite3
 from pathlib import Path
 
-from src.config import SCHEMA_PATH, settings
+from src.utils.config import SCHEMA_PATH, settings
 
 
 def get_connection(db_path: Path | None = None) -> sqlite3.Connection:
@@ -20,7 +20,15 @@ def get_connection(db_path: Path | None = None) -> sqlite3.Connection:
 
 
 def init_db(db_path: Path | None = None) -> None:
-    """Crea las tablas si no existen. Idempotente."""
+    """Crea las tablas si no existen y aplica migraciones pendientes. Idempotente."""
     schema = SCHEMA_PATH.read_text(encoding="utf-8")
     with get_connection(db_path) as conn:
         conn.executescript(schema)
+        _migrate(conn)
+
+
+def _migrate(conn: sqlite3.Connection) -> None:
+    """Columnas agregadas despues del primer schema (CREATE IF NOT EXISTS no las crea)."""
+    columns = {row[1] for row in conn.execute("PRAGMA table_info(jobs)")}
+    if "search_query" not in columns:
+        conn.execute("ALTER TABLE jobs ADD COLUMN search_query TEXT")

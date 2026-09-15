@@ -1,9 +1,10 @@
 """El grafo de LangGraph: un nodo propio (`evaluator`) mas el ToolNode.
 
-    START -> evaluator -> tools -> evaluator -> ... -> END
+    START -> evaluator -> tools -> END
 
-El ciclo deja que el agente encadene evaluate_offer y despues save_evaluation.
-`route_after_tools` corta apenas se guarda, para no gastar un turno en despedirse.
+`evaluator` es la unica llamada al LLM: ahi se generan el score y el review, como argumentos
+del tool call. `tools` ejecuta save_evaluation, que valida y guarda. Si la tool rechaza (score
+fuera de rango, modalidad mal usada), el grafo vuelve al evaluador para que corrija.
 
 Se compila una vez por corrida: la oferta entra por el state, no por el closure.
 """
@@ -14,11 +15,11 @@ from langchain_core.messages import SystemMessage
 from langgraph.graph import END, START, StateGraph
 from langgraph.prebuilt import ToolNode, tools_condition
 
-from src.llm import get_llm
-from src.models import CandidateProfile
-from src.prompts import EVALUATOR_SYSTEM_PROMPT
-from src.states import EvaluationState
-from src.tools import TOOLS
+from src.utils.llm import get_llm
+from src.utils.models import CandidateProfile
+from src.agents.prompts import EVALUATOR_SYSTEM_PROMPT
+from src.agents.states import EvaluationState
+from src.agents.tools import TOOLS
 
 
 def build_evaluator_graph(profile: CandidateProfile):
@@ -37,9 +38,9 @@ def build_evaluator_graph(profile: CandidateProfile):
     graph.add_node("tools", ToolNode(TOOLS))
 
     graph.add_edge(START, "evaluator")
-    # tools_condition: si el modelo llamo una tool va a "tools", si no, termina.
+    # tools_condition: si el modelo llamo la tool va a "tools", si no, termina.
     graph.add_conditional_edges("evaluator", tools_condition)
-    # Tras guardar se termina; si solo evaluo, vuelve para que llame save_evaluation.
+    # Guardado -> fin. Rechazado -> el modelo corrige y vuelve a llamar.
     graph.add_conditional_edges(
         "tools", route_after_tools, {"evaluator": "evaluator", END: END}
     )
@@ -48,5 +49,5 @@ def build_evaluator_graph(profile: CandidateProfile):
 
 
 def route_after_tools(state: EvaluationState) -> str:
-    """Cierra el ciclo apenas se guarda: sin esto el agente gastaria un turno en despedirse."""
-    return END if state.get("saved") else "evaluator"
+    """Termina si la tool guardo; si la rechazo, el evaluador tiene que corregir."""
+    return END if state.get("evaluation") else "evaluator"

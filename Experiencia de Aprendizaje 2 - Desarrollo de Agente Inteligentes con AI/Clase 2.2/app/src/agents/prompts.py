@@ -10,13 +10,9 @@ la oferta ni motivas al candidato.
 
 Recibes UNA oferta. El perfil del candidato esta al final de estas instrucciones.
 
-Trabajas en dos pasos, siempre los dos:
-
-1. evaluate_offer: registras el score y el comentario.
-2. save_evaluation: la guardas en la base de datos.
-
-No respondas en texto libre. Si evaluas pero no guardas, la evaluacion se pierde y la oferta
-queda sin revisar.
+Tu unico paso es llamar la tool save_evaluation con el score y el comentario. No respondas en
+texto libre: si no llamas la tool, la evaluacion se pierde. Si la tool rechaza tu llamada, lee el
+motivo, corrige y vuelve a llamarla.
 
 ## Que significa el score
 
@@ -34,14 +30,23 @@ dominio y las condiciones calcen bien al mismo tiempo. Si dudas entre dos numero
 - El tipo de problema por sobre el nombre del cargo: un "Analista" que hace machine learning
   calza mejor que un "Data Scientist" que hace reporteria.
 - Industria y tipo de empresa: producto propio, consultora o staffing no son lo mismo.
-- Condiciones: modalidad, ubicacion y sueldo minimo declarados en las preferencias del perfil.
+- Docencia: el candidato hoy es docente de IA y le interesa seguir ensenando, pero SOLO data
+  science, inteligencia artificial, machine learning o programacion. Un cargo docente de otra
+  disciplina (ingles, matematica escolar, fitness, medicina, etc.) es un 1: no hay calce alguno.
+- Condiciones: ubicacion y sueldo minimo declarados en las preferencias del perfil.
 - Deal breakers del perfil: solo aplican si la oferta los dice EXPLICITAMENTE. Si aplica uno, el
   score es 4 o menos y debes llenar el campo deal_breaker con cual fue.
-- MODALIDAD: que el portal no marque una oferta como remota NO significa que sea 100% presencial.
-  La mayoria de las ofertas chilenas son hibridas y no lo declaran. Nunca infieras "100%
-  presencial" de la ausencia del dato: solo cuenta si el aviso lo dice con todas sus letras.
-  Si la modalidad no esta clara, deal_breaker va en null y no la pongas como gap: es lo normal
-  en los avisos chilenos, no un defecto de la oferta.
+- UN MAL CALCE NO ES DEAL BREAKER. Si la oferta es de otra area, pide un titulo que el candidato
+  no tiene, o exige mas seniority del que tiene, eso se refleja en un score bajo y en los gaps,
+  con deal_breaker en null. El campo deal_breaker es SOLO para los deal breakers del perfil, y
+  solo cuando el aviso los dice con esas palabras. Un rol que pide 7 anios y liderazgo senior
+  no es "junior": es un rol para el que el candidato no califica, que es distinto.
+- MODALIDAD (remoto / hibrido / presencial): es una preferencia BLANDA del candidato, NUNCA un
+  deal breaker y nunca un gap. Reglas:
+    * Si el aviso NO la declara (lo normal en Chile), no la menciones en absoluto: ni en review,
+      ni en gaps. Que el portal no la marque como remota no significa nada.
+    * Si el aviso SI la declara y no calza con el perfil, una frase al final del review y como
+      maximo 1 punto menos. El calce con el rol pesa mucho mas que donde se trabaja.
   Lo mismo vale para el sueldo y el seniority: lo que no esta escrito, no se asume.
 
 ## Como escribir el comentario (campo review)
@@ -70,5 +75,5 @@ EVALUATION_USER_PROMPT = """\
 === OFERTA A EVALUAR ===
 {job_block}
 
-Evalua esta oferta con evaluate_offer y despues guardala con save_evaluation.\
+Evalua esta oferta y entrega el resultado con save_evaluation.\
 """

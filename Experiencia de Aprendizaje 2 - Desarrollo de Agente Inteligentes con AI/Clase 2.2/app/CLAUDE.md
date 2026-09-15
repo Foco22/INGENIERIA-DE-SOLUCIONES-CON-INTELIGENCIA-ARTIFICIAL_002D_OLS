@@ -57,30 +57,32 @@ app/
 │   └── jobs.db               # SQLite (gitignored)
 │
 └── src/
-    ├── config.py             # settings desde .env (pydantic-settings) + SCORE_BANDS
-    ├── models.py             # Pydantic: JobOffer, CandidateProfile, Evaluation
-    ├── llm.py                # get_llm(): el modelo, configurado en un solo lugar
-    ├── prompts.py            # TODOS los prompts como constantes (nada inline)
-    ├── tools.py              # make_tools(): SOLO las dos tools
-    ├── graph.py              # build_evaluator_graph(): el nodo, el ToolNode y los edges
-    ├── agent.py              # el loop sobre las ofertas y el manejo de errores
+    ├── agents/               # EL AGENTE: todo lo que toca al LLM
+    │   ├── agent.py          # el loop sobre las ofertas y el manejo de errores
+    │   ├── graph.py          # build_evaluator_graph(): el nodo, el ToolNode y los edges
+    │   ├── prompts.py        # TODOS los prompts como constantes (nada inline)
+    │   ├── states.py         # EvaluationState: los mensajes + job, run_id, evaluation
+    │   └── tools.py          # SOLO la tool save_evaluation (+ sus guardrails)
     │
-    ├── ingestion/            # La API de datos — NO sabe nada del LLM
-    │   ├── jobspy_client.py  # fetch_jobs() -> DataFrame
-    │   ├── normalizer.py     # DataFrame/CSV -> list[JobOffer] (limpieza, dedupe)
-    │   └── loader.py         # upsert_jobs(): persiste JobOffer en tabla jobs
-    │
-    ├── profile/
-    │   └── loader.py         # load_profile(): cv.md + profile.json -> CandidateProfile
-    │
-    └── db/
-        ├── database.py       # get_connection(), init_db() desde schema.sql
-        └── repository.py     # save_evaluation, get_pending_jobs, get_evaluations_df
+    └── utils/                # TODO LO DEMAS: no sabe nada de LangGraph
+        ├── config.py         # settings desde .env (pydantic-settings) + SCORE_BANDS
+        ├── models.py         # Pydantic: JobOffer, CandidateProfile, Evaluation
+        ├── llm.py            # get_llm(): el modelo, configurado en un solo lugar
+        ├── db/
+        │   ├── database.py   # get_connection(), init_db() desde schema.sql
+        │   └── repository.py # save_evaluation, get_pending_jobs, get_evaluations_df
+        ├── ingestion/        # La API de datos
+        │   ├── jobspy_client.py  # fetch_jobs() -> DataFrame
+        │   ├── normalizer.py     # DataFrame/CSV -> list[JobOffer] (limpieza, dedupe)
+        │   └── loader.py         # upsert_jobs(): persiste JobOffer en tabla jobs
+        └── profile/
+            └── loader.py     # load_profile(): cv.md + profile.json -> CandidateProfile
 ```
 
-**Regla de capas:** `ingestion/` y `db/` no importan LangChain/LangGraph. `agent.py` no arma
-strings de prompt (viven en `prompts.py`) ni ejecuta SQL directo (usa `db/repository.py`).
-Ningún módulo lee rutas hardcodeadas: todas salen de `config.DATA_DIR`.
+**Regla de capas:** `utils/` no importa LangChain/LangGraph (la excepcion es `llm.py`, que solo
+construye el modelo). `agents/` no arma SQL ni lee archivos: usa `utils/db/repository.py` y
+`utils/profile/loader.py`. `agent.py` no arma strings de prompt: viven en `prompts.py`.
+Ningún módulo lee rutas hardcodeadas: todas salen de `utils/config.py`.
 
 ---
 
@@ -134,80 +136,86 @@ del candidato ni se infieren números desde el CV.
 
 ---
 
-## 3. El agente: un grafo de UN nodo y dos tools
+## 3. El agente: un grafo de UN nodo y UNA tool
 
 LangGraph explicito, pero minimo: **un solo nodo propio** (`evaluator`) mas el `ToolNode` que ya
-viene hecho. Se arma una vez por oferta.
+viene hecho. Se compila una vez por corrida.
 
 ```
    system prompt = rubrica + CV + profile.json   (se carga siempre: no es una tool)
    user message  = la oferta
                      │
                      ▼
-   START ──▶ ┌───────────────┐ ◀──────────────┐
-             │   evaluator   │                │  el unico nodo nuestro:
-             └───────┬───────┘                │  el LLM con las dos tools bindeadas
-                     │                        │
-              tools_condition                 │
-                ┌────┴─────┐                  │
-             si │          │ no               │
-                ▼          ▼                  │
-        ┌───────────────┐  END                │
-        │   ToolNode    │                     │
-        └───────┬───────┘                     │
-                │                             │
-         route_after_tools ───────────────────┘
-                │           si solo evaluo, vuelve para que guarde
-                ▼
-               END          si ya guardo, cierra aca
-
-        turno 1: evaluate_offer   -> registra score y comentario
-        turno 2: save_evaluation  -> lo escribe en la DB, y termina
+   START ──▶ ┌───────────────┐ ◀─────────────┐
+             │   evaluator   │               │  la UNICA llamada al LLM: aqui se
+             └───────┬───────┘               │  generan score y review, como
+                     │                       │  argumentos del tool call
+              tools_condition                │
+                ┌────┴─────┐                 │
+             si │          │ no              │
+                ▼          ▼                 │
+        ┌───────────────┐  END               │
+        │   ToolNode    │  save_evaluation:  │
+        └───────┬───────┘  valida y guarda   │
+                │                            │
+         route_after_tools ──── rechazado ───┘   (score invalido, modalidad mal usada)
+                │
+                ▼ guardado
+               END
 ```
 
 ```python
-graph = StateGraph(MessagesState)
+graph = StateGraph(EvaluationState)
 graph.add_node("evaluator", evaluator)      # nuestro
-graph.add_node("tools", ToolNode(tools))    # prearmado
+graph.add_node("tools", ToolNode(TOOLS))    # prearmado
 graph.add_edge(START, "evaluator")
 graph.add_conditional_edges("evaluator", tools_condition)
 graph.add_conditional_edges("tools", route_after_tools, {"evaluator": "evaluator", END: END})
 ```
 
-`route_after_tools` mira el nombre de la ultima tool ejecutada: si fue `save_evaluation`, cierra;
-si no, vuelve al evaluador. Sin eso el agente gastaria un turno completo solo en despedirse.
+### Donde se genera el score (la pregunta clave)
 
-### Las dos tools (`src/tools.py`)
+En `agents/graph.py`, en `llm.invoke(...)` dentro del nodo `evaluator`. OpenAI lee la rubrica, el CV, el
+perfil y la oferta, y devuelve un `AIMessage` con un `tool_call` cuyos `args` ya traen `score`,
+`review`, `strengths`, `gaps` y `deal_breaker`. **La tool no evalua nada: recibe lo ya decidido.**
 
-| Tool | Que hace |
-|---|---|
-| `evaluate_offer(score, review, strengths, gaps, deal_breaker)` | Valida el score, deriva la banda y deja la evaluacion lista. **No toca la DB.** |
-| `save_evaluation()` | Escribe en la DB lo que dejo `evaluate_offer`. Sin argumentos: el modelo no repite el contenido. |
+### La unica tool: `save_evaluation` (`src/agents/tools.py`)
 
-Ambas se construyen por oferta con `make_tools(job, run_id, sink)`: `job_id` y `run_id` viajan en
-el closure, el modelo nunca maneja ids. Entre las dos llamadas, el resultado vive en un dict
-`draft` del closure — esa es la memoria de trabajo del agente dentro de una oferta.
+```python
+@tool
+def save_evaluation(score, review, strengths, gaps, deal_breaker=None, *,
+                    state: Annotated[dict, InjectedState],
+                    tool_call_id: Annotated[str, InjectedToolCallId]) -> Command:
+```
 
-Cada tool valida su precondicion y **responde en texto** en vez de reventar: score fuera de 1-10
-devuelve "corrigelo", y `save_evaluation` sin evaluacion previa devuelve "primero llama
-evaluate_offer". El agente puede corregirse solo.
+Hace tres cosas, y ninguna es evaluar:
 
-**Por que un nodo y no seis.** El recorrido de las ofertas es un `for` en Python
-(`evaluate_offers`). Nodos `select_next_job` / `persist_result` eran ese mismo `for` escrito en
-piezas. Lo que si merece ser grafo es "llamo una tool o no", y de eso se encarga
-`tools_condition`.
+1. **Es el esquema.** Su firma y docstring son lo que `bind_tools` le manda a OpenAI: el
+   "formulario" que obliga al modelo a estructurar la respuesta en vez de escribir prosa.
+2. **Es la aduana.** Valida el score, rechaza el mal uso de la modalidad (`_modality_misuse`),
+   calcula la banda con `band_for()` — que el modelo no controla — y agrega `job_id`, `run_id`,
+   `model`, `prompt_version`. Si rechaza, responde en texto y el grafo vuelve al evaluador para
+   que corrija.
+3. **Guarda** en la DB y deja el resultado en `state["evaluation"]`.
+
+`job` y `run_id` no son argumentos del modelo: la tool los lee del state con `InjectedState`.
+Por eso el state es `EvaluationState` (`agents/states.py`) y no `MessagesState` pelado.
+
+**Por que una tool y no structured output.** Con una tool el modelo puede razonar antes de llenar
+los argumentos, y si la tool rechaza, corrige y vuelve a llamar. Con structured output hay una
+sola salida rigida y sin segunda oportunidad.
+
+**Por que una tool y no dos.** Hubo una version con `evaluate_offer` + `save_evaluation`. La
+segunda no recibia nada: solo persistia lo que la primera dejo en el state. No aportaba decision,
+solo una llamada LLM extra por oferta. Se fusionaron.
 
 **Por que el CV y el perfil no son tools.** Se necesitan en el 100% de las evaluaciones, asi que
 van en el system prompt. Una tool se justifica cuando el modelo debe *decidir* si la usa.
 
-**`MessagesState`** es el state de LangGraph, no uno propio: por eso no hay `states.py`.
+**Si el modelo no llama la tool**, `tools_condition` va a END, la oferta queda `pending` y el caso
+entra en `errors`; no se pierde en silencio.
 
-**Si el agente evalua pero no guarda**, la oferta queda `pending` y el caso entra en `errors`; no
-se pierde en silencio. El system prompt insiste en que son dos pasos y que sin el segundo la
-evaluacion se pierde.
-
-**Costo: 2 llamadas LLM por oferta** (una para evaluar, otra para guardar). Las 48 ofertas son
-~96 llamadas. El smoke test falla si aparece un tercer turno, asi que la regresion se nota.
+**Costo: 1 llamada LLM por oferta** (mas una por cada rechazo, que es raro).
 
 ---
 
@@ -217,21 +225,21 @@ Un archivo por responsabilidad:
 
 | Archivo | Que tiene |
 |---|---|
-| `src/tools.py` | `evaluate_offer` y `save_evaluation` — **solo las dos tools**, nada mas |
-| `src/states.py` | `EvaluationState` — lo que las tools comparten |
-| `src/graph.py` | `build_evaluator_graph()` + el nodo `evaluator` + `route_after_tools` |
-| `src/agent.py` | `evaluate_offer()` (una oferta) y `evaluate_offers()` (el loop) |
-| `src/llm.py` | `get_llm()` — el modelo, configurado en un solo lugar |
+| `src/agents/tools.py` | `save_evaluation` — **la unica tool**, mas su guardrail |
+| `src/agents/states.py` | `EvaluationState` — job, run_id y el resultado |
+| `src/agents/graph.py` | `build_evaluator_graph()` + el nodo `evaluator` + `route_after_tools` |
+| `src/agents/agent.py` | `evaluate_offer()` (una oferta) y `evaluate_offers()` (el loop) |
+| `src/utils/llm.py` | `get_llm()` — el modelo, configurado en un solo lugar |
 
 ```python
-# src/graph.py
+# src/agents/graph.py
 def build_evaluator_graph(profile):
     """Compila el grafo una vez: sirve para toda la corrida."""
 
 def route_after_tools(state) -> str:
-    """Cierra el ciclo apenas se guarda."""
+    """Guardado -> END. Rechazado -> el evaluador corrige."""
 
-# src/agent.py
+# src/agents/agent.py
 def evaluate_offer(graph, job, run_id) -> Evaluation | None:
     """Evalua UNA oferta. None si el agente no guardo."""
 
@@ -258,7 +266,7 @@ escribiendo en vez de recalibrando números.
 | 7–8 | `neutral` | **neutral** | Postulable con reservas: hay calce pero también dudas reales |
 | 9–10 | `optimistic` | **optimista** | Postular con prioridad. Postularía esta semana |
 
-La banda la **deriva el código** desde el score (`config.SCORE_BANDS`), no el modelo. Si el LLM
+La banda la **deriva el código** desde el score (`utils/config.py: SCORE_BANDS`), no el modelo. Si el LLM
 dice `score=9` con `band="pessimistic"`, gana el score. Así la banda nunca contradice el número.
 
 ### Qué mira el modelo para decidir el score
@@ -390,7 +398,7 @@ def load_evaluations(run_id: str | None = None) -> pd.DataFrame:
     """Trae jobs + evaluations en un DataFrame plano para la tabla."""
 ```
 
-Vive en `src/db/repository.py` como `get_evaluations_df()`; `streamlit_app.py` solo la envuelve con
+Vive en `src/utils/db/repository.py` como `get_evaluations_df()`; `streamlit_app.py` solo la envuelve con
 el cache. Un `st.button("Recargar")` llama a `st.cache_data.clear()` para ver una corrida recién
 terminada sin reiniciar la app.
 
@@ -456,9 +464,9 @@ streamlit run streamlit_app.py          # la tabla filtrable: acá reviso todo
 - **`temperature=0` no es opcional:** si el mismo par (oferta, perfil) da scores distintos entre
   corridas, el ranking no es comparable.
 - **Prompts versionados:** cada cambio a `EVALUATOR_SYSTEM_PROMPT` sube `PROMPT_VERSION` en
-  `config.py`, y ese valor se guarda en `evaluations.prompt_version`. Es lo que permite comparar
+  `utils/config.py`, y ese valor se guarda en `evaluations.prompt_version`. Es lo que permite comparar
   dos corridas y saber si el cambio de prompt mejoró o empeoró.
-- **Prompts:** todos en `src/prompts.py` como constantes en MAYÚSCULAS y en inglés
+- **Prompts:** todos en `src/agents/prompts.py` como constantes en MAYÚSCULAS y en inglés
   (`EVALUATOR_SYSTEM_PROMPT`, `EVALUATION_USER_PROMPT`), con `{placeholders}`
   de `str.format`. El contenido va en español.
 - **JobSpy en Chile:** `country_indeed="chile"`. **Glassdoor no soporta Chile** (lanza
@@ -466,7 +474,7 @@ streamlit run streamlit_app.py          # la tabla filtrable: acá reviso todo
   → sitios efectivos: `["indeed", "linkedin"]`. Ver `test.py`.
 - **Encoding:** todo I/O con `encoding="utf-8"` explícito. La consola de Windows es cp1252 y rompe
   los acentos al imprimir; los archivos quedan bien. Para imprimir, `errors="replace"`.
-- **Costo:** una oferta = **2 llamadas LLM** (evaluar y guardar). 48 ofertas ≈ 96.
+- **Costo:** una oferta = **1 llamada LLM**. 217 ofertas ≈ 217 llamadas.
 - **Idempotencia:** `evaluate` salta las ofertas ya evaluadas en el mismo `run_id`.
 - **Errores por oferta:** un fallo marca `status='error'` en esa fila y el grafo sigue con la
   siguiente; nunca se cae el pipeline completo.
@@ -479,7 +487,7 @@ streamlit run streamlit_app.py          # la tabla filtrable: acá reviso todo
 1. `models.py` (los contratos primero)
 2. `db/` + `schema.sql` + `ingestion/` (cargar las 48 ofertas del CSV existente)
 3. `profile/loader.py` + `data/profile.json` real
-4. `prompts.py` + `tools.make_tools` — probar con UNA oferta primero
+4. `prompts.py` + `tools.save_evaluation` — probar con UNA oferta primero
 5. `agent.py` (el agente y el loop)
 6. `main.py`: `ingest`, `evaluate`
 7. `streamlit_app.py` — la tabla

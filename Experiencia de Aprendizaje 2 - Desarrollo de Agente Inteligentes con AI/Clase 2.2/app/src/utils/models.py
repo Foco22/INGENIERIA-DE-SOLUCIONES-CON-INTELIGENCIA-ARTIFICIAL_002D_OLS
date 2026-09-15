@@ -7,7 +7,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
-from src.config import MAX_DESC_CHARS
+from src.utils.config import MAX_DESC_CHARS
 
 EducationLevel = Literal["technical", "bachelor", "master", "phd"]
 WorkMode = Literal["remote", "hybrid", "onsite"]
@@ -33,6 +33,7 @@ class JobOffer(BaseModel):
     max_amount: float | None = None
     currency: str | None = None
     raw_json: str | None = None
+    search_query: str | None = None   # con que termino(s) de busqueda aparecio
 
     def salary_text(self) -> str:
         """Sueldo legible, o el aviso de que la oferta no lo informa."""

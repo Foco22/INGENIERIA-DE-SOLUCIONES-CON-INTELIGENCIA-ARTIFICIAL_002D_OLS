@@ -9,13 +9,13 @@ import logging
 import uuid
 from datetime import datetime
 
-from src.config import PROMPT_VERSION
-from src.db import repository
-from src.db.database import init_db
-from src.graph import build_evaluator_graph
-from src.models import CandidateProfile, Evaluation, JobOffer
-from src.profile.loader import profile_hash
-from src.prompts import EVALUATION_USER_PROMPT
+from src.utils.config import PROMPT_VERSION
+from src.utils.db import repository
+from src.utils.db.database import init_db
+from src.agents.graph import build_evaluator_graph
+from src.utils.models import CandidateProfile, Evaluation, JobOffer
+from src.utils.profile.loader import profile_hash
+from src.agents.prompts import EVALUATION_USER_PROMPT
 
 logger = logging.getLogger(__name__)
 
@@ -30,14 +30,13 @@ def evaluate_offer(graph, job: JobOffer, run_id: str) -> Evaluation | None:
     final_state = graph.invoke(
         {
             "messages": [("user", EVALUATION_USER_PROMPT.format(job_block=job.to_prompt_block()))],
-            "job": job,          # las tools lo leen con InjectedState
+            "job": job,          # la tool lo lee con InjectedState
             "run_id": run_id,
-            "draft": None,
-            "saved": False,
+            "evaluation": None,
         },
-        {"recursion_limit": 10},  # evaluar + guardar; de sobra
+        {"recursion_limit": 8},  # 1 llamada normal; margen para correcciones
     )
-    return final_state["draft"] if final_state.get("saved") else None
+    return final_state.get("evaluation")
 
 
 def evaluate_offers(

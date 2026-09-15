@@ -10,12 +10,12 @@ import logging
 import sys
 from pathlib import Path
 
-from src.config import BAND_LABELS, RAW_DIR
-from src.db import repository
-from src.db.database import init_db
-from src.agent import evaluate_offers, new_run_id
-from src.ingestion.loader import ingest_from_csv, ingest_from_searches
-from src.profile.loader import load_profile
+from src.utils.config import BAND_LABELS, RAW_DIR
+from src.utils.db import repository
+from src.utils.db.database import init_db
+from src.agents.agent import evaluate_offers, new_run_id
+from src.utils.ingestion.loader import ingest_from_csv, ingest_from_searches
+from src.utils.profile.loader import load_profile
 
 
 def cmd_ingest(args: argparse.Namespace) -> int:

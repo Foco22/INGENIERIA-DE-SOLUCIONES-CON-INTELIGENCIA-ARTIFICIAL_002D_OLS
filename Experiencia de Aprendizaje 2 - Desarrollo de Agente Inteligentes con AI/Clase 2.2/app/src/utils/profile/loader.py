@@ -5,8 +5,8 @@ from __future__ import annotations
 import hashlib
 import json
 
-from src.config import CV_PATH, PROFILE_PATH
-from src.models import CandidateProfile
+from src.utils.config import CV_PATH, PROFILE_PATH
+from src.utils.models import CandidateProfile
 
 
 def load_profile() -> CandidateProfile:

@@ -4,7 +4,7 @@ from pathlib import Path
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
-APP_DIR = Path(__file__).resolve().parent.parent
+APP_DIR = Path(__file__).resolve().parent.parent.parent  # src/utils/config.py -> app/
 DATA_DIR = APP_DIR / "data"
 RAW_DIR = DATA_DIR / "raw"
 DB_DIR = APP_DIR / "db"
@@ -14,7 +14,7 @@ CV_PATH = DATA_DIR / "cv.md"
 PROFILE_PATH = DATA_DIR / "profile.json"
 
 # Sube cuando cambie EVALUATOR_SYSTEM_PROMPT: permite comparar corridas.
-PROMPT_VERSION = "v3"
+PROMPT_VERSION = "v7"
 
 # Cuanto de la descripcion de la oferta entra al prompt.
 MAX_DESC_CHARS = 6000

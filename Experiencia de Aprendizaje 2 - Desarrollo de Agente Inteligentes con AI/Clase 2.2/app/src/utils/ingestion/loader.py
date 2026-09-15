@@ -4,10 +4,10 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from src.db.database import init_db
-from src.db.repository import upsert_jobs
-from src.ingestion.jobspy_client import fetch_jobs
-from src.ingestion.normalizer import csv_to_offers, dataframe_to_offers
+from src.utils.db.database import init_db
+from src.utils.db.repository import upsert_jobs
+from src.utils.ingestion.jobspy_client import fetch_jobs
+from src.utils.ingestion.normalizer import csv_to_offers, dataframe_to_offers
 
 
 def ingest_from_search(
@@ -21,7 +21,7 @@ def ingest_from_search(
     df = fetch_jobs(query, location, results_wanted, hours_old)
     if df is None or df.empty:
         return 0
-    return upsert_jobs(dataframe_to_offers(df))
+    return upsert_jobs(dataframe_to_offers(df, search_query=query))
 
 
 def ingest_from_searches(

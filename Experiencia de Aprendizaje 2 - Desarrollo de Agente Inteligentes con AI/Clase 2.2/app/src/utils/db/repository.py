@@ -7,18 +7,20 @@ from datetime import datetime, timezone
 
 import pandas as pd
 
-from src.config import BAND_LABELS
-from src.db.database import get_connection
-from src.models import Evaluation, JobOffer
+from src.utils.config import BAND_LABELS
+from src.utils.db.database import get_connection
+from src.utils.models import Evaluation, JobOffer
 
 # --------------------------------------------------------------------------- #
 # Jobs
 # --------------------------------------------------------------------------- #
 UPSERT_JOB = """
 INSERT INTO jobs (id, site, title, company, location, date_posted, job_url,
-                  description, is_remote, min_amount, max_amount, currency, raw_json)
+                  description, is_remote, min_amount, max_amount, currency, raw_json,
+                  search_query)
 VALUES (:id, :site, :title, :company, :location, :date_posted, :job_url,
-        :description, :is_remote, :min_amount, :max_amount, :currency, :raw_json)
+        :description, :is_remote, :min_amount, :max_amount, :currency, :raw_json,
+        :search_query)
 ON CONFLICT(job_url) DO UPDATE SET
     title       = excluded.title,
     company     = excluded.company,
@@ -29,7 +31,14 @@ ON CONFLICT(job_url) DO UPDATE SET
     min_amount  = excluded.min_amount,
     max_amount  = excluded.max_amount,
     currency    = excluded.currency,
-    raw_json    = excluded.raw_json
+    raw_json    = excluded.raw_json,
+    -- una oferta puede aparecer en varias busquedas: se acumulan, sin repetir
+    search_query = CASE
+        WHEN excluded.search_query IS NULL THEN jobs.search_query
+        WHEN jobs.search_query IS NULL THEN excluded.search_query
+        WHEN instr(jobs.search_query, excluded.search_query) > 0 THEN jobs.search_query
+        ELSE jobs.search_query || ', ' || excluded.search_query
+    END
 """
 
 
@@ -168,7 +177,7 @@ SELECT e.score, e.band, j.title, j.company, j.location, j.date_posted,
        j.site, j.is_remote, j.job_url, j.min_amount, j.max_amount, j.currency,
        e.review, e.strengths_json, e.gaps_json, e.deal_breaker,
        e.run_id, e.model, e.prompt_version, e.created_at, j.id AS job_id,
-       j.description
+       j.description, j.search_query
 FROM evaluations e
 JOIN jobs j ON j.id = e.job_id
 """

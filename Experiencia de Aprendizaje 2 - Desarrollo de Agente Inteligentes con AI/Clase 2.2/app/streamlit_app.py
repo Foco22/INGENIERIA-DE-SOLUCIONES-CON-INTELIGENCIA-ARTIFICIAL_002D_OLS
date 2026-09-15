@@ -10,9 +10,9 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-from src.config import BAND_LABELS
-from src.db import repository
-from src.db.database import init_db
+from src.utils.config import BAND_LABELS
+from src.utils.db import repository
+from src.utils.db.database import init_db
 
 BAND_ORDER = ["optimistic", "neutral", "pessimistic"]
 BAND_COLORS = {"optimistic": "#1a7f37", "neutral": "#9a6700", "pessimistic": "#b42318"}
@@ -65,6 +65,7 @@ def main() -> None:
             default=[b for b in BAND_ORDER if b in set(df["band"])],
             format_func=lambda b: BAND_LABELS.get(b, b),
         )
+        queries = st.multiselect("Busqueda", _all_queries(df))
         sites = st.multiselect("Portal", sorted(df["site"].dropna().unique()))
         title_query = st.text_input("Titulo contiene")
         company_query = st.text_input("Empresa contiene")
@@ -83,7 +84,7 @@ def main() -> None:
 
     view = apply_filters(
         df, score_min, score_max, bands, sites, title_query,
-        company_query, remote_only, hide_discarded, date_range,
+        company_query, remote_only, hide_discarded, date_range, queries,
     )
 
     # --------------------------------------------------------------- metricas
@@ -104,7 +105,7 @@ def main() -> None:
         gaps_texto=view["gaps"].apply(lambda g: " · ".join(g) if g else "—"),
     )[
         ["publicada", "dias", "score", "banda", "title", "company",
-         "gaps_texto", "review", "site", "job_url"]
+         "gaps_texto", "review", "search_query", "site", "job_url"]
     ]
 
     selection = st.dataframe(
@@ -123,6 +124,7 @@ def main() -> None:
             "company": st.column_config.TextColumn("Empresa", width="small"),
             "gaps_texto": st.column_config.TextColumn("Gaps", width="large"),
             "review": st.column_config.TextColumn("Por que ese score", width="large"),
+            "search_query": st.column_config.TextColumn("Busqueda", width="small"),
             "site": st.column_config.TextColumn("Portal", width="small"),
             "job_url": st.column_config.LinkColumn("Link", display_text="abrir", width="small"),
         },
@@ -135,10 +137,23 @@ def main() -> None:
         st.caption("Selecciona una fila para ver el comentario completo.")
 
 
+def _all_queries(df: pd.DataFrame) -> list[str]:
+    """Terminos de busqueda distintos (una oferta puede traer varios separados por coma)."""
+    terms = set()
+    for value in df["search_query"].dropna():
+        terms.update(t.strip() for t in value.split(",") if t.strip())
+    return sorted(terms)
+
+
 def apply_filters(df, score_min, score_max, bands, sites, title_query,
-                  company_query, remote_only, hide_discarded, date_range):
+                  company_query, remote_only, hide_discarded, date_range, queries=None):
     """Filtra en memoria: la query a la DB es una sola."""
     view = df[df["score"].between(score_min, score_max)]
+    if queries:
+        wanted = set(queries)
+        view = view[view["search_query"].fillna("").apply(
+            lambda v: bool(wanted & {t.strip() for t in v.split(",")})
+        )]
     if bands:
         view = view[view["band"].isin(bands)]
     if sites:
@@ -170,7 +185,7 @@ def show_metrics(df: pd.DataFrame, view: pd.DataFrame) -> None:
     if share > 1 / 3:
         st.warning(
             f"{share:.0%} de las ofertas salio optimista. El prompt esta blando: "
-            "aprieta la rubrica en src/prompts.py y sube PROMPT_VERSION."
+            "aprieta la rubrica en src/agents/prompts.py y sube PROMPT_VERSION."
         )
 
 

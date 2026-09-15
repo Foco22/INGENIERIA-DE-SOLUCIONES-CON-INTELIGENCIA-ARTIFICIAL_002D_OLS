@@ -6,7 +6,7 @@ from functools import lru_cache
 
 from langchain_openai import ChatOpenAI
 
-from src.config import settings
+from src.utils.config import settings
 
 
 @lru_cache(maxsize=1)

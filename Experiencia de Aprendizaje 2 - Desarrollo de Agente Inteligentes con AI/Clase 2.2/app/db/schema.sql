@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS jobs (
   max_amount    REAL,
   currency      TEXT,
   raw_json      TEXT,                       -- fila original de JobSpy
+  search_query  TEXT,                       -- termino(s) de busqueda que la trajeron
   status        TEXT NOT NULL DEFAULT 'pending',   -- pending | evaluated | error
   ingested_at   TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );

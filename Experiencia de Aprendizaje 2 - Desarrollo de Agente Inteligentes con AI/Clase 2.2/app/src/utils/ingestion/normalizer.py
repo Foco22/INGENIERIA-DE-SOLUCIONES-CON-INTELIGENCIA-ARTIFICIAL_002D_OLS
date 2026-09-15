@@ -8,7 +8,7 @@ from pathlib import Path
 
 import pandas as pd
 
-from src.models import JobOffer
+from src.utils.models import JobOffer
 
 COLUMNS = [
     "site", "title", "company", "location", "date_posted", "job_url",
@@ -21,7 +21,7 @@ def job_id_for(job_url: str) -> str:
     return hashlib.sha1(job_url.strip().encode("utf-8")).hexdigest()[:16]
 
 
-def dataframe_to_offers(df: pd.DataFrame) -> list[JobOffer]:
+def dataframe_to_offers(df: pd.DataFrame, search_query: str | None = None) -> list[JobOffer]:
     """Normaliza el DataFrame de JobSpy y descarta filas sin URL o sin titulo."""
     offers: list[JobOffer] = []
     seen: set[str] = set()
@@ -52,6 +52,7 @@ def dataframe_to_offers(df: pd.DataFrame) -> list[JobOffer]:
                 max_amount=_to_float(row.get("max_amount")),
                 currency=_clean(row.get("currency")),
                 raw_json=_row_json(row),
+                search_query=search_query,
             )
         )
     return offers
