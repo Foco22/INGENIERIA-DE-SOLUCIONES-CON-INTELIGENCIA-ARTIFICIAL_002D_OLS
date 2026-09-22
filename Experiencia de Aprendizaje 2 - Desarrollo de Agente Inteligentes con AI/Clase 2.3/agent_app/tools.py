@@ -9,17 +9,38 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-embedder = EmbeddingClient()
-mongo_client = MongoClient(os.getenv("MONGODB_CONNECTION_STRING"))
-collection = mongo_client["agent-rag-duoc-uc"]["embeddings"]
-calendar_client = GoogleCalendarClient()
+_embedder = None
+_collection = None
+_calendar_client = None
+
+
+def get_embedder() -> EmbeddingClient:
+    global _embedder
+    if _embedder is None:
+        _embedder = EmbeddingClient()
+    return _embedder
+
+
+def get_collection():
+    global _collection
+    if _collection is None:
+        client = MongoClient(os.getenv("MONGODB_CONNECTION_STRING"))
+        _collection = client["agent-rag-duoc-uc"]["embeddings"]
+    return _collection
+
+
+def get_calendar_client() -> GoogleCalendarClient:
+    global _calendar_client
+    if _calendar_client is None:
+        _calendar_client = GoogleCalendarClient()
+    return _calendar_client
 
 
 @traceable(name="retrieve")
 def retrieve(query: str, top_k: int = 5) -> list[dict]:
-    query_embedding = embedder.get_embedding(query)
+    query_embedding = get_embedder().get_embedding(query)
 
-    results = collection.aggregate([
+    results = get_collection().aggregate([
         {
             "$vectorSearch": {
                 "index": "vector_index",
@@ -83,7 +104,7 @@ def get_available_slots(professor_email: str, date: str) -> str:
         professor_email: Professor's email address.
         date: Date to check in format YYYY-MM-DD.
     """
-    slots = calendar_client.get_available_slots(professor_email, date)
+    slots = get_calendar_client().get_available_slots(professor_email, date)
     if not slots:
         return f"No available slots found on {date}."
     slots_text = "\n".join(f"- {s['start']} to {s['end']}" for s in slots)
@@ -100,5 +121,5 @@ def schedule_meeting(summary: str, date: str, start_time: str, end_time: str, at
         end_time: End time in format HH:MM.
         attendee_email: Email of the attendee to invite.
     """
-    event = calendar_client.create_event(summary, date, start_time, end_time, attendee_email)
+    event = get_calendar_client().create_event(summary, date, start_time, end_time, attendee_email)
     return f"Meeting scheduled: {event.get('htmlLink')}"

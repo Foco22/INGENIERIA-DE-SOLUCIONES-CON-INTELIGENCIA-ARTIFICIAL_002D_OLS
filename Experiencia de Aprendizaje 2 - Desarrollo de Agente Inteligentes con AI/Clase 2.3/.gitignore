@@ -8,3 +8,5 @@ __pycache__/
 graph.png
 photo.png
 .claude/
+
+.langgraph_api/

@@ -1,6 +1,6 @@
 langgraph
+langchain
 langchain-openai
-langchain-mongodb
 pymongo
 python-dotenv
 openai
@@ -9,3 +9,4 @@ google-api-python-client
 google-auth-oauthlib
 google-auth-httplib2
 langgraph-cli[inmem]
+langsmith
