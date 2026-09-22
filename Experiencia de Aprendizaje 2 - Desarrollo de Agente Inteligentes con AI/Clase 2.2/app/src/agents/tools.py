@@ -21,7 +21,7 @@ from src.utils.db import repository
 from src.utils.models import Evaluation
 
 
-@tool
+@tool 
 def save_evaluation(
     score: int,
     review: str,
