@@ -118,57 +118,38 @@ vectorial llamado `vector_index` sobre el campo `embedding` (1536 dimensiones,
 
 ## Tarea
 
-El agente hoy solo sabe responder con el material del curso y agendar reuniones. Cuando le
+El agente hoy sabe responder con el material del curso y agendar reuniones. Cuando le
 preguntan por algo del mundo real —quién es una persona, qué es un concepto general—
 no tiene dónde buscar.
 
-**Tu tarea es agregar un tercer especialista: un agente de Wikipedia.**
+**Tu tarea es reemplazar el agente de reuniones (`meeting_agent`) por un agente de
+Wikipedia (`wiki_agent`).** Al terminar, el supervisor debe derivar solo a dos
+especialistas: `rag_agent` y `wiki_agent`.
 
-### Pasos
+Parte de la tarea es que tú identifiques qué partes del proyecto debes eliminar, cuáles
+modificar y qué debes crear. Revisa bien cómo está construido el agente actual antes de
+empezar.
 
-1. **Crea la tool** en `agent_app/tools.py` usando el decorador `@tool`:
+### Requisitos
 
-   ```python
-   @tool
-   def wikipedia_search(query: str) -> str:
-       """Descripción clara de cuándo usar esta tool."""
-       ...
-   ```
-
-   Consulta la API de Wikipedia (`https://es.wikipedia.org/w/api.php`) y devuelve un
-   resumen del artículo junto con su URL. Recuerda que el docstring es lo que lee el
-   modelo para decidir si la usa: escríbelo pensando en eso.
-
-2. **Crea el prompt** del especialista en `agent_app/prompts.py`, por ejemplo
-   `WIKI_AGENT_PROMPT`. Debe dejar claro que la información viene de Wikipedia y no del
-   material de la asignatura.
-
-3. **Crea el nodo** `wiki_agent` en `agent_app/agent.py`, con su propio LLM al que le
-   enlaces **solo** la tool de Wikipedia (`bind_tools`), más su `ToolNode` y su función de
-   ruteo.
-
-4. **Regístralo en el supervisor**: agrega `"wiki"` al `Literal` de la clase `Route`,
-   al diccionario de `route_supervisor`, y explica en `SUPERVISOR_PROMPT` cómo distinguir
-   una pregunta del curso (`rag`) de una de cultura general (`wiki`).
-
-5. **Conecta las aristas** del nuevo nodo en el grafo.
-
-6. **Pruébalo** en Streamlit y en LangGraph Studio. En Studio deberías ver el supervisor
-   derivando a `wiki_agent` y el campo `motivo` explicando por qué.
+- El agente de reuniones y todo lo que depende de él deja de existir en el proyecto.
+- El nuevo especialista obtiene su información de la API de Wikipedia en español
+  (`https://es.wikipedia.org/w/api.php`) y devuelve un resumen del artículo junto con su
+  URL.
+- Cada especialista solo puede usar sus propias herramientas.
+- La aplicación funciona tanto en Streamlit como en LangGraph Studio.
+- El README refleja la nueva arquitectura.
 
 ### Criterio de éxito
 
 - "¿Qué técnicas de prompt engineering vimos en clase?" → debe ir a `rag_agent`.
 - "¿Quién es Yann LeCun?" → debe ir a `wiki_agent` y citar la URL del artículo.
+- En el grafo ya no existe ningún nodo de reuniones.
 - El agente nunca debe confundir ambas fuentes ni inventar contenido del curso.
 
 ### Pistas
 
 - La API de Wikipedia responde **403** a las peticiones sin cabecera `User-Agent`.
-  Manda una descriptiva, por ejemplo `{"User-Agent": "AgenteRAG-DuocUC/1.0"}`.
-- Necesitas dos llamadas: `list=search` para encontrar el título del artículo, y luego
-  `prop=extracts&exintro&explaintext` para obtener el resumen.
-- Maneja el caso de que no existan resultados: la tool debe devolver un mensaje claro, no
-  lanzar una excepción.
+- Si no hay resultados, la tool debe devolver un mensaje claro, no lanzar una excepción.
 
 Sube tu solución a GitHub.
