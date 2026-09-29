@@ -1,21 +1,32 @@
 import sqlite3
 import os
+import re
 import json
-import plotly.graph_objects as go
+import html
+import difflib
+import unicodedata
 from langchain_core.tools import tool
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "..", "data", "database.db")
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+DB_PATH = os.path.join(PROJECT_ROOT, "data", "database.db")
+REPORTS_DIR = os.path.join(PROJECT_ROOT, "reports")
 
 
-@tool
 def get_schema() -> str:
-    """Returns the schema of all tables in the database."""
+    """Returns the schema of all tables in the database (injected into the SQL agent prompt)."""
     conn = sqlite3.connect(DB_PATH)
     cur = conn.cursor()
     cur.execute("SELECT sql FROM sqlite_master WHERE type='table' ORDER BY name")
     tables = cur.fetchall()
+    # Valores posibles de columnas categóricas, para no filtrar con 'cancelados' en vez de 'cancelado'.
+    values = [
+        f"- {table}.{column}: " + ", ".join(
+            f"'{v}'" for (v,) in cur.execute(f"SELECT DISTINCT {column} FROM {table} ORDER BY 1")
+        )
+        for table, column in [("pedidos", "estado"), ("productos", "categoria"), ("clientes", "ciudad")]
+    ]
     conn.close()
-    return "\n\n".join(t[0] for t in tables if t[0])
+    return "\n\n".join(t[0] for t in tables if t[0]) + "\n\nValores posibles:\n" + "\n".join(values)
 
 
 @tool
@@ -34,142 +45,170 @@ def execute_query(query: str) -> str:
         return f"Error ejecutando query: {e}"
 
 
-sql_tools = [get_schema, execute_query]
-
-# Almacena el último gráfico generado para que app.py lo recupere
-_last_chart: list[str | None] = [None]
-
-
-def get_last_chart() -> str | None:
-    return _last_chart[0]
+# Columnas de texto donde el usuario suele mencionar valores por nombre.
+SEARCHABLE_COLUMNS = [
+    ("clientes", "nombre"), ("clientes", "ciudad"),
+    ("productos", "nombre"), ("productos", "categoria"),
+    ("pedidos", "estado"),
+]
 
 
-def clear_last_chart() -> None:
-    _last_chart[0] = None
+def _normalize(text: str) -> str:
+    """Minúsculas y sin tildes: 'García' -> 'garcia'."""
+    text = unicodedata.normalize("NFKD", text.lower())
+    return "".join(c for c in text if not unicodedata.combining(c)).strip()
 
 
 @tool
-def transform_data_to_visualization(data: str, chart_type: str, title: str) -> str:
+def find_value(text: str) -> str:
     """
-    Creates a Plotly chart from query result data and stores it for display.
+    Finds how a name is spelled exactly in the database (customers, cities, products,
+    categories or order statuses). Tolerates accents, casing, partial names and typos.
+    Use it BEFORE filtering by a name in a query.
 
     Args:
-        data: JSON string with 'columns' and 'rows' keys (output of execute_query).
-        chart_type: Type of chart — 'bar', 'line', or 'pie'.
-        title: Chart title.
-
-    Returns:
-        Confirmation message.
+        text: the name as the user wrote it, e.g. "ana garcia" or "laptop".
     """
-    parsed = json.loads(data)
-    columns = parsed["columns"]
-    rows = parsed["rows"]
-
-    x = [row[0] for row in rows]
-    y = [row[1] for row in rows]
-
-    x_label = columns[0]
-    y_label = columns[1] if len(columns) > 1 else ""
-
-    if chart_type == "bar":
-        fig = go.Figure(go.Bar(x=x, y=y, name=y_label))
-    elif chart_type == "line":
-        fig = go.Figure(go.Scatter(x=x, y=y, mode="lines+markers", name=y_label))
-    elif chart_type == "pie":
-        fig = go.Figure(go.Pie(labels=x, values=y))
-    else:
-        fig = go.Figure(go.Bar(x=x, y=y, name=y_label))
-
-    fig.update_layout(
-        title={"text": title, "x": 0.5, "xanchor": "center"},
-        xaxis_title=x_label,
-        yaxis_title=y_label,
-        plot_bgcolor="white",
-        paper_bgcolor="white",
+    query = _normalize(text)
+    conn = sqlite3.connect(DB_PATH)
+    matches = []
+    for table, column in SEARCHABLE_COLUMNS:
+        for (value,) in conn.execute(f"SELECT DISTINCT {column} FROM {table}"):
+            candidate = _normalize(str(value))
+            score = difflib.SequenceMatcher(None, query, candidate).ratio()
+            if query in candidate:
+                score = max(score, 0.9)
+            if score >= 0.6:
+                matches.append((round(score, 2), f"{table}.{column}", value))
+    conn.close()
+    matches.sort(reverse=True)
+    if not matches:
+        return f"No value similar to '{text}' was found."
+    return json.dumps(
+        [{"column": col, "exact_value": val, "similarity": sc} for sc, col, val in matches[:5]],
+        ensure_ascii=False,
     )
 
-    _last_chart[0] = fig.to_json()
-    return f"Gráfico '{title}' generado correctamente con {len(rows)} puntos de datos."
+
+sql_tools = [find_value, execute_query]
+
+# ---------------------------------------------------------------------------
+# Tools del agente de reportes. Son genéricas: las queries específicas y la
+# plantilla HTML viven en la skill "reporte-ventas" (skills/reporte-ventas/).
+# ---------------------------------------------------------------------------
+
+def _resolve(virtual_path: str) -> str:
+    """Convierte una ruta virtual ("/skills/...") en una ruta real dentro del proyecto."""
+    real = os.path.abspath(os.path.join(PROJECT_ROOT, virtual_path.lstrip("/")))
+    if not real.startswith(PROJECT_ROOT + os.sep):
+        raise ValueError(f"Ruta fuera del proyecto: {virtual_path}")
+    return real
 
 
-python_tools = [transform_data_to_visualization]
+def _run_named_queries(sql_path: str, desde: str, hasta: str, params: dict | None = None) -> dict:
+    """Ejecuta cada bloque '-- name: ...' del archivo y combina sus columnas en un dict."""
+    bindings = {"desde": desde, "hasta": hasta, **(params or {})}
+    with open(_resolve(sql_path), encoding="utf-8") as f:
+        blocks = re.split(r"^-- name: .*$", f.read(), flags=re.M)[1:]
+    values: dict = {}
+    conn = sqlite3.connect(DB_PATH)
+    try:
+        for block in blocks:
+            cur = conn.execute(block.strip().rstrip(";"), bindings)
+            row = cur.fetchone() or ()
+            values.update({d[0]: v for d, v in zip(cur.description, row)})
+    finally:
+        conn.close()
+    return values
+
+
+def _html_rows_to_text(rows_html: str | None) -> str:
+    text = re.sub(r"</tr>", "\n", rows_html or "")
+    text = re.sub(r"</td>\s*<td[^>]*>", " | ", text)
+    return re.sub(r"<[^>]+>", "", text).strip()
 
 
 @tool
-def generate_report() -> dict:
+def run_sql_file(sql_path: str, desde: str, hasta: str, params: dict | None = None) -> str:
     """
-    Genera un reporte ejecutivo de ventas consultando la base de datos.
-    Solo considera pedidos con estado 'entregado'.
+    Ejecuta las queries nombradas ('-- name: ...') de un archivo .sql de una skill
+    con los parámetros :desde y :hasta, y devuelve los resultados combinados.
 
-    Retorna un diccionario con:
-    - total_vendido: monto total vendido en el período
-    - mejor_mes: mes con mayor venta (mes, total)
-    - peor_mes: mes con menor venta (mes, total)
-    - clientes_ranking: lista de clientes ordenados de mayor a menor por monto comprado
-    - producto_mas_vendido: producto con más unidades vendidas (nombre, unidades)
+    Args:
+        sql_path: ruta virtual del archivo, ej. "/skills/reporte-ventas/references/queries.sql".
+        desde: fecha inicial YYYY-MM-DD.
+        hasta: fecha final YYYY-MM-DD.
+        params: parámetros extra que use el .sql, ej. {"cliente": "Ana García"} para :cliente.
     """
-    conn = sqlite3.connect(DB_PATH)
-    cur = conn.cursor()
-
-    # Total vendido
-    cur.execute("""
-        SELECT SUM(dp.cantidad * dp.precio_unitario)
-        FROM detalle_pedidos dp
-        JOIN pedidos p ON dp.pedido_id = p.id
-        WHERE p.estado = 'entregado'
-    """)
-    total_vendido = cur.fetchone()[0] or 0
-
-    # Ventas por mes
-    cur.execute("""
-        SELECT strftime('%Y-%m', p.fecha) AS mes,
-               SUM(dp.cantidad * dp.precio_unitario) AS total
-        FROM detalle_pedidos dp
-        JOIN pedidos p ON dp.pedido_id = p.id
-        WHERE p.estado = 'entregado'
-        GROUP BY mes
-        ORDER BY total DESC
-    """)
-    ventas_por_mes = cur.fetchall()
-
-    mejor_mes = {"mes": ventas_por_mes[0][0], "total": ventas_por_mes[0][1]} if ventas_por_mes else None
-    peor_mes  = {"mes": ventas_por_mes[-1][0], "total": ventas_por_mes[-1][1]} if ventas_por_mes else None
-
-    # Clientes ranking de mayor a menor
-    cur.execute("""
-        SELECT c.nombre, SUM(dp.cantidad * dp.precio_unitario) AS total_compras
-        FROM clientes c
-        JOIN pedidos p ON c.id = p.cliente_id
-        JOIN detalle_pedidos dp ON p.id = dp.pedido_id
-        WHERE p.estado = 'entregado'
-        GROUP BY c.id, c.nombre
-        ORDER BY total_compras DESC
-    """)
-    clientes_ranking = [{"nombre": row[0], "total": row[1]} for row in cur.fetchall()]
-
-    # Producto más vendido por unidades
-    cur.execute("""
-        SELECT pr.nombre, SUM(dp.cantidad) AS unidades
-        FROM detalle_pedidos dp
-        JOIN productos pr ON dp.producto_id = pr.id
-        JOIN pedidos p ON dp.pedido_id = p.id
-        WHERE p.estado = 'entregado'
-        GROUP BY pr.id, pr.nombre
-        ORDER BY unidades DESC
-        LIMIT 1
-    """)
-    row = cur.fetchone()
-    producto_mas_vendido = {"nombre": row[0], "unidades": row[1]} if row else None
-
-    conn.close()
-
-    return {
-        "total_vendido": total_vendido,
-        "mejor_mes": mejor_mes,
-        "peor_mes": peor_mes,
-        "clientes_ranking": clientes_ranking,
-        "producto_mas_vendido": producto_mas_vendido,
+    try:
+        values = _run_named_queries(sql_path, desde, hasta, params)
+    except Exception as e:
+        return f"Error ejecutando {sql_path}: {e}"
+    readable = {
+        k: _html_rows_to_text(v) if k.startswith("FILAS_") else v
+        for k, v in values.items()
     }
+    return json.dumps(readable, ensure_ascii=False, indent=1)
 
 
-report_tools = [generate_report]
+@tool
+def render_report(sql_path: str, template_path: str, output_path: str,
+                  desde: str, hasta: str, periodo: str, resumen: str,
+                  params: dict | None = None) -> str:
+    """
+    Genera un reporte HTML: ejecuta las queries del archivo .sql, reemplaza los marcadores
+    {{ALIAS}} de la plantilla con los resultados (más PERIODO, DESDE, HASTA y RESUMEN)
+    y escribe el archivo final.
+
+    Args:
+        sql_path: ruta virtual del .sql de la skill.
+        template_path: ruta virtual de la plantilla HTML de la skill.
+        output_path: ruta virtual del HTML a generar, ej. "/reports/reporte_ventas.html".
+        desde: fecha inicial YYYY-MM-DD.
+        hasta: fecha final YYYY-MM-DD.
+        periodo: texto legible del período, ej. "Q1 2025 (Ene – Mar)".
+        resumen: análisis escrito de 3 a 5 oraciones.
+        params: parámetros extra que use el .sql, ej. {"cliente": "Ana García"} para :cliente.
+    """
+    try:
+        values = _run_named_queries(sql_path, desde, hasta, params)
+        with open(_resolve(template_path), encoding="utf-8") as f:
+            template = f.read()
+    except Exception as e:
+        return f"Error preparando el reporte: {e}"
+
+    if all(v is None for v in values.values()):
+        return f"Las queries no devolvieron datos entre {desde} y {hasta}. Revisa el período o los filtros."
+
+    values.update({
+        "PERIODO": html.escape(periodo), "DESDE": desde, "HASTA": hasta,
+        "RESUMEN": html.escape(resumen),
+    })
+    rendered = re.sub(
+        r"\{\{(\w+)\}\}",
+        lambda m: "" if values.get(m.group(1)) is None else str(values[m.group(1)]),
+        template,
+    )
+    missing = sorted(set(re.findall(r"\{\{(\w+)\}\}", template)) - values.keys())
+    if missing:
+        return f"Error: la plantilla usa marcadores sin valor: {missing}"
+
+    out = _resolve(output_path)
+    os.makedirs(os.path.dirname(out), exist_ok=True)
+    with open(out, "w", encoding="utf-8") as f:
+        f.write(rendered)
+    return f"Reporte generado en {output_path} ({len(rendered):,} caracteres)."
+
+
+report_tools = [run_sql_file, render_report]
+
+
+def get_latest_report() -> tuple[str, float] | None:
+    """Devuelve (ruta, mtime) del HTML más reciente en reports/, o None si no hay ninguno."""
+    if not os.path.isdir(REPORTS_DIR):
+        return None
+    paths = [os.path.join(REPORTS_DIR, f) for f in os.listdir(REPORTS_DIR) if f.endswith(".html")]
+    if not paths:
+        return None
+    latest = max(paths, key=os.path.getmtime)
+    return latest, os.path.getmtime(latest)

@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reporte de Ventas — {{PERIODO}}</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #f5f6f8; --card: #ffffff; --ink: #1c2230; --muted: #6b7385;
+    --line: #e4e7ec; --accent: #2f6fed; --good: #1f9d63; --bad: #d64545;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--ink);
+         font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 32px 16px 48px; }
+  header { display: flex; justify-content: space-between; align-items: flex-end;
+           flex-wrap: wrap; gap: 8px; margin-bottom: 24px; }
+  h1 { margin: 0; font-size: 26px; }
+  .sub { color: var(--muted); font-size: 14px; }
+  h2 { font-size: 16px; margin: 0 0 12px; }
+  .grid { display: grid; gap: 16px; }
+  .kpis { grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); margin-bottom: 16px; }
+  .two  { grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); margin-bottom: 16px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 18px; }
+  .kpi .label { color: var(--muted); font-size: 13px; }
+  .kpi .value { font-size: 24px; font-weight: 650; margin-top: 4px; font-variant-numeric: tabular-nums; }
+  .kpi .note  { font-size: 13px; margin-top: 2px; }
+  .good { color: var(--good); } .bad { color: var(--bad); }
+  .chart { position: relative; height: 260px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { padding: 8px 6px; border-bottom: 1px solid var(--line); text-align: left; }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .03em; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  .resumen { border-left: 4px solid var(--accent); }
+  .resumen p { margin: 0; }
+  footer { color: var(--muted); font-size: 12px; margin-top: 24px; text-align: center; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <h1>Reporte Ejecutivo de Ventas</h1>
+      <div class="sub">{{PERIODO}} · del {{DESDE}} al {{HASTA}} · solo pedidos entregados</div>
+    </div>
+  </header>
+
+  <section class="grid kpis">
+    <div class="card kpi"><div class="label">Total vendido</div><div class="value clp">{{TOTAL_VENDIDO}}</div></div>
+    <div class="card kpi"><div class="label">Pedidos entregados</div><div class="value num">{{PEDIDOS_ENTREGADOS}}</div></div>
+    <div class="card kpi"><div class="label">Ticket promedio</div><div class="value clp">{{TICKET_PROMEDIO}}</div></div>
+    <div class="card kpi"><div class="label">Unidades vendidas</div><div class="value num">{{UNIDADES_VENDIDAS}}</div></div>
+    <div class="card kpi"><div class="label">Mejor mes</div><div class="value">{{MEJOR_MES}}</div><div class="note good clp">{{MEJOR_MES_TOTAL}}</div></div>
+    <div class="card kpi"><div class="label">Peor mes</div><div class="value">{{PEOR_MES}}</div><div class="note bad clp">{{PEOR_MES_TOTAL}}</div></div>
+  </section>
+
+  <section class="card resumen" style="margin-bottom:16px">
+    <h2>Resumen</h2>
+    <p>{{RESUMEN}}</p>
+  </section>
+
+  <section class="card" style="margin-bottom:16px">
+    <h2>Ventas por mes</h2>
+    <div class="chart"><canvas id="chartMeses"></canvas></div>
+  </section>
+
+  <section class="grid two">
+    <div class="card"><h2>Ventas por categoría</h2><div class="chart"><canvas id="chartCategorias"></canvas></div></div>
+    <div class="card"><h2>Ventas por ciudad</h2><div class="chart"><canvas id="chartCiudades"></canvas></div></div>
+  </section>
+
+  <section class="grid two">
+    <div class="card">
+      <h2>Ranking de clientes</h2>
+      <table>
+        <thead><tr><th>#</th><th>Cliente</th><th>Ciudad</th><th class="n">Pedidos</th><th class="n">Total</th></tr></thead>
+        <!-- Ejemplo de fila: <tr><td>1</td><td>Ana García</td><td>Santiago</td><td class="n num">12</td><td class="n clp">1234567</td></tr> -->
+        <tbody>{{FILAS_CLIENTES}}</tbody>
+      </table>
+    </div>
+    <div class="card">
+      <h2>Ranking de productos</h2>
+      <table>
+        <thead><tr><th>#</th><th>Producto</th><th>Categoría</th><th class="n">Unidades</th><th class="n">Total</th></tr></thead>
+        <!-- Ejemplo de fila: <tr><td>1</td><td>Laptop Pro</td><td>Electrónica</td><td class="n num">40</td><td class="n clp">35999600</td></tr> -->
+        <tbody>{{FILAS_PRODUCTOS}}</tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Pedidos por estado (todos los estados)</h2>
+    <div class="chart"><canvas id="chartEstados"></canvas></div>
+  </section>
+
+  <footer>Generado por el agente de reportes con la skill <code>reporte-ventas</code>.</footer>
+</div>
+
+<script>
+  const fmtCLP = new Intl.NumberFormat("es-CL", { style: "currency", currency: "CLP", maximumFractionDigits: 0 });
+  const fmtNum = new Intl.NumberFormat("es-CL", { maximumFractionDigits: 0 });
+  document.querySelectorAll(".clp, .num").forEach(el => {
+    const n = Number(String(el.textContent).replace(/[^0-9.-]/g, ""));
+    if (!Number.isNaN(n) && el.textContent.trim() !== "") {
+      el.textContent = el.classList.contains("clp") ? fmtCLP.format(n) : fmtNum.format(n);
+    }
+  });
+
+  const PALETTE = ["#2f6fed", "#1f9d63", "#e8a33d", "#d64545", "#8a5cf6", "#17a2b8"];
+  const money = { callback: v => fmtCLP.format(v) };
+  const tipMoney = { callbacks: { label: c => fmtCLP.format(c.parsed.y ?? c.parsed) } };
+
+  if (window.Chart) {
+    new Chart(document.getElementById("chartMeses"), {
+      type: "line",
+      data: { labels: {{MESES_LABELS}}, datasets: [{ data: {{MESES_DATA}}, borderColor: PALETTE[0],
+              backgroundColor: "rgba(47,111,237,.12)", fill: true, tension: .3, pointRadius: 4 }] },
+      options: { maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: tipMoney },
+                 scales: { y: { beginAtZero: true, ticks: money } } }
+    });
+    new Chart(document.getElementById("chartCategorias"), {
+      type: "doughnut",
+      data: { labels: {{CATEGORIAS_LABELS}}, datasets: [{ data: {{CATEGORIAS_DATA}}, backgroundColor: PALETTE }] },
+      options: { maintainAspectRatio: false, plugins: { tooltip: tipMoney } }
+    });
+    new Chart(document.getElementById("chartCiudades"), {
+      type: "bar",
+      data: { labels: {{CIUDADES_LABELS}}, datasets: [{ data: {{CIUDADES_DATA}}, backgroundColor: PALETTE[0], borderRadius: 4 }] },
+      options: { maintainAspectRatio: false, plugins: { legend: { display: false }, tooltip: tipMoney },
+                 scales: { y: { beginAtZero: true, ticks: money } } }
+    });
+    new Chart(document.getElementById("chartEstados"), {
+      type: "bar",
+      data: { labels: {{ESTADOS_LABELS}}, datasets: [{ data: {{ESTADOS_DATA}},
+              backgroundColor: [PALETTE[1], PALETTE[2], PALETTE[3]], borderRadius: 4 }] },
+      options: { indexAxis: "y", maintainAspectRatio: false, plugins: { legend: { display: false } } }
+    });
+  }
+</script>
+</body>
+</html>

@@ -2,6 +2,6 @@ langchain-core
 langchain-openai
 langgraph
 openai
-plotly
 streamlit
+deepagents
 python-dotenv

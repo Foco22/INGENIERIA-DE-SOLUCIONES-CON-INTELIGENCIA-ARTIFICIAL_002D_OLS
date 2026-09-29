@@ -8,9 +8,11 @@ from langgraph.graph.message import add_messages
 from langgraph.prebuilt import create_react_agent
 from langgraph.checkpoint.memory import MemorySaver
 from pydantic import BaseModel
+from deepagents import create_deep_agent, FilesystemPermission
+from deepagents.backends.filesystem import FilesystemBackend
 
-from agent_app.tools import sql_tools, python_tools, report_tools
-from agent_app.prompts import SQL_SYSTEM_PROMPT, PYTHON_SYSTEM_PROMPT, SUPERVISOR_SYSTEM_PROMPT, REPORT_SYSTEM_PROMPT
+from agent_app.tools import sql_tools, report_tools, get_schema, PROJECT_ROOT
+from agent_app.prompts import SUPERVISOR_SYSTEM_PROMPT, SQL_SYSTEM_PROMPT, REPORT_SYSTEM_PROMPT
 
 
 class AgentState(TypedDict):
@@ -19,38 +21,34 @@ class AgentState(TypedDict):
 
 
 class Route(BaseModel):
-    next: Literal["sql_agent", "python_agent", "sql_then_python", "report_agent", "FINISH"]
+    next: Literal["sql_agent", "report_agent", "FINISH"]
     response: Optional[str] = None
 
 
 llm = ChatOpenAI(model="gpt-4o-mini", temperature=0)
 
-sql_agent    = create_react_agent(llm, sql_tools,    prompt=SQL_SYSTEM_PROMPT)
-python_agent = create_react_agent(llm, python_tools, prompt=PYTHON_SYSTEM_PROMPT)
-report_agent = create_react_agent(llm, report_tools, prompt=REPORT_SYSTEM_PROMPT)
+
+def sql_prompt(state: dict) -> list:
+    # El esquema se inyecta en cada llamada: el agente nunca escribe una query sin conocerlo.
+    system = SystemMessage(content=SQL_SYSTEM_PROMPT.format(schema=get_schema()))
+    return [system] + state["messages"]
 
 
-def summarize_for(messages: list, role: str) -> HumanMessage:
-    role_instruction = {
-        "sql": (
-            "Resume en 2-3 oraciones qué consulta SQL debe realizarse según la conversación. "
-            "Incluye filtros, agrupaciones o condiciones relevantes. Solo describe la tarea, no ejecutes nada."
-        ),
-        "python": (
-            "Resume en 2-3 oraciones qué visualización debe generarse y con qué datos. "
-            "Incluye los datos numéricos disponibles en la conversación que el agente necesita para graficar. "
-            "Solo describe la tarea, no ejecutes nada."
-        ),
-    }
+# Agente SQL: genera y ejecuta queries según el esquema de la base de datos.
+sql_agent = create_react_agent(llm, sql_tools, prompt=sql_prompt)
 
-    response = llm.invoke([
-        SystemMessage(content=(
-            f"Eres un asistente que resume conversaciones para delegarlas a un agente especializado.\n"
-            f"Instrucción: {role_instruction[role]}"
-        )),
-        *messages,
-    ])
-    return HumanMessage(content=response.content)
+# Agente de reportes: Deep Agent con la skill "reporte-ventas" (skills/reporte-ventas/SKILL.md).
+# El backend de filesystem expone la raíz del proyecto como "/": lee /skills/... y escribe /reports/...
+report_agent = create_deep_agent(
+    model=llm,
+    tools=report_tools,
+    system_prompt=REPORT_SYSTEM_PROMPT,
+    backend=FilesystemBackend(root_dir=PROJECT_ROOT, virtual_mode=True),
+    skills=["/skills/"],
+    permissions=[
+        FilesystemPermission(operations=["write"], paths=["/skills/**"], mode="deny"),
+    ],
+)
 
 
 def supervisor_node(state: AgentState) -> dict:
@@ -64,46 +62,33 @@ def supervisor_node(state: AgentState) -> dict:
 
 
 def sql_node(state: AgentState, config: RunnableConfig) -> dict:
-    summary = summarize_for(state["messages"], "sql")
-    result = sql_agent.invoke({"messages": [summary]}, config)
-    return {"messages": result["messages"]}
-
-
-def python_node(state: AgentState, config: RunnableConfig) -> dict:
-    summary = summarize_for(state["messages"], "python")
-    result = python_agent.invoke({"messages": [summary]}, config)
-    return {"messages": result["messages"]}
+    # Recibe la conversación completa para entender preguntas de seguimiento ("¿y en marzo?").
+    result = sql_agent.invoke({"messages": state["messages"]}, config)
+    return {"messages": [result["messages"][-1]]}
 
 
 def report_node(state: AgentState, config: RunnableConfig) -> dict:
-    result = report_agent.invoke({"messages": [HumanMessage(content="Genera el reporte ejecutivo de ventas.")]}, config)
-    return {"messages": result["messages"]}
+    # Se pasa la petición del usuario para respetar filtros como "primer trimestre".
+    request = next(m for m in reversed(state["messages"]) if isinstance(m, HumanMessage))
+    result = report_agent.invoke(
+        {"messages": [HumanMessage(content=request.content)]},
+        {**config, "recursion_limit": 40},
+    )
+    return {"messages": [result["messages"][-1]]}
 
 
-def supervisor_route(state: AgentState) -> Literal["sql_agent", "python_agent", "report_agent", "__end__"]:
-    if state["next"] == "FINISH":
-        return END
-    if state["next"] == "sql_then_python":
-        return "sql_agent"
-    return state["next"]
-
-
-def after_sql_route(state: AgentState) -> Literal["python_agent", "__end__"]:
-    if state["next"] == "sql_then_python":
-        return "python_agent"
-    return END
+def supervisor_route(state: AgentState) -> Literal["sql_agent", "report_agent", "__end__"]:
+    return END if state["next"] == "FINISH" else state["next"]
 
 
 builder = StateGraph(AgentState)
 builder.add_node("supervisor",   supervisor_node)
 builder.add_node("sql_agent",    sql_node)
-builder.add_node("python_agent", python_node)
 builder.add_node("report_agent", report_node)
 
 builder.add_edge(START, "supervisor")
 builder.add_conditional_edges("supervisor", supervisor_route)
-builder.add_conditional_edges("sql_agent",  after_sql_route)
-builder.add_edge("python_agent", END)
+builder.add_edge("sql_agent",    END)
 builder.add_edge("report_agent", END)
 
 graph = builder.compile(checkpointer=MemorySaver())

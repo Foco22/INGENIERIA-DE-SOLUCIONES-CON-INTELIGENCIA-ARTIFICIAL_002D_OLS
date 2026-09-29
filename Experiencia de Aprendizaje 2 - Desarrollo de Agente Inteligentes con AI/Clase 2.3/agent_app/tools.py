@@ -6,6 +6,8 @@ from agent_app.utils.calendar import GoogleCalendarClient
 from datetime import date, timedelta
 import os
 from dotenv import load_dotenv
+import requests
+
 
 load_dotenv()
 
@@ -123,3 +125,50 @@ def schedule_meeting(summary: str, date: str, start_time: str, end_time: str, at
     """
     event = get_calendar_client().create_event(summary, date, start_time, end_time, attendee_email)
     return f"Meeting scheduled: {event.get('htmlLink')}"
+
+
+WIKI_API_URL = "https://es.wikipedia.org/w/api.php"
+# Wikipedia responde 403 a las peticiones sin User-Agent.
+WIKI_HEADERS = {"User-Agent": "AgenteDuocUC/1.0 (francisco.macaya22@gmail.com)"}
+
+
+@tool
+def wiki_search(query: str) -> str:
+    """Search Spanish Wikipedia for general knowledge (people, places, concepts, events).
+    Returns the article summary and its URL.
+    Args:
+        query: Short search term, e.g. a person's name or a concept.
+    """
+    try:
+        search = requests.get(WIKI_API_URL, headers=WIKI_HEADERS, timeout=10, params={
+            "action": "query",
+            "list": "search",
+            "srsearch": query,
+            "srlimit": 1,
+            "format": "json",
+        })
+        search.raise_for_status()
+        results = search.json()["query"]["search"]
+        if not results:
+            return f"No se encontraron artículos en Wikipedia para: {query}."
+
+        title = results[0]["title"]
+        extract = requests.get(WIKI_API_URL, headers=WIKI_HEADERS, timeout=10, params={
+            "action": "query",
+            "prop": "extracts|info",
+            "exintro": 1,
+            "explaintext": 1,
+            "inprop": "url",
+            "titles": title,
+            "format": "json",
+        })
+        extract.raise_for_status()
+        page = next(iter(extract.json()["query"]["pages"].values()))
+        summary = page.get("extract", "").strip()
+        if not summary:
+            return f"El artículo '{title}' no tiene resumen disponible."
+
+        return f"Título: {title}\nURL: {page['fullurl']}\n\nResumen:\n{summary}"
+
+    except requests.RequestException as e:
+        return f"Error al consultar Wikipedia: {e}"
