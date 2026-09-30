@@ -6,3 +6,9 @@
   Network URL: http://10.5.0.2:8501
   External URL: http://187.15.83.93:8501
 
+2026-09-29 17:22:13.443 Please replace `st.components.v1.html` with `st.iframe`.
+
+`st.components.v1.html` will be removed after 2026-06-01.
+2026-09-29 17:27:44.345 Please replace `st.components.v1.html` with `st.iframe`.
+
+`st.components.v1.html` will be removed after 2026-06-01.

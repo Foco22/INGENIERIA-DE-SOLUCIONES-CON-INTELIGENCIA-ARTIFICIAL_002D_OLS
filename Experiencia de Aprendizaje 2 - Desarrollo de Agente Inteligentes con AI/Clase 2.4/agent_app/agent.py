@@ -68,10 +68,15 @@ def sql_node(state: AgentState, config: RunnableConfig) -> dict:
 
 
 def report_node(state: AgentState, config: RunnableConfig) -> dict:
-    # Se pasa la petición del usuario para respetar filtros como "primer trimestre".
-    request = next(m for m in reversed(state["messages"]) if isinstance(m, HumanMessage))
+    # Se pasan los últimos mensajes (solo texto) para respetar filtros como "primer trimestre"
+    # y entender respuestas a su pregunta de aclaración ("el de pedidos").
+    recent = [
+        type(m)(content=m.content)
+        for m in state["messages"][-4:]
+        if isinstance(m, (HumanMessage, AIMessage)) and m.content
+    ]
     result = report_agent.invoke(
-        {"messages": [HumanMessage(content=request.content)]},
+        {"messages": recent},
         {**config, "recursion_limit": 40},
     )
     return {"messages": [result["messages"][-1]]}
