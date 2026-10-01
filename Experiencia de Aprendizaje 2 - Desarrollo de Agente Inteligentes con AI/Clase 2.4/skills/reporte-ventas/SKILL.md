@@ -1,6 +1,6 @@
 ---
 name: reporte-ventas
-description: Genera un reporte ejecutivo de ventas en HTML a partir de queries SQL predefinidas sobre la base de ventas 2025. Úsala cuando el usuario pida un reporte, informe, resumen ejecutivo, dashboard o KPIs de ventas, opcionalmente filtrado por período (mes, trimestre, rango de fechas). NO la uses si el usuario pide el detalle, tabla o listado de pedidos, ni un "reporte de pedidos", para eso está reporte-pedidos.
+description: Genera un reporte ejecutivo de ventas en HTML a partir de queries SQL predefinidas sobre la base de ventas 2025. Úsala cuando el usuario pida un reporte, informe, resumen ejecutivo, dashboard o KPIs de ventas, opcionalmente filtrado por período (mes, trimestre, rango de fechas).
 ---
 
 # Reporte ejecutivo de ventas (HTML)
