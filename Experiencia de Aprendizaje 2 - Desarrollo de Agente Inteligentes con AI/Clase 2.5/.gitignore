@@ -1,0 +1,4 @@
+vectorstore/
+evaluation/results/
+__pycache__/
+CLAUDE.md
