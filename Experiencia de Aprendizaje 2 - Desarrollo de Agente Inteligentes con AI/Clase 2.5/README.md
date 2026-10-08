@@ -17,15 +17,38 @@ python -m evaluation.evaluate     # 3. (opcional) la misma evaluación desde la 
 
 ## Grafo
 
-```
-START ──► reset ──► agent ──(¿tool_calls?)──► tools ──► agent
-                         └──────────────────► END
+```mermaid
+graph TD;
+	__start__([START]) --> reset;
+	reset --> agent;
+	agent -.->|tool_calls| tools;
+	agent -.->|usó tool| validator;
+	agent -.->|sin tool| __end__([END]);
+	tools --> agent;
+	validator -.->|1er rechazo| agent;
+	validator -.->|ok / 2º rechazo| __end__;
 ```
 
-- **State:** `messages`, `tool_used`, `tool_calls`, `retrieved_docs`.
+Las flechas continuas son aristas fijas y las punteadas, condicionales (`route_after_agent` y
+`route_after_validator`).
+
+- **State:** `messages`, `tool_used`, `tool_calls`, `retrieved_docs`, `validations`, `validator_feedback`.
 - **reset:** limpia la trazabilidad del turno.
 - **agent:** `gpt-4o-mini` con la tool enlazada decide si buscar o responder directo.
-- **tools:** ejecuta la búsqueda y registra argumentos y documentos recuperados.
+- **tools:** ejecuta la búsqueda (top-k = 10) y registra argumentos y documentos recuperados.
+- **validator:** solo si se usó la tool. Verifica que cada cifra esté explícita en los chunks, en la
+  fila del concepto y la columna del año (no un RUT ni un número de nota). Si no está respaldada,
+  borra la respuesta y le da al agente un reintento; si vuelve a fallar, responde
+  "No encontré esa información en los estados financieros."
+
+Rutas típicas:
+
+| Caso | Ruta |
+|------|------|
+| Saludo o definición | `START → reset → agent → END` |
+| Pregunta RAG validada | `START → reset → agent → tools → agent → validator → END` |
+| Rechazada una vez | `… → validator ✗ → agent → tools → agent → validator ✓ → END` |
+| Rechazada dos veces | `… → validator ✗ → END` ("No encontré…") |
 
 ## Dataset (`evaluation/dataset.json`)
 

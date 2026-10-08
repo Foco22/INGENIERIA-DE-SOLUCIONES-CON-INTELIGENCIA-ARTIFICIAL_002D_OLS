@@ -32,7 +32,7 @@ def run_agent(question: str) -> dict:
         "configurable": {"thread_id": thread_id},
         "metadata": {"thread_id": thread_id, "eval": True},
         "run_name": "eval_question",
-        "recursion_limit": 10,
+        "recursion_limit": 20,
     }
     result = graph.invoke({"messages": [HumanMessage(content=question)]}, config=config)
     return {
@@ -42,6 +42,7 @@ def run_agent(question: str) -> dict:
         "tools_called": sorted({c["name"] for c in result["tool_calls"]}),
         "tool_calls": result["tool_calls"],
         "retrieved_pages": [f"{d['year']}-p{d['page']}" for d in result["retrieved_docs"]],
+        "validations": result.get("validations", []),
     }
 
 

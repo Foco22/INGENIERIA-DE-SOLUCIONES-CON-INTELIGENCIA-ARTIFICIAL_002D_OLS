@@ -6,7 +6,7 @@ from langchain_openai import OpenAIEmbeddings
 
 from agent_app.ingest import VECTORSTORE_PATH, EMBEDDING_MODEL
 
-TOP_K = 6
+TOP_K = 10
 _store: Optional[InMemoryVectorStore] = None
 
 
@@ -28,7 +28,10 @@ def buscar_estados_financieros(query: str, year: Optional[int] = None):
     """Busca en los estados financieros consolidados de Abastible S.A. y Filiales (informes 2021 a 2025):
     ingresos, costos, ganancias, resultado operacional, activos, pasivos, patrimonio, flujos de efectivo,
     auditor, filiales, ventas de gas licuado, políticas contables y notas.
-    Solo contiene información de Abastible. Usar `year` (2021-2025) para buscar en el informe de ese año."""
+    Solo contiene información de Abastible. Usar `year` (2021-2025) para buscar en el informe de ese año.
+    En `query`, para cifras principales incluir el estado donde aparecen (las notas repiten conceptos con
+    otros montos): ej. "ingresos de actividades ordinarias estado consolidado de resultados",
+    "total activos estado de situación financiera consolidado"."""
     store = get_store()
     doc_filter = (lambda d: d.metadata["year"] == year) if year else None
     docs = store.similarity_search(query, k=TOP_K, filter=doc_filter)

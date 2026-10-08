@@ -21,9 +21,18 @@ def show_trace(trace: dict) -> None:
             st.write(f"**Tool:** `{call['name']}`")
             st.json(call["args"])
         st.write(f"**Documentos recuperados:** {len(trace['retrieved_docs'])}")
+        show_validations(trace.get("validations", []))
         for doc in trace["retrieved_docs"]:
             st.caption(f"Abastible {doc['year']} — página {doc['page']}")
             st.text(doc["content"][:800])
+
+
+def show_validations(validations: list[dict]) -> None:
+    for i, v in enumerate(validations, start=1):
+        icon = "✅" if v["supported"] else "❌"
+        st.write(f"**Validador (intento {i}):** {icon} {v['reason']}")
+        if not v["supported"]:
+            st.caption(f"Respuesta descartada: {v['answer']}")
 
 
 def show_metrics(summary: dict, rows: list[dict]) -> None:
@@ -67,6 +76,7 @@ def show_metrics(summary: dict, rows: list[dict]) -> None:
                 st.write("**Llamadas a la tool:**")
                 st.json(r["tool_calls"])
                 st.caption("Páginas recuperadas: " + ", ".join(r["retrieved_pages"]))
+            show_validations(r.get("validations", []))
 
 
 st.set_page_config(page_title="Asistente Abastible", layout="wide")
@@ -108,7 +118,7 @@ with tab_chat:
                     "configurable": {"thread_id": st.session_state.thread_id},
                     "metadata": {"thread_id": st.session_state.thread_id},
                     "run_name": "chat_turn",
-                    "recursion_limit": 10,
+                    "recursion_limit": 20,
                 }
                 result = graph.invoke({"messages": [HumanMessage(content=prompt)]}, config=config)
 
@@ -117,6 +127,7 @@ with tab_chat:
                 "tool_used": result["tool_used"],
                 "tool_calls": result["tool_calls"],
                 "retrieved_docs": result["retrieved_docs"],
+                "validations": result.get("validations", []),
             }
             st.write(answer)
             show_trace(trace)

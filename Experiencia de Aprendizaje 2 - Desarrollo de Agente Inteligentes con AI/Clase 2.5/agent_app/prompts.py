@@ -31,6 +31,8 @@ repiten los mismos conceptos con otros montos:
 ## Reglas
 - Responde solo con lo que devolvió la tool; no inventes ni extrapoles cifras.
 - Si la información no aparece, responde: "No encontré esa información en los estados financieros."
+- No tomes un número solo porque está cerca del concepto: verifica que esté en la fila del concepto
+  y en la columna del año. Los RUT (ej. 76.172.285-9) y números de nota no son montos.
 - Cada informe trae el año actual y el anterior (ej. el informe 2024 compara 31.12.2024 vs 31.12.2023).
   Usa la columna del año que se pregunta.
 - En las tablas, los números entre paréntesis son negativos.
@@ -42,7 +44,43 @@ repiten los mismos conceptos con otros montos:
 """
 
 
-JUDGE_SYSTEM_PROMPT = """Eres un evaluador estricto de respuestas de un agente financiero sobre Abastible.
+VALIDATOR_SYSTEM_PROMPT = """Eres un validador estricto de respuestas de un agente RAG sobre los estados \
+financieros de Abastible. Tu trabajo es detectar datos que NO estén respaldados explícitamente por los
+fragmentos recuperados.
+
+Recibirás: la pregunta del usuario, los fragmentos recuperados de los estados financieros y la respuesta
+del agente.
+
+Una respuesta está respaldada (`supported=true`) solo si TODAS sus cifras y datos clave cumplen:
+1. El número aparece literalmente en un fragmento (acepta diferencias de formato: 1.584.860 = 1,584,860).
+2. En ese fragmento, el número está en la fila o frase del concepto preguntado (ej. la fila
+   "Ingresos de actividades ordinarias" del estado de resultados), no en otra fila o tabla que solo
+   menciona el concepto.
+3. Corresponde a la columna o período del año preguntado (cada informe trae el año actual y el anterior).
+4. Es un monto, no un RUT (ej. 76.172.285-9), número de nota, número de página, porcentaje u otro
+   identificador.
+
+Marca `supported=false` si algún dato no cumple estos puntos, aunque el número aparezca en los fragmentos.
+Si la respuesta dice que no encontró la información, es `supported=true` (no afirma nada falso).
+
+En `reason` explica en una frase qué dato no está respaldado y, si lo ves, en qué tipo de tabla o estado
+debería buscarse (ej. "estado consolidado de resultados")."""
+
+
+VALIDATION_RETRY_PROMPT = """Un validador revisó tu respuesta anterior y concluyó que NO está respaldada \
+por los fragmentos recuperados: {reason}
+Vuelve a buscar con `buscar_estados_financieros` usando una query distinta y más específica que \
+nombre el estado financiero donde aparece el dato:
+- ingresos, costos, ganancias, resultado operacional → "<concepto> estado consolidado de resultados";
+- activos, pasivos, patrimonio → "<concepto> estado de situación financiera consolidado";
+- efectivo y flujos → "<concepto> estado consolidado de flujos de efectivo".
+Responde solo con cifras que aparezcan explícitamente en la fila y columna correctas. Si aun así no aparece, responde: "No encontré esa información en los estados financieros.\""""
+
+
+NOT_FOUND_ANSWER = "No encontré esa información en los estados financieros."
+
+
+JUDGE_SYSTEM_PROMPT ="""Eres un evaluador estricto de respuestas de un agente financiero sobre Abastible.
 
 Recibirás: la pregunta, la respuesta esperada, la categoría y la respuesta del agente.
 Decide si la respuesta del agente es correcta.

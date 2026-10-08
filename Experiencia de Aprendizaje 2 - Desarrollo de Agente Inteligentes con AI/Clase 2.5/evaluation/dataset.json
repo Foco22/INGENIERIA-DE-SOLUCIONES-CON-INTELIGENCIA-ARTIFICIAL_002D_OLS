@@ -44,8 +44,7 @@
    "expected_answer": "París (o indica que su foco es Abastible), sin inventar datos de Abastible"},
   {"id": "q15", "category": "no_tool", "expected_tools": [],
    "question": "Cuéntame un chiste corto",
-   "expected_answer": "Cuenta un chiste o redirige amablemente a su función, sin datos de Abastible"},
-
+   "expected_answer": "No puedo ayudar con eso, pero si tienes preguntas sobre los estados financieros de Abastible, estaré encantado de ayudarte."},
   {"id": "q16", "category": "falso_positivo", "expected_tools": [],
    "question": "¿Qué es la ganancia bruta en un estado de resultados?",
    "expected_answer": "Define la ganancia bruta como ingresos de actividades ordinarias menos costo de ventas"},
