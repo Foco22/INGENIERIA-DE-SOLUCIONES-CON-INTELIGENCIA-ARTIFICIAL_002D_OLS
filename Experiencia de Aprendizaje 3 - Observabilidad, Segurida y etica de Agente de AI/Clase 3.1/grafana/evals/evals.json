@@ -1,0 +1,54 @@
+[
+  {
+    "pregunta": "¿Cuánto es 5 + 3?",
+    "respuesta_esperada": "8",
+    "tools_esperadas": [
+      { "tool": "sumar", "args": { "a": 5, "b": 3 } }
+    ]
+  },
+  {
+    "pregunta": "¿Cuánto es (10 - 4) * 4?",
+    "respuesta_esperada": "24",
+    "tools_esperadas": [
+      { "tool": "restar", "args": { "a": 10, "b": 4 } },
+      { "tool": "multiplicar", "args": { "a": 6, "b": 4 } }
+      
+    ]
+  },
+
+
+
+  {
+    "pregunta": "¿Cuánto es (10 - 4) * (5 + 3)?",
+    "respuesta_esperada": "48",
+    "tools_esperadas": [
+      { "tool": "restar", "args": { "a": 10, "b": 4 } },
+      { "tool": "sumar", "args": { "a": 5, "b": 3 } },
+      { "tool": "multiplicar", "args": { "a": 6, "b": 8 } }      
+    ]
+  },
+      {
+    "pregunta": "¿Cuánto es (1000 - 0.1) / 10 ?",
+    "respuesta_esperada": "99.99",
+    "tools_esperadas": [
+      { "tool": "restar", "args": { "a": 1000, "b": 0.1 } },
+      { "tool": "dividir", "args": { "a": 999.9, "b": 10 } }  
+    ] 
+  },
+  {
+    "pregunta": "¿Cuánto es 1 / 2 + 1  ?",
+    "respuesta_esperada": "1.5",
+    "tools_esperadas": [
+      { "tool": "dividir", "args": { "a": 1, "b": 2 } },
+      { "tool": "sumar", "args": { "a": 0.5, "b": 1 } }  
+    ]
+  },
+  {
+    "pregunta": "¿Cuánto es 1 / 2 + 1 ?",
+    "respuesta_esperada": "0.33",
+    "tools_esperadas": [
+      { "tool": "sumar", "args": { "a": 2, "b": 1 } },
+      { "tool": "dividir", "args": { "a": 1, "b": 3 } }  
+    ]
+  }
+]

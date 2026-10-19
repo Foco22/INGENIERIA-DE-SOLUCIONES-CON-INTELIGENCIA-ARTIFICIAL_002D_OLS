@@ -1,0 +1,9 @@
+apiVersion: 1
+
+providers:
+  - name: "Agente Matematico"
+    type: file
+    allowUiUpdates: true
+    options:
+      path: /custom-dashboards
+      foldersFromFilesStructure: false
