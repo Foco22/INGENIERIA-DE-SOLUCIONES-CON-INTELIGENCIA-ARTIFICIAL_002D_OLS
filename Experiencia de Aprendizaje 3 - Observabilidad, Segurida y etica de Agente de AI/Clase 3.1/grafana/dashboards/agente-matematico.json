@@ -1,0 +1,517 @@
+{
+    "panels":  [
+                   {
+                       "datasource":  {
+                                          "type":  "tempo",
+                                          "uid":  "tempo"
+                                      },
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "decimals":  0
+                                                        },
+                                           "overrides":  [
+
+                                                         ]
+                                       },
+                       "gridPos":  {
+                                       "h":  4,
+                                       "w":  8,
+                                       "x":  0,
+                                       "y":  0
+                                   },
+                       "id":  10,
+                       "options":  {
+                                       "colorMode":  "value",
+                                       "graphMode":  "none",
+                                       "reduceOptions":  {
+                                                             "calcs":  [
+                                                                           "count"
+                                                                       ],
+                                                             "fields":  "/^Max$/",
+                                                             "values":  false
+                                                         }
+                                   },
+                       "targets":  [
+                                       {
+                                           "datasource":  {
+                                                              "type":  "tempo",
+                                                              "uid":  "tempo"
+                                                          },
+                                           "metricsQueryType":  "instant",
+                                           "query":  "{ resource.service.name=\"agente-matematico\" \u0026\u0026 name=\"LangGraph\" } | count_over_time() by (span.session.id)",
+                                           "queryType":  "traceql",
+                                           "refId":  "A"
+                                       }
+                                   ],
+                       "title":  "Total de sesiones",
+                       "transformations":  [
+                                               {
+                                                   "id":  "reduce",
+                                                   "options":  {
+                                                                   "mode":  "seriesToRows",
+                                                                   "reducers":  [
+                                                                                    "max"
+                                                                                ]
+                                                               }
+                                               }
+                                           ],
+                       "type":  "stat"
+                   },
+                   {
+                       "datasource":  {
+                                          "type":  "tempo",
+                                          "uid":  "tempo"
+                                      },
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "decimals":  0
+                                                        },
+                                           "overrides":  [
+
+                                                         ]
+                                       },
+                       "gridPos":  {
+                                       "h":  4,
+                                       "w":  8,
+                                       "x":  8,
+                                       "y":  0
+                                   },
+                       "id":  11,
+                       "options":  {
+                                       "colorMode":  "value",
+                                       "graphMode":  "none",
+                                       "reduceOptions":  {
+                                                             "calcs":  [
+                                                                           "sum"
+                                                                       ],
+                                                             "fields":  "/^Max$/",
+                                                             "values":  false
+                                                         }
+                                   },
+                       "targets":  [
+                                       {
+                                           "datasource":  {
+                                                              "type":  "tempo",
+                                                              "uid":  "tempo"
+                                                          },
+                                           "metricsQueryType":  "instant",
+                                           "query":  "{ resource.service.name=\"agente-matematico\" \u0026\u0026 name=\"LangGraph\" } | count_over_time() by (span.session.id)",
+                                           "queryType":  "traceql",
+                                           "refId":  "A"
+                                       }
+                                   ],
+                       "title":  "Total de mensajes",
+                       "transformations":  [
+                                               {
+                                                   "id":  "reduce",
+                                                   "options":  {
+                                                                   "mode":  "seriesToRows",
+                                                                   "reducers":  [
+                                                                                    "max"
+                                                                                ]
+                                                               }
+                                               }
+                                           ],
+                       "type":  "stat"
+                   },
+                   {
+                       "datasource":  {
+                                          "type":  "tempo",
+                                          "uid":  "tempo"
+                                      },
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "decimals":  2
+                                                        },
+                                           "overrides":  [
+
+                                                         ]
+                                       },
+                       "gridPos":  {
+                                       "h":  4,
+                                       "w":  8,
+                                       "x":  16,
+                                       "y":  0
+                                   },
+                       "id":  12,
+                       "options":  {
+                                       "colorMode":  "value",
+                                       "graphMode":  "none",
+                                       "reduceOptions":  {
+                                                             "calcs":  [
+                                                                           "mean"
+                                                                       ],
+                                                             "fields":  "/^Max$/",
+                                                             "values":  false
+                                                         }
+                                   },
+                       "targets":  [
+                                       {
+                                           "datasource":  {
+                                                              "type":  "tempo",
+                                                              "uid":  "tempo"
+                                                          },
+                                           "metricsQueryType":  "instant",
+                                           "query":  "{ resource.service.name=\"agente-matematico\" \u0026\u0026 name=\"LangGraph\" } | count_over_time() by (span.session.id)",
+                                           "queryType":  "traceql",
+                                           "refId":  "A"
+                                       }
+                                   ],
+                       "title":  "Promedio de mensajes por sesion",
+                       "transformations":  [
+                                               {
+                                                   "id":  "reduce",
+                                                   "options":  {
+                                                                   "mode":  "seriesToRows",
+                                                                   "reducers":  [
+                                                                                    "max"
+                                                                                ]
+                                                               }
+                                               }
+                                           ],
+                       "type":  "stat"
+                   },
+                   {
+                       "datasource":  {
+                                          "type":  "tempo",
+                                          "uid":  "tempo"
+                                      },
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "custom":  {
+                                                                           "drawStyle":  "bars",
+                                                                           "fillOpacity":  70,
+                                                                           "stacking":  {
+                                                                                            "group":  "A",
+                                                                                            "mode":  "normal"
+                                                                                        }
+                                                                       },
+                                                            "decimals":  0
+                                                        },
+                                           "overrides":  [
+
+                                                         ]
+                                       },
+                       "gridPos":  {
+                                       "h":  9,
+                                       "w":  24,
+                                       "x":  0,
+                                       "y":  4
+                                   },
+                       "id":  13,
+                       "options":  {
+                                       "legend":  {
+                                                      "displayMode":  "list",
+                                                      "placement":  "bottom"
+                                                  },
+                                       "tooltip":  {
+                                                       "mode":  "multi"
+                                                   }
+                                   },
+                       "targets":  [
+                                       {
+                                           "datasource":  {
+                                                              "type":  "tempo",
+                                                              "uid":  "tempo"
+                                                          },
+                                           "metricsQueryType":  "range",
+                                           "query":  "{ resource.service.name=\"agente-matematico\" \u0026\u0026 name=\"LangGraph\" } | count_over_time() by (span.session.id)",
+                                           "queryType":  "traceql",
+                                           "refId":  "A"
+                                       }
+                                   ],
+                       "title":  "Mensajes en el tiempo por sesion",
+                       "type":  "timeseries"
+                   },
+                   {
+                       "datasource":  {
+                                          "type":  "tempo",
+                                          "uid":  "tempo"
+                                      },
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "custom":  {
+                                                                           "cellOptions":  {
+                                                                                               "type":  "auto"
+                                                                                           }
+                                                                       }
+                                                        },
+                                           "overrides":  [
+
+                                                         ]
+                                       },
+                       "gridPos":  {
+                                       "h":  10,
+                                       "w":  24,
+                                       "x":  0,
+                                       "y":  28
+                                   },
+                       "id":  3,
+                       "options":  {
+                                       "showHeader":  true,
+                                       "sortBy":  [
+                                                      {
+                                                          "desc":  false,
+                                                          "displayName":  "Start time"
+                                                      }
+                                                  ]
+                                   },
+                       "targets":  [
+                                       {
+                                           "datasource":  {
+                                                              "type":  "tempo",
+                                                              "uid":  "tempo"
+                                                          },
+                                           "limit":  50,
+                                           "query":  "{ resource.service.name=\"agente-matematico\" \u0026\u0026 name=\"LangGraph\" \u0026\u0026 span.session.id =~ \"$session.*\" } | select(span.session.id, span.input.value, span.output.value)",
+                                           "queryType":  "traceql",
+                                           "refId":  "A",
+                                           "tableType":  "spans"
+                                       }
+                                   ],
+                       "title":  "Mensajes de la sesion (usa el filtro \u0027session\u0027 arriba)",
+                       "type":  "table"
+                   },
+                   {
+                       "datasource":  {
+                                          "type":  "tempo",
+                                          "uid":  "tempo"
+                                      },
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "custom":  {
+                                                                           "cellOptions":  {
+                                                                                               "type":  "auto"
+                                                                                           }
+                                                                       }
+                                                        },
+                                           "overrides":  [
+
+                                                         ]
+                                       },
+                       "gridPos":  {
+                                       "h":  10,
+                                       "w":  24,
+                                       "x":  0,
+                                       "y":  38
+                                   },
+                       "id":  1,
+                       "options":  {
+                                       "showHeader":  true
+                                   },
+                       "targets":  [
+                                       {
+                                           "datasource":  {
+                                                              "type":  "tempo",
+                                                              "uid":  "tempo"
+                                                          },
+                                           "limit":  50,
+                                           "query":  "{ resource.service.name=\"agente-matematico\" \u0026\u0026 span.session.id =~ \"$session.*\" \u0026\u0026 span.openinference.span.kind=\"TOOL\" } | select(name, span.input.value, span.output.value)",
+                                           "queryType":  "traceql",
+                                           "refId":  "A",
+                                           "tableType":  "spans"
+                                       }
+                                   ],
+                       "title":  "Tools: argumentos y resultado",
+                       "type":  "table"
+                   },
+                   {
+                       "datasource":  {
+                                          "type":  "tempo",
+                                          "uid":  "tempo"
+                                      },
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "custom":  {
+                                                                           "cellOptions":  {
+                                                                                               "type":  "auto"
+                                                                                           }
+                                                                       }
+                                                        },
+                                           "overrides":  [
+
+                                                         ]
+                                       },
+                       "gridPos":  {
+                                       "h":  10,
+                                       "w":  24,
+                                       "x":  0,
+                                       "y":  48
+                                   },
+                       "id":  2,
+                       "options":  {
+                                       "showHeader":  true
+                                   },
+                       "targets":  [
+                                       {
+                                           "datasource":  {
+                                                              "type":  "tempo",
+                                                              "uid":  "tempo"
+                                                          },
+                                           "limit":  50,
+                                           "query":  "{ resource.service.name=\"agente-matematico\" \u0026\u0026 span.session.id =~ \"$session.*\" \u0026\u0026 span.openinference.span.kind=\"LLM\" } | select(span.llm.output_messages.0.message.content, span.llm.output_messages.0.message.tool_calls.0.tool_call.function.name, span.llm.output_messages.0.message.tool_calls.0.tool_call.function.arguments, span.llm.token_count.total)",
+                                           "queryType":  "traceql",
+                                           "refId":  "A",
+                                           "tableType":  "spans"
+                                       }
+                                   ],
+                       "title":  "LLM: texto de respuesta, tool calls y tokens",
+                       "type":  "table"
+                   },
+                   {
+                       "datasource":  {
+                                          "type":  "tempo",
+                                          "uid":  "tempo"
+                                      },
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "color":  {
+                                                                          "mode":  "continuous-GrYlRd"
+                                                                      },
+                                                            "decimals":  3,
+                                                            "unit":  "s"
+                                                        },
+                                           "overrides":  [
+
+                                                         ]
+                                       },
+                       "gridPos":  {
+                                       "h":  5,
+                                       "w":  24,
+                                       "x":  0,
+                                       "y":  13
+                                   },
+                       "id":  20,
+                       "options":  {
+                                       "displayMode":  "gradient",
+                                       "orientation":  "horizontal",
+                                       "reduceOptions":  {
+                                                             "calcs":  [
+                                                                           "lastNotNull"
+                                                                       ],
+                                                             "values":  false
+                                                         },
+                                       "showUnfilled":  true
+                                   },
+                       "targets":  [
+                                       {
+                                           "datasource":  {
+                                                              "type":  "tempo",
+                                                              "uid":  "tempo"
+                                                          },
+                                           "metricsQueryType":  "instant",
+                                           "query":  "{ resource.service.name=\"agente-matematico\" \u0026\u0026 name =~ \"agent|sumar|restar|multiplicar|dividir\" } | avg_over_time(duration) by (name)",
+                                           "queryType":  "traceql",
+                                           "refId":  "A"
+                                       }
+                                   ],
+                       "title":  "Latencia promedio por componente (cuello de botella)",
+                       "type":  "bargauge"
+                   },
+                   {
+                       "datasource":  {
+                                          "type":  "tempo",
+                                          "uid":  "tempo"
+                                      },
+                       "fieldConfig":  {
+                                           "defaults":  {
+                                                            "custom":  {
+                                                                           "drawStyle":  "line",
+                                                                           "fillOpacity":  5,
+                                                                           "lineWidth":  2,
+                                                                           "showPoints":  "auto",
+                                                                           "spanNulls":  true
+                                                                       },
+                                                            "unit":  "s"
+                                                        },
+                                           "overrides":  [
+
+                                                         ]
+                                       },
+                       "gridPos":  {
+                                       "h":  10,
+                                       "w":  24,
+                                       "x":  0,
+                                       "y":  18
+                                   },
+                       "id":  21,
+                       "options":  {
+                                       "legend":  {
+                                                      "calcs":  [
+                                                                    "mean",
+                                                                    "max"
+                                                                ],
+                                                      "displayMode":  "table",
+                                                      "placement":  "right"
+                                                  },
+                                       "tooltip":  {
+                                                       "mode":  "multi"
+                                                   }
+                                   },
+                       "targets":  [
+                                       {
+                                           "datasource":  {
+                                                              "type":  "tempo",
+                                                              "uid":  "tempo"
+                                                          },
+                                           "metricsQueryType":  "range",
+                                           "query":  "{ resource.service.name=\"agente-matematico\" \u0026\u0026 name =~ \"agent|sumar|restar|multiplicar|dividir\" } | avg_over_time(duration) by (name)",
+                                           "queryType":  "traceql",
+                                           "refId":  "A"
+                                       },
+                                       {
+                                           "datasource":  {
+                                                              "type":  "tempo",
+                                                              "uid":  "tempo"
+                                                          },
+                                           "metricsQueryType":  "range",
+                                           "query":  "{ resource.service.name=\"agente-matematico\" \u0026\u0026 name =~ \"agent|sumar|restar|multiplicar|dividir\" } | quantile_over_time(duration, .1) by (name)",
+                                           "queryType":  "traceql",
+                                           "refId":  "B"
+                                       },
+                                       {
+                                           "datasource":  {
+                                                              "type":  "tempo",
+                                                              "uid":  "tempo"
+                                                          },
+                                           "metricsQueryType":  "range",
+                                           "query":  "{ resource.service.name=\"agente-matematico\" \u0026\u0026 name =~ \"agent|sumar|restar|multiplicar|dividir\" } | quantile_over_time(duration, .9) by (name)",
+                                           "queryType":  "traceql",
+                                           "refId":  "C"
+                                       }
+                                   ],
+                       "title":  "Latencia por componente: promedio, p10 y p90",
+                       "type":  "timeseries"
+                   }
+               ],
+    "refresh":  "10s",
+    "schemaVersion":  39,
+    "templating":  {
+                       "list":  [
+                                    {
+                                        "current":  {
+                                                        "text":  "",
+                                                        "value":  ""
+                                                    },
+                                        "label":  "session",
+                                        "name":  "session",
+                                        "options":  [
+                                                        {
+                                                            "selected":  true,
+                                                            "text":  "",
+                                                            "value":  ""
+                                                        }
+                                                    ],
+                                        "query":  "",
+                                        "type":  "textbox"
+                                    }
+                                ]
+                   },
+    "time":  {
+                 "from":  "now-6h",
+                 "to":  "now"
+             },
+    "timezone":  "browser",
+    "title":  "Agente Matematico",
+    "uid":  "agente-matematico"
+}
