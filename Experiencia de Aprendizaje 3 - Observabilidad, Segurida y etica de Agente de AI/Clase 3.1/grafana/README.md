@@ -97,6 +97,42 @@ Streamlit → app.invoke() → LangGraph/LangChain emiten eventos
 - Si se eliminan esas dos líneas, el agente funciona igual pero no envía nada a Grafana.
 - El `session.id` sale del `thread_id` que se pasa en `config={"configurable": {"thread_id": ...}}`.
 
+## ¿Dónde se guardan los datos?
+
+Grafana **no guarda datos**: solo es la interfaz que los muestra. Los datos los guarda el
+contenedor `lgtm` (imagen `grafana/otel-lgtm`), que incluye varias herramientas:
+
+```
+Agente (Python)
+  └─ OpenTelemetry (telemetry.py) ── OTLP HTTP :4318 ──► contenedor "lgtm"
+                                                           ├─ OTel Collector → recibe los datos
+                                                           ├─ Tempo          → guarda las trazas
+                                                           ├─ Loki           → guarda logs
+                                                           ├─ Prometheus     → guarda métricas
+                                                           └─ Grafana (:3000) → los visualiza
+```
+
+- Nuestro agente solo exporta **trazas**, así que sus datos quedan en **Tempo**.
+- Grafana consulta a Tempo (con TraceQL) para dibujar las trazas y los paneles del dashboard.
+
+### Persistencia en disco
+
+En `docker-compose.yml` el volumen `lgtm-data:/data` es un **volumen nombrado de Docker**: los datos
+viven en el almacenamiento interno de Docker, no en la carpeta del proyecto.
+
+| Acción | ¿Se conservan los datos? |
+|---|---|
+| `docker compose stop` / `start` | Sí |
+| `docker compose down` | Sí (el volumen sigue existiendo) |
+| `docker compose down -v` | **No**, se borra el volumen |
+
+- En Windows el volumen está dentro de la VM de Docker Desktop (WSL2). Para inspeccionarlo:
+  `docker volume inspect grafana_lgtm-data`.
+- Los **dashboards no se guardan en el volumen**: se montan como archivos de solo lectura desde
+  `dashboards/`, por eso reaparecen aunque se borren los datos.
+- Los datos son **locales**: van a tu contenedor porque `OTEL_EXPORTER_OTLP_ENDPOINT` apunta a
+  `http://localhost:4318`. Si apuntara a una URL de Grafana Cloud, se guardarían en la nube.
+
 ## Estructura
 
 ```
