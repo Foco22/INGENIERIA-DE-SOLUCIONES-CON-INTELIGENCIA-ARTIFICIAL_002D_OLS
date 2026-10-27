@@ -1,0 +1,17 @@
+services:
+  lgtm:
+    image: grafana/otel-lgtm
+    container_name: lgtm
+    ports:
+      - "3000:3000"   # Grafana
+      - "4317:4317"   # OTLP gRPC
+      - "4318:4318"   # OTLP HTTP
+    volumes:
+      - lgtm-data:/data
+      # Dashboard provisionado: se carga solo al iniciar
+      - ./dashboards/provider.yaml:/otel-lgtm/grafana/conf/provisioning/dashboards/agente-matematico.yaml:ro
+      - ./dashboards/agente-matematico.json:/custom-dashboards/agente-matematico.json:ro
+
+volumes:
+  lgtm-data:
+

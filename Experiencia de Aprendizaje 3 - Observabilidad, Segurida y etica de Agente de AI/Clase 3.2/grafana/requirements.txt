@@ -1,0 +1,14 @@
+langgraph
+langchain-openai
+langchain-mongodb
+pymongo
+python-dotenv
+openai
+streamlit
+google-api-python-client
+google-auth-oauthlib
+google-auth-httplib2
+langgraph-cli[inmem]
+opentelemetry-sdk
+opentelemetry-exporter-otlp-proto-http
+openinference-instrumentation-langchain

@@ -1,0 +1,10 @@
+.env
+credentials.json
+token.pickle
+CLAUDE.md
+__pycache__/
+*.pyc
+*.pyo
+graph.png
+photo.png
+.claude/
