@@ -26,7 +26,7 @@ class AgentState(TypedDict):
     messages: Annotated[list, add_messages]
     is_offensive: Optional[bool]
     is_prompt_injection: Optional[bool]
-    is_war_topic: Optional[bool]
+    is_off_topic: Optional[bool]
 
 
 def _get_llm(model: str):
@@ -56,14 +56,14 @@ def check_guardrails(state: AgentState, config: RunnableConfig) -> AgentState:
         None,
     )
     if last_human is None:
-        return {"is_offensive": False, "is_prompt_injection": False, "is_war_topic": False}
+        return {"is_offensive": False, "is_prompt_injection": False, "is_off_topic": False}
 
     results = run_guardrails(last_human.content, model)
     return results
 
 
 def route_after_guardrails(state: AgentState) -> str:
-    if state.get("is_offensive") or state.get("is_prompt_injection") or state.get("is_war_topic"):
+    if state.get("is_offensive") or state.get("is_prompt_injection") or state.get("is_off_topic"):
         return "blocked"
     return "agent"
 

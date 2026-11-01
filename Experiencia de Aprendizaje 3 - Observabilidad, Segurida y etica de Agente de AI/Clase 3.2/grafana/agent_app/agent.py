@@ -26,8 +26,10 @@ class AgentState(TypedDict):
 
 def call_model(state: AgentState, config: RunnableConfig) -> AgentState:
     system = SystemMessage(content=AGENT_SYSTEM_PROMPT)
+    print('Datos')
     try:
         response = llm.invoke([system] + state["messages"])
+        print('response', response)
     except Exception as e:
         record_error(config["configurable"]["thread_id"], "agent", e)
         response = AIMessage(

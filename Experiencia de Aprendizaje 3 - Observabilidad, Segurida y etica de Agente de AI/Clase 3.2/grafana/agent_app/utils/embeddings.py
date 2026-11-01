@@ -11,8 +11,12 @@ class EmbeddingClient:
         self.model = "text-embedding-3-small"
 
     def get_embedding(self, text: str) -> list[float]:
-        response = self.client.embeddings.create(
+        
+        try:
+            response = self.client.embeddings.create(
             input=text,
             model=self.model,
         )
-        return response.data[0].embedding
+            return response.data[0].embedding
+        except:
+           return 'Error'

@@ -37,12 +37,18 @@ if prompt := st.chat_input("Escribe tu pregunta matematica..."):
     failed = False
     with get_usage_metadata_callback() as usage_cb:
         try:
+            print('----------RESULTADOS-----------------')
             result = app.invoke({"messages": [HumanMessage(content=prompt)]}, config=config)
+            print('----------------------------------------')
+            print(result)
+            print('----------------------------------------')
             answer = result["messages"][-1].content
             failed = request_failed(result["messages"])
+
         except Exception as e:
             failed = True
             record_error(st.session_state.thread_id, "app", e)
+            print('FALLO')
             answer = "Lo siento, tuve un problema al procesar tu pregunta. Intenta de nuevo."
     cost = summarize_usage(usage_cb.usage_metadata)
     record_cost(st.session_state.thread_id, prompt, cost, failed)

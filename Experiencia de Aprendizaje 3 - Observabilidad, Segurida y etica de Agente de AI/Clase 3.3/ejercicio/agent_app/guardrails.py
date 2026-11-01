@@ -6,7 +6,7 @@ from langchain_core.messages import SystemMessage, HumanMessage
 from agent_app.prompts import (
     OFFENSIVE_GUARDRAIL_PROMPT,
     PROMPT_INJECTION_GUARDRAIL_PROMPT,
-    WAR_TOPICS_GUARDRAIL_PROMPT,
+    OFF_TOPIC_GUARDRAIL_PROMPT,
 )
 
 
@@ -33,7 +33,7 @@ def run_guardrails(message: str, model: str) -> dict:
         {
             "is_offensive": bool,
             "is_prompt_injection": bool,
-            "is_war_topic": bool,
+            "is_off_topic": bool,
         }
     """
     with ThreadPoolExecutor(max_workers=3) as executor:
@@ -43,16 +43,16 @@ def run_guardrails(message: str, model: str) -> dict:
         future_injection = executor.submit(
             _evaluate, PROMPT_INJECTION_GUARDRAIL_PROMPT, message, model
         )
-        future_war = executor.submit(
-            _evaluate, WAR_TOPICS_GUARDRAIL_PROMPT, message, model
+        future_off_topic = executor.submit(
+            _evaluate, OFF_TOPIC_GUARDRAIL_PROMPT, message, model
         )
 
         is_offensive = future_offensive.result()
         is_prompt_injection = future_injection.result()
-        is_war_topic = future_war.result()
+        is_off_topic = future_off_topic.result()
 
     return {
         "is_offensive": is_offensive,
         "is_prompt_injection": is_prompt_injection,
-        "is_war_topic": is_war_topic,
+        "is_off_topic": is_off_topic,
     }

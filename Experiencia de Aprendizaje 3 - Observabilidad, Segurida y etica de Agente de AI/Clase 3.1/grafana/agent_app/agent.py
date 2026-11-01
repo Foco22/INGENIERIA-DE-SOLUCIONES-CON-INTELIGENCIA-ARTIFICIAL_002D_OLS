@@ -24,9 +24,11 @@ class AgentState(TypedDict):
 
 def call_model(state: AgentState) -> AgentState:
     system = SystemMessage(content=AGENT_SYSTEM_PROMPT)
-    response = llm.invoke([system] + state["messages"])
-    return {"messages": [response]}
-
+    try: 
+        response = llm.invoke([system] + state["messages"])
+        return {"messages": [response]}
+    except:
+        return {"messages": ['Se genero un error en la API. Disculpa por no poder generar la respuesta.']}
 
 def should_continue(state: AgentState) -> str:
     last_message = state["messages"][-1]
