@@ -4,6 +4,7 @@
 Expone tools que Claude Desktop (u otro cliente MCP) puede invocar.
 Transporte: Streamable HTTP en /mcp  (apto para Google Cloud Run).
 """
+import hmac
 import os
 
 from dotenv import load_dotenv
@@ -82,5 +83,45 @@ async def health(_request):
     return PlainTextResponse("ok")
 
 
+class ApiKeyMiddleware:
+    """Exige `Authorization: Bearer <MCP_API_KEY>` (o `X-API-Key`) en todo menos /health."""
+
+    def __init__(self, app, api_key: str):
+        self.app = app
+        self.api_key = api_key
+
+    async def __call__(self, scope, receive, send):
+        if scope["type"] != "http" or scope["path"] == "/health":
+            return await self.app(scope, receive, send)
+
+        headers = {k.decode().lower(): v.decode() for k, v in scope["headers"]}
+        auth = headers.get("authorization", "")
+        key = auth[7:] if auth.lower().startswith("bearer ") else headers.get("x-api-key", "")
+
+        if not hmac.compare_digest(key.encode(), self.api_key.encode()):
+            body = b'{"error":"unauthorized"}'
+            await send({
+                "type": "http.response.start",
+                "status": 401,
+                "headers": [
+                    (b"content-type", b"application/json"),
+                    (b"content-length", str(len(body)).encode()),
+                    (b"www-authenticate", b"Bearer"),
+                ],
+            })
+            await send({"type": "http.response.body", "body": body})
+            return
+
+        await self.app(scope, receive, send)
+
+
 if __name__ == "__main__":
-    mcp.run(transport="streamable-http")
+    import uvicorn
+
+    api_key = os.getenv("MCP_API_KEY")
+    if not api_key:
+        raise SystemExit("Falta MCP_API_KEY: el servidor no arranca sin credencial.")
+
+    app = mcp.streamable_http_app()
+    app.add_middleware(ApiKeyMiddleware, api_key=api_key)
+    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "8080")))

@@ -35,6 +35,7 @@ jobs:
           env_vars: |
             OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
             MONGODB_CONNECTION_STRING=${{ secrets.MONGODB_CONNECTION_STRING }}
+            MCP_API_KEY=${{ secrets.MCP_API_KEY }}
 
       - name: URL del MCP
         run: echo "MCP en $(gcloud run services describe $SERVICE --region $REGION --project ${{ secrets.GCP_PROJECT_ID }} --format='value(status.url)')/mcp"
