@@ -25,6 +25,8 @@ class ChatResponse(BaseModel):
     is_offensive: bool
     is_prompt_injection: bool
     is_off_topic: bool
+    is_academic_dishonesty: bool
+    is_pii: bool
     blocked: bool
 
 
@@ -55,7 +57,15 @@ def chat(request: ChatRequest):
     is_offensive = bool(result.get("is_offensive", False))
     is_prompt_injection = bool(result.get("is_prompt_injection", False))
     is_off_topic = bool(result.get("is_off_topic", False))
-    blocked = is_offensive or is_prompt_injection or is_off_topic
+    is_academic_dishonesty = bool(result.get("is_academic_dishonesty", False))
+    is_pii = bool(result.get("is_pii", False))
+    blocked = (
+        is_offensive
+        or is_prompt_injection
+        or is_off_topic
+        or is_academic_dishonesty
+        or is_pii
+    )
 
     prompt_tokens = 0
     completion_tokens = 0
@@ -72,5 +82,7 @@ def chat(request: ChatRequest):
         is_offensive=is_offensive,
         is_prompt_injection=is_prompt_injection,
         is_off_topic=is_off_topic,
+        is_academic_dishonesty=is_academic_dishonesty,
+        is_pii=is_pii,
         blocked=blocked,
     )

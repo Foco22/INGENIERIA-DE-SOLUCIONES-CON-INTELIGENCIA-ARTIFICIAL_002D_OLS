@@ -27,6 +27,8 @@ class AgentState(TypedDict):
     is_offensive: Optional[bool]
     is_prompt_injection: Optional[bool]
     is_off_topic: Optional[bool]
+    is_academic_dishonesty: Optional[bool]
+    is_pii: Optional[bool]
 
 
 def _get_llm(model: str):
@@ -48,7 +50,7 @@ def _get_query_llm(model: str):
 
 
 def check_guardrails(state: AgentState, config: RunnableConfig) -> AgentState:
-    """Run the 3 output guardrail evaluators in parallel on the last user message."""
+    """Run the 5 input guardrail evaluators in parallel on the last user message."""
     model = config.get("configurable", {}).get("model", MODEL)
 
     last_human = next(
@@ -56,14 +58,26 @@ def check_guardrails(state: AgentState, config: RunnableConfig) -> AgentState:
         None,
     )
     if last_human is None:
-        return {"is_offensive": False, "is_prompt_injection": False, "is_off_topic": False}
+        return {
+            "is_offensive": False,
+            "is_prompt_injection": False,
+            "is_off_topic": False,
+            "is_academic_dishonesty": False,
+            "is_pii": False,
+        }
 
     results = run_guardrails(last_human.content, model)
     return results
 
 
 def route_after_guardrails(state: AgentState) -> str:
-    if state.get("is_offensive") or state.get("is_prompt_injection") or state.get("is_off_topic"):
+    if (
+        state.get("is_offensive")
+        or state.get("is_prompt_injection")
+        or state.get("is_off_topic")
+        or state.get("is_academic_dishonesty")
+        or state.get("is_pii")
+    ):
         return "blocked"
     return "agent"
 

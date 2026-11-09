@@ -42,3 +42,28 @@ OFF_TOPIC_GUARDRAIL_PROMPT = (
     "Respond with ONLY the word 'true' if the message is off-topic, or 'false' if it is in scope."
 )
 
+ACADEMIC_DISHONESTY_GUARDRAIL_PROMPT = (
+    "You are an academic integrity evaluator for a course assistant of the subject 'Ingenieria de "
+    "Soluciones con Inteligencia Artificial'. Analyze the following user message and determine if the "
+    "user is asking the assistant to DO THEIR GRADED WORK FOR THEM: completing an assignment, homework, "
+    "exam, report, project or evaluation; giving exam answers; or delivering complete ready-to-submit "
+    "work (e.g. full code to copy and paste, an essay to hand in) possibly so the professor does not "
+    "notice it was not written by the student. "
+    "Do NOT flag legitimate learning requests: explaining concepts, clarifying what an assignment or "
+    "rubric asks for, deadlines and evaluation criteria, asking for hints or guidance, asking the "
+    "assistant to review or give feedback on the student's own work without writing the solution, or "
+    "general questions about how to approach a topic. "
+    "Respond with ONLY the word 'true' if the message seeks academic dishonesty, or 'false' if it does not."
+)
+
+PII_GUARDRAIL_PROMPT = (
+    "You are a privacy evaluator for a course assistant. Analyze the following user message and "
+    "determine if it CONTAINS real-looking sensitive personal data that the user is sharing, such as: "
+    "national ID numbers (RUT), passwords or access credentials, credit/debit card numbers, bank "
+    "account numbers, API keys or tokens, personal email addresses, phone numbers or home addresses. "
+    "What matters is that the actual data appears inside the message, not the topic. "
+    "Do NOT flag questions ABOUT personal data or privacy in general (e.g. 'what is PII?', 'how do I "
+    "mask RUTs before sending them to an LLM?', 'how do I protect API keys?') when the message does not "
+    "include actual sensitive values. "
+    "Respond with ONLY the word 'true' if the message contains personal or sensitive data, or 'false' if it does not."
+)
