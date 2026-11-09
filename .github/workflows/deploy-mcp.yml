@@ -1,0 +1,40 @@
+name: Deploy MCP a Cloud Run
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Experiencia de Aprendizaje 3 - Observabilidad, Segurida y etica de Agente de AI/Clase 3.4/ejercicio/**"
+      - ".github/workflows/deploy-mcp.yml"
+  workflow_dispatch:
+
+env:
+  SERVICE: curso-mcp
+  REGION: us-central1
+  SOURCE_DIR: "Experiencia de Aprendizaje 3 - Observabilidad, Segurida y etica de Agente de AI/Clase 3.4/ejercicio"
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
+
+      - uses: google-github-actions/deploy-cloudrun@v2
+        with:
+          service: ${{ env.SERVICE }}
+          region: ${{ env.REGION }}
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          source: ${{ env.SOURCE_DIR }}
+          flags: --allow-unauthenticated
+          env_vars: |
+            OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }}
+            MONGODB_CONNECTION_STRING=${{ secrets.MONGODB_CONNECTION_STRING }}
+
+      - name: URL del MCP
+        run: echo "MCP en $(gcloud run services describe $SERVICE --region $REGION --project ${{ secrets.GCP_PROJECT_ID }} --format='value(status.url)')/mcp"
