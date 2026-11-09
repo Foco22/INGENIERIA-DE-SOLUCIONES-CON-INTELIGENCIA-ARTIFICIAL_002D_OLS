@@ -127,3 +127,83 @@ Luego pregunta, por ejemplo: «busca en mi curso qué es un guardrail».
 - Mongo Atlas debe permitir la IP de salida de Cloud Run (Network Access).
 - Para algo más serio: guardar las claves en Secret Manager en vez de variables de
   entorno, y rotar `MCP_API_KEY` periódicamente.
+
+---
+
+## Tarea del estudiante
+
+**Objetivo:** agregar **una tool nueva** a este servidor MCP y usarla desde tu
+**Claude Code local**.
+
+### 1. Agrega la tool
+
+En `server.py`, junto a las otras tools, crea una función con el decorador
+`@mcp.tool()`. El nombre, los tipos y el docstring son lo que Claude lee para decidir
+cuándo usarla, así que descríbela bien. Ejemplo:
+
+```python
+@mcp.tool()
+def get_evaluation_info() -> dict:
+    """Información de las evaluaciones del curso: tipos, ponderaciones y fechas."""
+    return {
+        "evaluaciones": [
+            {"nombre": "Evaluación 1", "ponderacion": "30%"},
+            # completa con la información real de tu curso
+        ]
+    }
+```
+
+Elige una idea propia (no tiene que ser esta). Algunas opciones:
+
+- Las evaluaciones del curso y sus fechas.
+- Un resumen de una clase específica (`get_class_summary(numero: int)`).
+- El glosario de términos de IA del curso (`define_term(term: str)`).
+- Una tool que use `retrieve()` filtrando por tema.
+
+Requisitos mínimos: nombre en inglés y en `snake_case`, tipos en los parámetros y un
+docstring claro que explique qué hace y qué devuelve.
+
+### 2. Córrelo en local
+
+Con tu `.env` listo (ver «Cómo correrlo en local»):
+
+```powershell
+python server.py
+```
+
+Comprueba que levantó con `http://localhost:8080/health` (debe mostrar `ok`).
+
+### 3. Conéctalo a tu Claude Code local
+
+```powershell
+claude mcp add --transport http curso-local http://localhost:8080/mcp --header "X-API-Key: <tu MCP_API_KEY del .env>"
+```
+
+Verifica la conexión:
+
+```powershell
+claude mcp list
+```
+
+`curso-local` debe aparecer como conectado. Dentro de Claude Code también puedes
+escribir `/mcp`. Si agregaste la tool con el servidor ya corriendo, reinícialo
+(`Ctrl+C` y `python server.py`) y reconecta.
+
+### 4. Pruébala
+
+Abre Claude Code y haz una pregunta que obligue a usar tu tool nueva, por ejemplo:
+«¿cuáles son las evaluaciones del curso?». Claude pedirá permiso para ejecutar la
+tool la primera vez.
+
+### Entregable
+
+- Tu `server.py` con la tool nueva.
+- Una captura de Claude Code usando tu tool (se debe ver la llamada a la tool y la
+  respuesta).
+- Una explicación breve: ¿por qué escribiste el docstring de esa manera? ¿Qué pasa
+  con la respuesta de Claude si lo dejas vacío o ambiguo?
+
+### Bonus
+
+Despliega tu versión en tu propio Cloud Run, o agrega una segunda tool que reciba un
+parámetro y valide su entrada.
