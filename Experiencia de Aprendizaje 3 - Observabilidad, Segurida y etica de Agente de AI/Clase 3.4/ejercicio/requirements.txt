@@ -1,0 +1,4 @@
+mcp[cli]>=1.9,<2
+pymongo
+python-dotenv
+openai
