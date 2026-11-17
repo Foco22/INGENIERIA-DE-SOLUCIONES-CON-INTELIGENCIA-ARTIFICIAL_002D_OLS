@@ -19,7 +19,8 @@ mcp = FastMCP(
     instructions=(
         "Información del curso 'Ingeniería de Soluciones con Inteligencia Artificial' "
         "del profesor Francisco Macaya (DuocUC). Usa search_course_content para "
-        "responder preguntas sobre el contenido, clases y apuntes del curso."
+        "responder preguntas sobre el contenido, clases y apuntes del curso. Usa "
+        "get_course_evaluations para fechas y ponderaciones de las evaluaciones."
     ),
     host="0.0.0.0",
     port=int(os.getenv("PORT", "8080")),
@@ -53,6 +54,46 @@ def get_course_info() -> dict:
 def list_course_topics() -> list[str]:
     """Lista los temas principales que cubre el curso."""
     return COURSE_INFO["temas"]
+
+
+# Fechas en formato ISO (AAAA-MM-DD). None = aún no definida.
+# Pesos: las 3 evaluaciones suman 40% de la nota final; el examen final es 60%.
+EVALUACIONES = [
+    {"nombre": "Evaluación Parcial 1", "fecha": "2021-09-12", "ponderacion_en_presentacion": 30},
+    {"nombre": "Evaluación Parcial 2", "fecha": "2026-10-26", "ponderacion_en_presentacion": 35},
+    {"nombre": "Evaluación Parcial 3", "fecha": "2026-11-26", "ponderacion_en_presentacion": 35},
+]
+PESO_PRESENTACION = 40  # % de la nota final que aportan las evaluaciones 1-3
+EXAMEN_FINAL = {"nombre": "Examen final", "fecha": "2026-12-03", "ponderacion_nota_final": 60}
+
+
+@mcp.tool()
+def get_course_evaluations() -> dict:
+    """Evaluaciones del curso: fechas y ponderaciones. Son 3 evaluaciones (1, 2 y 3)
+    con ponderación 30%, 35% y 35% que en conjunto pesan 40% de la nota final, más
+    un examen final (4 de diciembre) que pesa el 60%."""
+    from datetime import date
+
+    def with_days(item: dict) -> dict:
+        out = dict(item)
+        f = item.get("fecha")
+        out["fecha"] = f or "por definir"
+        if f:
+            out["dias_restantes"] = (date.fromisoformat(f) - date.today()).days
+        return out
+
+    evals = []
+    for e in EVALUACIONES:
+        d = with_days(e)
+        d["ponderacion_nota_final"] = round(e["ponderacion_en_presentacion"] * PESO_PRESENTACION / 100, 2)
+        evals.append(d)
+
+    return {
+        "evaluaciones": evals,
+        "peso_total_evaluaciones": f"{PESO_PRESENTACION}%",
+        "examen_final": with_days(EXAMEN_FINAL),
+        "formula": "Nota final = 0.4 * (0.30*E1 + 0.35*E2 + 0.35*E3) + 0.6 * Examen",
+    }
 
 
 @mcp.tool()
@@ -124,4 +165,4 @@ if __name__ == "__main__":
 
     app = mcp.streamable_http_app()
     app.add_middleware(ApiKeyMiddleware, api_key=api_key)
-    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "8080")))
+    uvicorn.run(app, host="0.0.0.0", port=int(os.getenv("PORT", "8090")))
